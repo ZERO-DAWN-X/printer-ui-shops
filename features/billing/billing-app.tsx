@@ -443,11 +443,11 @@ export const BillingApp = ({
       `}</style>
 
       <div
-        className="no-print flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
+        className="no-print relative flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased"
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-white lg:flex-[0_0_min(620px,100%)] xl:flex-[0_0_min(680px,52%)] lg:border-r">
-          <header className="sticky top-0 z-20 bg-white px-3 py-3 sm:px-4">
+        <aside className="flex w-full shrink-0 flex-col border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden xl:w-[min(680px,52vw)] lg:border-r border-b lg:border-b-0">
+          <header className="shrink-0 bg-white px-3 py-3 sm:px-4">
             <div className="flex items-center gap-2.5">
               <div
                 className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
@@ -464,9 +464,9 @@ export const BillingApp = ({
             </div>
           </header>
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-3 sm:px-4">
-            <div className="flex min-h-full flex-1 flex-col">
-              <div className="flex w-full shrink-0 flex-col gap-3">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 py-3 sm:px-4">
+            <div className="flex min-h-0 flex-1 flex-col">
+              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
                 <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
                   <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
@@ -514,7 +514,7 @@ export const BillingApp = ({
                 </div>
               </div>
 
-              <div className="mt-auto flex w-full shrink-0 flex-col items-center px-2 pb-6">
+              <div className="flex w-full shrink-0 flex-col items-center px-2 pb-4 pt-2">
                 <Image
                   src="/logo.jpeg"
                   alt="Brand logo"
@@ -530,17 +530,19 @@ export const BillingApp = ({
           </div>
         </aside>
 
-        <ReceiptPreview
-          receiptNo={receiptNo}
-          billDate={initialBillDate}
-          billTime={initialBillTime}
-          items={items}
-          shopDetails={shopDetails}
-          subTotal={subTotal}
-          tax={taxAmount}
-          total={total}
-          cashReceived={cashReceivedValue}
-        />
+        <div className="min-w-0 flex-1 lg:min-h-dvh lg:pl-[min(620px,100vw)] xl:pl-[min(680px,52vw)]">
+          <ReceiptPreview
+            receiptNo={receiptNo}
+            billDate={initialBillDate}
+            billTime={initialBillTime}
+            items={items}
+            shopDetails={shopDetails}
+            subTotal={subTotal}
+            tax={taxAmount}
+            total={total}
+            cashReceived={cashReceivedValue}
+          />
+        </div>
       </div>
 
       <div
