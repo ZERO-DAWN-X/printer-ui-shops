@@ -8,6 +8,7 @@ import { billingInputClass, billingLabelClass, SettingsSection } from "@/compone
 import { BillContent } from "@/components/billing/bill-content";
 import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
+import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { PrintHint } from "@/components/billing/print-hint";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
@@ -19,7 +20,7 @@ const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
 const TAX_RATE = 0.05;
-type PrintType = "type1" | "type2" | "type3";
+type PrintType = "type1" | "type2" | "type3" | "type4";
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -203,6 +204,8 @@ export const BillingApp = ({
               #print-root .total-highlight * {
                 background: #000 !important;
                 color: #fff !important;
+                font-size: 17px !important;
+                line-height: 1.15 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
               }
@@ -266,6 +269,22 @@ export const BillingApp = ({
     if (printType === "type3") {
       return (
         <BillContentType3
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
+        />
+      );
+    }
+
+    if (printType === "type4") {
+      return (
+        <BillContentType4
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
@@ -350,6 +369,8 @@ export const BillingApp = ({
           #print-root .total-highlight * {
             background: #000 !important;
             color: #fff !important;
+            font-size: 17px !important;
+            line-height: 1.15 !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
@@ -479,7 +500,8 @@ export const BillingApp = ({
                     >
                       <option value="type1">Type 1 — Classic Total bar</option>
                       <option value="type2">Type 2 — Lines, no fill</option>
-                      <option value="type3">Type 3 — Same as Type 1</option>
+                      <option value="type3">Type 3 — Ribbon total banner</option>
+                      <option value="type4">Type 4 — Lined totals + ribbon TOTAL</option>
                     </select>
                   </div>
                 </SettingsSection>
