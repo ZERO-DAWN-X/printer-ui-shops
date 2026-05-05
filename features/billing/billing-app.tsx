@@ -184,7 +184,7 @@ export const BillingApp = ({
                 margin: 0 !important;
                 background: #fff !important;
                 color: #000 !important;
-                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+                font-family: "Noto Sans Sinhala", sans-serif !important;
                 font-size: 12px !important;
                 line-height: 1.35 !important;
               }
@@ -283,7 +283,7 @@ export const BillingApp = ({
             margin: 0 !important;
             background: #fff !important;
             color: #000 !important;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+            font-family: "Noto Sans Sinhala", sans-serif !important;
             font-size: 12px !important;
             line-height: 1.35 !important;
           }

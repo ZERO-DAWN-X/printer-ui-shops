@@ -5,6 +5,14 @@ const Dashed = () => (
   <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
 );
 
+function splitItemPrimaryAndEnglish(fullName: string): { primary: string; englishParen?: string } {
+  const m = fullName.match(/^\s*(.+?)\s*(\([^)]+\))\s*$/);
+  if (!m?.[2]) {
+    return { primary: fullName.trim() };
+  }
+  return { primary: (m[1] ?? "").trim(), englishParen: (m[2] ?? "").trim() };
+}
+
 type BillContentProps = {
   receiptNo: string;
   billDate: string;
@@ -76,11 +84,17 @@ export const BillContent = ({
         {items.length === 0 ? (
           <div className="py-2 text-center italic">No items</div>
         ) : (
-          items.map((item) => (
+          items.map((item) => {
+            const { primary, englishParen } = splitItemPrimaryAndEnglish(item.name);
+            return (
             <div key={item.id} className="receipt-item mb-1 flex items-end gap-1 text-[13px]">
               <span className="flex-1 font-sans text-[14px] font-semibold wrap-break-word leading-tight">
-                {item.name}{" "}
-                <span className="font-mono tabular-nums text-[11px] text-black/70">
+                {primary}{" "}
+                {englishParen ? (
+                  <span className="text-[12px] font-medium text-black/60">{englishParen}</span>
+                ) : null}
+                {englishParen ? " " : null}
+                <span className="text-[13px] font-medium text-black/70">
                   ({item.price.toFixed(2)} x {item.qty})
                 </span>
               </span>
@@ -88,7 +102,8 @@ export const BillContent = ({
                 {(item.qty * item.price).toFixed(2)}
               </span>
             </div>
-          ))
+            );
+          })
         )}
       </div>
 
