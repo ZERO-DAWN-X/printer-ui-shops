@@ -33,7 +33,7 @@ export const BillContent = ({
   return (
     <div className="receipt-content">
       <div className="mb-3 text-center">
-        <h1 className="text-2xl font-bold tracking-tight">{shopDetails.name}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{shopDetails.name}</h1>
         <p className="mt-1 text-[13px]">{shopDetails.address}</p>
         <p className="text-[13px]">Tel: {shopDetails.phone}</p>
       </div>
@@ -43,7 +43,7 @@ export const BillContent = ({
       <div className="mb-1 text-[13px]">
         <div className="flex justify-between">
           <span>Receipt#</span>
-          <span>{receiptNo}</span>
+          <span className="font-mono tabular-nums">{receiptNo}</span>
         </div>
         <div className="flex justify-between">
           <span>Cashier</span>
@@ -51,17 +51,17 @@ export const BillContent = ({
         </div>
         <div className="flex justify-between">
           <span>Date</span>
-          <span>{billDate}</span>
+          <span className="font-mono tabular-nums">{billDate}</span>
         </div>
         <div className="flex justify-between">
           <span>Time</span>
-          <span>{billTime}</span>
+          <span className="font-mono tabular-nums">{billTime}</span>
         </div>
       </div>
 
       <Dashed />
 
-      <div className="mb-1 flex text-[13px] font-bold uppercase">
+      <div className="mb-1 flex text-[13px] font-semibold uppercase">
         <span className="w-1/2">Item</span>
         <span className="w-1/4 text-center">Qty</span>
         <span className="w-1/4 text-right">Amount</span>
@@ -75,8 +75,8 @@ export const BillContent = ({
           items.map((item) => (
             <div key={item.id} className="mb-1.5 flex text-[13px]">
               <span className="w-1/2 pr-1">{item.name}</span>
-              <span className="w-1/4 text-center">{item.qty}</span>
-              <span className="w-1/4 text-right">{(item.qty * item.price).toFixed(2)}</span>
+              <span className="w-1/4 text-center font-mono tabular-nums">{item.qty}</span>
+              <span className="w-1/4 text-right font-mono tabular-nums">{(item.qty * item.price).toFixed(2)}</span>
             </div>
           ))
         )}
@@ -87,21 +87,21 @@ export const BillContent = ({
       <div>
         <div className="flex justify-between text-[13px]">
           <span>Sub Total</span>
-          <span>{subTotal.toFixed(2)}</span>
+          <span className="font-mono tabular-nums">{subTotal.toFixed(2)}</span>
         </div>
         <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
-        <div className="flex justify-between text-lg font-black">
+        <div className="flex justify-between text-[18px] font-semibold">
           <span>TOTAL:</span>
-          <span>Rs {total.toFixed(2)}</span>
+          <span className="font-mono tabular-nums">Rs {total.toFixed(2)}</span>
         </div>
         <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
         <div className="mt-1 flex justify-between text-[13px]">
           <span>CASH</span>
-          <span>{cashReceived.toFixed(2)}</span>
+          <span className="font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-[13px] font-bold">
+        <div className="flex justify-between text-[13px] font-medium">
           <span>Change</span>
-          <span>{change.toFixed(2)}</span>
+          <span className="font-mono tabular-nums">{change.toFixed(2)}</span>
         </div>
       </div>
 
@@ -117,7 +117,7 @@ export const BillContent = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mb-2 mt-2 text-center text-[13px] font-bold">
+      <div className="mb-2 mt-2 text-center text-[13px] font-medium">
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 
@@ -126,7 +126,6 @@ export const BillContent = ({
         <div>TEL: 070 133 7419</div>
       </div>
 
-      <div style={{ height: "10mm" }} />
     </div>
   );
 };

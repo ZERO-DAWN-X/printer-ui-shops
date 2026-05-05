@@ -29,7 +29,7 @@ export const BillingApp = ({
   const [shopDetails, setShopDetails] = useState<ShopDetails>(DEFAULT_SHOP_DETAILS);
   const [items, setItems] = useState<CartItem[]>(DEFAULT_ITEMS);
   const [newItem, setNewItem] = useState<NewItemForm>(INITIAL_NEW_ITEM);
-  const [cashReceived, setCashReceived] = useState<string>("");
+  const [cashReceived, setCashReceived] = useState<string>("4000");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
   const receiptSeed = useId();
@@ -138,7 +138,7 @@ export const BillingApp = ({
             }
             .receipt-content {
               width: 100%;
-              padding: 4mm 4mm 0;
+              padding: 0 4mm 0;
             }
             .thermal-dash {
               border-bottom: 1.5px dashed black !important;
@@ -146,6 +146,9 @@ export const BillingApp = ({
             @page {
               size: ${THERMAL_PAPER_WIDTH_MM}mm ${THERMAL_MAX_PAGE_HEIGHT_MM}mm;
               margin: 0;
+            }
+            @page :first {
+              margin-top: 4mm;
             }
             @media print {
               html, body {
@@ -208,7 +211,7 @@ export const BillingApp = ({
         .receipt-content {
           box-sizing: border-box;
           width: 100%;
-          padding: 4mm 4mm 0;
+          padding: 0 4mm 0;
         }
 
         @media print {
@@ -227,6 +230,9 @@ export const BillingApp = ({
           @page {
             size: ${THERMAL_PAPER_WIDTH_MM}mm auto;
             margin: 0;
+          }
+          @page :first {
+            margin-top: 4mm;
           }
 
           body, html {
