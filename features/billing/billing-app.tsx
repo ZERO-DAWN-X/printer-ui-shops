@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useId, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { Printer, Settings } from "lucide-react";
 
@@ -445,8 +446,8 @@ export const BillingApp = ({
         className="no-print flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-zinc-50 lg:flex-[0_0_min(620px,100%)] xl:flex-[0_0_min(680px,52%)] lg:border-r">
-          <header className="sticky top-0 z-20 border-b border-zinc-200/90 bg-zinc-50/95 px-3 py-3 backdrop-blur-md sm:px-4">
+        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-white lg:flex-[0_0_min(620px,100%)] xl:flex-[0_0_min(680px,52%)] lg:border-r">
+          <header className="sticky top-0 z-20 bg-white px-3 py-3 sm:px-4">
             <div className="flex items-center gap-2.5">
               <div
                 className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
@@ -463,52 +464,67 @@ export const BillingApp = ({
             </div>
           </header>
 
-          <div className="flex flex-1 flex-col overflow-y-auto px-3 py-3 sm:px-4">
-            <div className="flex w-full flex-col gap-3">
-              <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
-                <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
-                <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-3 sm:px-4">
+            <div className="flex min-h-full flex-1 flex-col">
+              <div className="flex w-full shrink-0 flex-col gap-3">
+                <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
+                  <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
+                  <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <SettingsSection title="Payment" description={`Due Rs ${total.toFixed(2)} (incl. tax)`}>
+                    <div>
+                      <label htmlFor="cash-received" className={billingLabelClass}>
+                        Cash received
+                      </label>
+                      <input
+                        id="cash-received"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={cashReceived}
+                        onChange={(event) => setCashReceived(event.target.value)}
+                        placeholder={`Default ${total.toFixed(2)}`}
+                        className={billingInputClass}
+                      />
+                    </div>
+                  </SettingsSection>
+
+                  <SettingsSection title="Print" description="Receipt layout for thermal print">
+                    <div>
+                      <p id={layoutSelectLabelId} className={billingLabelClass}>
+                        Layout
+                      </p>
+                      <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
+                    </div>
+                  </SettingsSection>
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    onClick={handlePrint}
+                    className="flex h-9 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-xs font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:text-sm"
+                  >
+                    <Printer className="size-4" strokeWidth={2} aria-hidden />
+                    Print bill
+                  </button>
+                  {showPrintHint ? <PrintHint /> : null}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <SettingsSection title="Payment" description={`Due Rs ${total.toFixed(2)} (incl. tax)`}>
-                  <div>
-                    <label htmlFor="cash-received" className={billingLabelClass}>
-                      Cash received
-                    </label>
-                    <input
-                      id="cash-received"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value={cashReceived}
-                      onChange={(event) => setCashReceived(event.target.value)}
-                      placeholder={`Default ${total.toFixed(2)}`}
-                      className={billingInputClass}
-                    />
-                  </div>
-                </SettingsSection>
-
-                <SettingsSection title="Print" description="Receipt layout for thermal print">
-                  <div>
-                    <p id={layoutSelectLabelId} className={billingLabelClass}>
-                      Layout
-                    </p>
-                    <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
-                  </div>
-                </SettingsSection>
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={handlePrint}
-                  className="flex h-9 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-xs font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:text-sm"
-                >
-                  <Printer className="size-4" strokeWidth={2} aria-hidden />
-                  Print bill
-                </button>
-                {showPrintHint ? <PrintHint /> : null}
+              <div className="mt-auto flex w-full shrink-0 flex-col items-center px-2 pb-6">
+                <Image
+                  src="/logo.jpeg"
+                  alt="Brand logo"
+                  width={720}
+                  height={360}
+                  sizes="(max-width: 1024px) 90vw, 420px"
+                  className="h-auto w-full max-w-[min(420px,calc(100%-0.25rem))] object-contain"
+                  draggable={false}
+                  priority={false}
+                />
               </div>
             </div>
           </div>

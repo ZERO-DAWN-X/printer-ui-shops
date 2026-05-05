@@ -115,7 +115,7 @@ export const PrintLayoutSelect = ({ labelId, value, onChange }: PrintLayoutSelec
         id={listId}
         role="listbox"
         aria-label="Receipt layout"
-        className="rounded-[5px] border border-zinc-200 bg-white p-1 ring-1 ring-zinc-900/15"
+        className="rounded-[5px] border border-zinc-200 bg-white p-1"
         style={{
           position: "fixed",
           top: placement.top,
