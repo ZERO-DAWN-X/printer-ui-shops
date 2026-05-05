@@ -31,7 +31,9 @@ export const ReceiptPreview = ({
     <div className="flex min-w-0 flex-1 items-start justify-center overflow-x-auto bg-zinc-100/80 px-3 py-8 sm:py-10 lg:border-l lg:border-zinc-200/80 lg:py-10">
       <div className="flex min-w-max items-start gap-6">
         <div className="flex flex-col items-center">
-          <p className="mb-2 text-xs font-semibold text-gray-700">Type 1 Preview</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-zinc-600">
+            T1 · Classic bar
+          </p>
           <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
             <BillContent
               receiptNo={receiptNo}
@@ -47,7 +49,9 @@ export const ReceiptPreview = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className="mb-2 text-xs font-semibold text-gray-700">Type 2 Preview</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-zinc-600">
+            T2 · Lined total
+          </p>
           <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
             <BillContentAlt
               receiptNo={receiptNo}
@@ -63,7 +67,9 @@ export const ReceiptPreview = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className="mb-2 text-xs font-semibold text-gray-700">Type 3 (ribbon total)</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-zinc-600">
+            T3 · Ribbon row
+          </p>
           <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
             <BillContentType3
               receiptNo={receiptNo}
@@ -79,7 +85,9 @@ export const ReceiptPreview = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className="mb-2 text-xs font-semibold text-gray-700">Type 4 (lined + ribbon)</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-zinc-600">
+            T4 · Arrow value
+          </p>
           <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
             <BillContentType4
               receiptNo={receiptNo}

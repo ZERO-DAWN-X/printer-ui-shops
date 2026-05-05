@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { Printer, Settings } from "lucide-react";
+import { ChevronDown, Printer, Settings } from "lucide-react";
 
 import { AddItemForm } from "@/components/billing/add-item-form";
 import { billingInputClass, billingLabelClass, SettingsSection } from "@/components/billing/settings-section";
@@ -487,22 +487,29 @@ export const BillingApp = ({
                   </div>
                 </SettingsSection>
 
-                <SettingsSection title="Print" description="Thermal layout for Print bill">
+                <SettingsSection title="Print" description="Receipt layout for thermal print">
                   <div>
                     <label htmlFor="print-template" className={billingLabelClass}>
                       Layout
                     </label>
-                    <select
-                      id="print-template"
-                      value={printType}
-                      onChange={(event) => setPrintType(event.target.value as PrintType)}
-                      className={`${billingInputClass} cursor-pointer`}
-                    >
-                      <option value="type1">Type 1 — Classic Total bar</option>
-                      <option value="type2">Type 2 — Lines, no fill</option>
-                      <option value="type3">Type 3 — Ribbon total banner</option>
-                      <option value="type4">Type 4 — Lined totals + ribbon TOTAL</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        id="print-template"
+                        value={printType}
+                        onChange={(event) => setPrintType(event.target.value as PrintType)}
+                        className={`${billingInputClass} w-full cursor-pointer appearance-none pr-9 font-medium text-zinc-900 transition hover:border-zinc-400`}
+                      >
+                        <option value="type1">T1 · Classic bar</option>
+                        <option value="type2">T2 · Lined total</option>
+                        <option value="type3">T3 · Ribbon row</option>
+                        <option value="type4">T4 · Arrow value</option>
+                      </select>
+                      <ChevronDown
+                        className="pointer-events-none absolute right-2.5 top-1/2 size-[17px] -translate-y-1/2 text-zinc-500"
+                        aria-hidden
+                        strokeWidth={2}
+                      />
+                    </div>
                   </div>
                 </SettingsSection>
               </div>
