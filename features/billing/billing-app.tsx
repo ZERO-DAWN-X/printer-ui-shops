@@ -612,10 +612,10 @@ export const BillingApp = ({
                 <Image
                   src="/logo.jpeg"
                   alt="ZERO ZEEKERS"
-                  width={720}
-                  height={360}
-                  sizes="(max-width: 1024px) 90vw, 420px"
-                  className="h-auto w-full max-w-[min(420px,calc(100%-0.25rem))] object-contain"
+                  width={480}
+                  height={240}
+                  sizes="(max-width: 1024px) 55vw, 240px"
+                  className="h-auto w-full max-w-[min(240px,calc(100%-0.25rem))] object-contain"
                   draggable={false}
                   priority={false}
                 />

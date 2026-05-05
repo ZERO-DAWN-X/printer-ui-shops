@@ -7,45 +7,104 @@ const Dashed = () => (
   <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
 );
 
-/** Decorative loaf + wheat — thermal-safe black strokes only */
-function BakeryHeaderMark() {
+/**
+ * Merged bakery mark: colored badge layout (THE BEST · loaf · wheat · stars)
+ * plus receipt-style typography (screen + color-capable print).
+ */
+function BakeryMergedLogo() {
+  const maroon = "#5c2438";
+  const gold = "#e5bd78";
+  const wheat = "#d4a574";
+  const ink = "#3d1822";
+
   return (
     <svg
-      className="mx-auto block h-[42px] w-[72px]"
-      viewBox="0 0 72 42"
-      fill="none"
+      className="mx-auto block h-[76px] w-full max-w-[12.5rem]"
+      viewBox="0 0 200 104"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
       focusable="false"
+      style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
     >
+      {/* THE BEST — centered (print-safe vs textPath) */}
+      <text
+        x="100"
+        y="24"
+        textAnchor="middle"
+        fill={maroon}
+        fontFamily="system-ui, Segoe UI, sans-serif"
+        fontSize="9"
+        fontWeight="700"
+        letterSpacing="0.28em"
+      >
+        THE BEST
+      </text>
+
+      {/* Stars */}
+      <polygon points="58,22 59.2,25 62.8,25 60,27 61,31 58,29 55,31 56,27 53.2,25 56.8,25" fill={maroon} />
+      <polygon points="142,22 143.2,25 146.8,25 144,27 145,31 142,29 139,31 140,27 137.2,25 140.8,25" fill={maroon} />
+
       {/* Steam */}
       <path
-        d="M28 6c2-2 5-2 6 0M34 4c2.5-2 6-2 8 0M42 5c2-2 5.5-2 7 0"
-        stroke="currentColor"
-        strokeWidth="1.1"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      {/* Loaf */}
-      <path
-        d="M16 32c0-7 6.5-12.5 20-12.5S56 25 56 32"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <ellipse cx="36" cy="25" rx="19" ry="7.5" stroke="currentColor" strokeWidth="1.4" />
-      <path
-        d="M24 24.5c2-1.5 5-2.2 12-2.2s10 .7 12 2.2"
-        stroke="currentColor"
+        d="M88 34c2-3 5-3 7 0M96 31c2.5-3 6-3 8 0M104 34c2-3 5.5-3 7 0"
+        fill="none"
+        stroke={ink}
         strokeWidth="1"
         strokeLinecap="round"
-        opacity="0.45"
+        opacity="0.35"
       />
-      {/* Slashes (baguette) */}
-      <path d="M28 22l4-3M36 20l4-2M44 22l4-3" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.55" />
-      {/* Wheat stems */}
-      <path d="M8 36l4-10M10 34l-3-3M6 32l4-2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M64 36l-4-10M62 34l3-3M66 32l-4-2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+
+      {/* Wheat stalks */}
+      <g stroke={maroon} strokeWidth="1.15" fill="none" strokeLinecap="round">
+        <path d="M36 78 Q28 52 44 38" />
+        <path d="M42 52l-4 5M38 46l5 2M46 44l-6 4" opacity="0.9" />
+        <ellipse cx="36" cy="78" rx="3" ry="2" fill={wheat} stroke={maroon} strokeWidth="1" />
+      </g>
+      <g stroke={maroon} strokeWidth="1.15" fill="none" strokeLinecap="round">
+        <path d="M164 78 Q172 52 156 38" />
+        <path d="M158 52l4 5M162 46l-5 2M154 44l6 4" opacity="0.9" />
+        <ellipse cx="164" cy="78" rx="3" ry="2" fill={wheat} stroke={maroon} strokeWidth="1" />
+      </g>
+
+      {/* Bread loaf */}
+      <ellipse cx="100" cy="58" rx="34" ry="14" fill={gold} stroke={maroon} strokeWidth="1.6" />
+      <path
+        d="M76 54c8-10 40-10 48 0"
+        fill="none"
+        stroke={maroon}
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        opacity="0.85"
+      />
+      <path d="M84 56l6-5M94 54l6-4M104 54l6-4M114 56l6-5" stroke={maroon} strokeWidth="1.15" strokeLinecap="round" opacity="0.65" />
+
+      {/* BAKERY */}
+      <text
+        x="100"
+        y="92"
+        textAnchor="middle"
+        fill={maroon}
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontSize="17"
+        fontWeight="700"
+        letterSpacing="0.12em"
+      >
+        BAKERY
+      </text>
+
+      {/* HOUSE IN TOWN */}
+      <text
+        x="100"
+        y="102"
+        textAnchor="middle"
+        fill={maroon}
+        fontFamily="system-ui, Segoe UI, sans-serif"
+        fontSize="6.5"
+        fontWeight="600"
+        letterSpacing="0.42em"
+      >
+        HOUSE IN TOWN
+      </text>
     </svg>
   );
 }
@@ -70,19 +129,16 @@ export const BillContentBakery = ({
   return (
     <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
       <div className="receipt-section text-center">
-        <div className="relative mx-auto mb-2 max-w-[17rem] px-2 py-2 text-black">
+        <div className="relative mx-auto mb-2 max-w-[17rem] px-1 py-1 text-black">
           <div className="flex items-center justify-center gap-2">
-            <span className="inline-block h-px min-w-[1.25rem] flex-1 bg-black opacity-80" aria-hidden />
-            <div className="shrink-0 text-black">
-              <BakeryHeaderMark />
+            <span className="inline-block h-px min-w-5 max-w-[3.25rem] flex-1 bg-black opacity-80" aria-hidden />
+            <div className="min-w-0 shrink">
+              <BakeryMergedLogo />
             </div>
-            <span className="inline-block h-px min-w-[1.25rem] flex-1 bg-black opacity-80" aria-hidden />
+            <span className="inline-block h-px min-w-5 max-w-[3.25rem] flex-1 bg-black opacity-80" aria-hidden />
           </div>
-          <p className="mt-1 font-sans text-[7px] font-bold uppercase tracking-[0.42em] text-black">
-            Bakery
-          </p>
-          <p className="mt-0.5 font-sans text-[6.5px] uppercase tracking-[0.28em] text-black/55">
-            Oven-fresh · Daily baked
+          <p className="mt-1.5 font-sans text-[6.5px] font-semibold uppercase tracking-[0.32em] text-black/45">
+            Oven-fresh – Daily baked
           </p>
         </div>
 
