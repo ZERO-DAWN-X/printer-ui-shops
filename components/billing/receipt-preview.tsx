@@ -10,7 +10,6 @@ type ReceiptPreviewProps = {
   subTotal: number;
   tax: number;
   total: number;
-  onRemoveItem: (id: number) => void;
 };
 
 export const ReceiptPreview = ({
@@ -22,17 +21,13 @@ export const ReceiptPreview = ({
   subTotal,
   tax,
   total,
-  onRemoveItem,
 }: ReceiptPreviewProps) => {
   return (
-    <div className="w-full py-10 md:w-1/2 flex justify-center items-start overflow-y-auto">
+    <div className="flex w-full justify-center items-start overflow-x-auto px-2 py-10 md:w-1/2">
       <div className="flex flex-col items-center">
-        <div
-          className="jagged-edge-top jagged-edge-bottom bg-white p-4 text-black leading-snug shadow-2xl"
-          style={{ width: "80mm", paddingBottom: "20px" }}
-        >
+        <div className="receipt-shell jagged-edge-top jagged-edge-bottom shadow-2xl">
           <BillContent
-            isPreview
+            isPreview={false}
             receiptNo={receiptNo}
             billDate={billDate}
             billTime={billTime}
@@ -41,7 +36,6 @@ export const ReceiptPreview = ({
             subTotal={subTotal}
             tax={tax}
             total={total}
-            onRemoveItem={onRemoveItem}
           />
         </div>
       </div>
