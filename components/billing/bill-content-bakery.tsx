@@ -142,10 +142,7 @@ export const BillContentBakery = ({
           </p>
         </div>
 
-        <div className="mx-auto mb-1 inline-flex items-center rounded-full border border-black px-2 py-px text-[9px] font-semibold uppercase tracking-[0.14em] leading-none">
-          Cash Bill
-        </div>
-        <h1 className="font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{shopDetails.name}</h1>
+        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{shopDetails.name}</h1>
         <p className="mt-0.5 font-sans text-[12px] leading-[1.35]">{shopDetails.address}</p>
         <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
       </div>
