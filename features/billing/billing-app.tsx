@@ -456,9 +456,11 @@ export const BillingApp = ({
                 <Settings className="size-[15px] text-zinc-600" strokeWidth={1.75} />
               </div>
               <div className="min-w-0">
-                <h1 className="text-sm font-semibold tracking-tight text-zinc-900 sm:text-[15px]">Bill settings</h1>
+                <h1 className="text-sm font-semibold tracking-tight text-zinc-900 sm:text-[15px]">
+                  ZERO ZEEKERS
+                </h1>
                 <p className="truncate text-[10px] leading-tight text-zinc-500 sm:text-[11px]">
-                  Store, lines, payment — preview syncs on the right.
+                  Bill · store · preview
                 </p>
               </div>
             </div>
@@ -517,7 +519,7 @@ export const BillingApp = ({
               <div className="flex w-full shrink-0 flex-col items-center px-2 pb-4 pt-2">
                 <Image
                   src="/logo.jpeg"
-                  alt="Brand logo"
+                  alt="ZERO ZEEKERS"
                   width={720}
                   height={360}
                   sizes="(max-width: 1024px) 90vw, 420px"
