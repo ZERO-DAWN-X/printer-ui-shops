@@ -77,7 +77,7 @@ export const BillContent = ({
           <div className="py-2 text-center italic">No items</div>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="receipt-item mb-1 flex items-start gap-1 text-[13px]">
+            <div key={item.id} className="receipt-item mb-1 flex items-end gap-1 text-[13px]">
               <span className="flex-1 font-sans text-[14px] font-semibold wrap-break-word leading-tight">
                 {item.name}{" "}
                 <span className="font-mono tabular-nums text-[11px] text-black/70">
@@ -95,28 +95,28 @@ export const BillContent = ({
       <Dashed />
 
       <div className="text-[13px]">
-        <div className="receipt-row flex justify-between gap-2">
-          <span>Sub Total</span>
-          <span className="shrink-0 text-right font-mono tabular-nums">{subTotal.toFixed(2)}</span>
+        <div className="receipt-row flex justify-between gap-2 px-1.5">
+          <span className="flex-1">Sub Total</span>
+          <span className="w-24 text-right font-mono tabular-nums">{subTotal.toFixed(2)}</span>
         </div>
-        <div className="receipt-row flex justify-between gap-2">
-          <span>Tax</span>
-          <span className="shrink-0 text-right font-mono tabular-nums">{tax.toFixed(2)}</span>
+        <div className="receipt-row flex justify-between gap-2 px-1.5">
+          <span className="flex-1">Tax</span>
+          <span className="w-24 text-right font-mono tabular-nums">{tax.toFixed(2)}</span>
         </div>
         <div
           className="total-highlight my-1 flex justify-between text-[16px] font-extrabold text-white"
-          style={{ backgroundColor: "#000", color: "#fff", padding: "2px 8px" }}
+          style={{ backgroundColor: "#000", color: "#fff", padding: "2px 6px" }}
         >
-          <span>TOTAL</span>
-          <span className="font-mono tabular-nums text-white">Rs {total.toFixed(2)}</span>
+          <span className="flex-1">TOTAL</span>
+          <span className="w-24 text-right font-mono tabular-nums text-white">Rs {total.toFixed(2)}</span>
         </div>
-        <div className="receipt-row flex justify-between gap-2">
-          <span>CASH</span>
-          <span className="shrink-0 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
+        <div className="receipt-row flex justify-between gap-2 px-1.5">
+          <span className="flex-1">CASH</span>
+          <span className="w-24 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
         </div>
-        <div className="receipt-row flex justify-between gap-2 font-bold">
-          <span>Change</span>
-          <span className="shrink-0 text-right font-mono tabular-nums">{change.toFixed(2)}</span>
+        <div className="receipt-row flex justify-between gap-2 px-1.5 font-bold">
+          <span className="flex-1">Change</span>
+          <span className="w-24 text-right font-mono tabular-nums">{change.toFixed(2)}</span>
         </div>
       </div>
 
