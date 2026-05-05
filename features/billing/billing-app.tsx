@@ -5,6 +5,7 @@ import { Printer, Settings } from "lucide-react";
 
 import { AddItemForm } from "@/components/billing/add-item-form";
 import { BillContent } from "@/components/billing/bill-content";
+import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { PrintHint } from "@/components/billing/print-hint";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
@@ -16,6 +17,7 @@ const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
 const TAX_RATE = 0.05;
+type PrintType = "type1" | "type2";
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -30,6 +32,7 @@ export const BillingApp = ({
   const [items, setItems] = useState<CartItem[]>(DEFAULT_ITEMS);
   const [newItem, setNewItem] = useState<NewItemForm>(INITIAL_NEW_ITEM);
   const [cashReceived, setCashReceived] = useState<string>("4000");
+  const [printType, setPrintType] = useState<PrintType>("type1");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
   const receiptSeed = useId();
@@ -241,6 +244,38 @@ export const BillingApp = ({
     handleBrowserPrint();
   };
 
+  const renderReceiptByType = () => {
+    if (printType === "type2") {
+      return (
+        <BillContentAlt
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
+        />
+      );
+    }
+
+    return (
+      <BillContent
+        receiptNo={receiptNo}
+        billDate={initialBillDate}
+        billTime={initialBillTime}
+        items={items}
+        shopDetails={shopDetails}
+        subTotal={subTotal}
+        tax={taxAmount}
+        total={total}
+        cashReceived={cashReceivedValue}
+      />
+    );
+  };
+
   return (
     <>
       <style>{`
@@ -388,6 +423,17 @@ export const BillingApp = ({
               className="w-full rounded border p-2"
             />
           </div>
+          <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
+            <h2 className="mb-3 text-lg font-semibold">Print Type</h2>
+            <select
+              value={printType}
+              onChange={(event) => setPrintType(event.target.value as PrintType)}
+              className="w-full rounded border bg-white p-2"
+            >
+              <option value="type1">Print Type 1</option>
+              <option value="type2">Print Type 2</option>
+            </select>
+          </div>
 
           <button
             type="button"
@@ -420,17 +466,7 @@ export const BillingApp = ({
         style={{ fontFamily: '"Noto Sans Sinhala", sans-serif' }}
       >
         <div className="receipt-shell">
-          <BillContent
-            receiptNo={receiptNo}
-            billDate={initialBillDate}
-            billTime={initialBillTime}
-            items={items}
-            shopDetails={shopDetails}
-            subTotal={subTotal}
-            tax={taxAmount}
-            total={total}
-            cashReceived={cashReceivedValue}
-          />
+          {renderReceiptByType()}
         </div>
       </div>
     </>
