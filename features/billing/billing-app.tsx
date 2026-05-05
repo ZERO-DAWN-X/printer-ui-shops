@@ -4,8 +4,10 @@ import { useId, useMemo, useRef, useState, type ChangeEvent, type FormEvent } fr
 import { Printer, Settings } from "lucide-react";
 
 import { AddItemForm } from "@/components/billing/add-item-form";
+import { billingInputClass, billingLabelClass, SettingsSection } from "@/components/billing/settings-section";
 import { BillContent } from "@/components/billing/bill-content";
 import { BillContentAlt } from "@/components/billing/bill-content-alt";
+import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { PrintHint } from "@/components/billing/print-hint";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
@@ -17,7 +19,7 @@ const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
 const TAX_RATE = 0.05;
-type PrintType = "type1" | "type2";
+type PrintType = "type1" | "type2" | "type3";
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -261,6 +263,22 @@ export const BillingApp = ({
       );
     }
 
+    if (printType === "type3") {
+      return (
+        <BillContentType3
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
+        />
+      );
+    }
+
     return (
       <BillContent
         receiptNo={receiptNo}
@@ -401,50 +419,86 @@ export const BillingApp = ({
       `}</style>
 
       <div
-        className="no-print min-h-screen flex flex-col bg-[#e8eaed] text-gray-800 md:flex-row"
-        style={{ fontFamily: '"Noto Sans Sinhala", sans-serif' }}
+        className="no-print flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
+        style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <div className="z-20 w-full overflow-y-auto border-r border-gray-300 bg-white p-6 shadow-lg md:w-1/2">
-          <h1 className="mb-6 flex items-center text-2xl font-bold text-blue-600">
-            <Settings className="mr-2" /> Bill Settings
-          </h1>
+        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-zinc-50 lg:flex-[0_0_min(560px,100%)] xl:flex-[0_0_min(600px,50%)] lg:border-r">
+          <header className="sticky top-0 z-20 border-b border-zinc-200/90 bg-zinc-50/95 px-3 py-3 backdrop-blur-md sm:px-4">
+            <div className="flex items-center gap-2.5">
+              <div
+                className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
+                aria-hidden
+              >
+                <Settings className="size-[15px] text-zinc-600" strokeWidth={1.75} />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-sm font-semibold tracking-tight text-zinc-900 sm:text-[15px]">Bill settings</h1>
+                <p className="truncate text-[10px] leading-tight text-zinc-500 sm:text-[11px]">
+                  Store, lines, payment — preview syncs on the right.
+                </p>
+              </div>
+            </div>
+          </header>
 
-          <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
-          <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
-          <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <h2 className="mb-3 text-lg font-semibold">Payment</h2>
-            <input
-              type="number"
-              min="0"
-              step="0.01"
-              value={cashReceived}
-              onChange={(event) => setCashReceived(event.target.value)}
-              placeholder={`Cash Received (default ${total.toFixed(2)})`}
-              className="w-full rounded border p-2"
-            />
+          <div className="flex flex-1 flex-col overflow-y-auto px-3 py-3 sm:px-4">
+            <div className="flex w-full flex-col gap-3">
+              <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
+                <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
+                <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <SettingsSection title="Payment" description={`Due Rs ${total.toFixed(2)} (incl. tax)`}>
+                  <div>
+                    <label htmlFor="cash-received" className={billingLabelClass}>
+                      Cash received
+                    </label>
+                    <input
+                      id="cash-received"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={cashReceived}
+                      onChange={(event) => setCashReceived(event.target.value)}
+                      placeholder={`Default ${total.toFixed(2)}`}
+                      className={billingInputClass}
+                    />
+                  </div>
+                </SettingsSection>
+
+                <SettingsSection title="Print" description="Thermal layout for Print bill">
+                  <div>
+                    <label htmlFor="print-template" className={billingLabelClass}>
+                      Layout
+                    </label>
+                    <select
+                      id="print-template"
+                      value={printType}
+                      onChange={(event) => setPrintType(event.target.value as PrintType)}
+                      className={`${billingInputClass} cursor-pointer`}
+                    >
+                      <option value="type1">Type 1 — Classic Total bar</option>
+                      <option value="type2">Type 2 — Lines, no fill</option>
+                      <option value="type3">Type 3 — Sales receipt compact</option>
+                    </select>
+                  </div>
+                </SettingsSection>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="flex h-9 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-xs font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:text-sm"
+                >
+                  <Printer className="size-4" strokeWidth={2} aria-hidden />
+                  Print bill
+                </button>
+                {showPrintHint ? <PrintHint /> : null}
+              </div>
+            </div>
           </div>
-          <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <h2 className="mb-3 text-lg font-semibold">Print Type</h2>
-            <select
-              value={printType}
-              onChange={(event) => setPrintType(event.target.value as PrintType)}
-              className="w-full rounded border bg-white p-2"
-            >
-              <option value="type1">Print Type 1</option>
-              <option value="type2">Print Type 2</option>
-            </select>
-          </div>
-
-          <button
-            type="button"
-            onClick={handlePrint}
-            className="flex w-full justify-center rounded-xl bg-black p-4 text-lg font-bold text-white shadow-md transition-colors hover:bg-gray-800"
-          >
-            <Printer className="mr-2" /> Print Bill
-          </button>
-
-          {showPrintHint ? <PrintHint /> : null}
-        </div>
+        </aside>
 
         <ReceiptPreview
           receiptNo={receiptNo}

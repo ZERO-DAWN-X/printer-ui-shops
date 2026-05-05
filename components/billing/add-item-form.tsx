@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent } from "react";
 import { Plus } from "lucide-react";
 
+import { SettingsSection, billingInputClass, billingLabelClass } from "@/components/billing/settings-section";
 import type { NewItemForm } from "@/types/billing";
 
 type AddItemFormProps = {
@@ -26,47 +27,69 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
   };
 
   return (
-    <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
-      <h2 className="mb-3 text-lg font-semibold">Add Items</h2>
-      <form onSubmit={onSubmit} className="flex flex-col gap-3">
-        <input
-          type="text"
-          name="name"
-          placeholder="Item Name"
-          value={value.name}
-          onChange={handleTextChange}
-          className="w-full rounded border p-2"
-          required
-        />
-        <div className="flex gap-3">
+    <SettingsSection title="Line items" description="Add a row — preview updates live.">
+      <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-x-2 gap-y-2">
+        <div className="min-w-0 basis-full sm:min-w-[11rem] sm:flex-1 sm:basis-[min(100%,16rem)]">
+          <label htmlFor="item-name" className={billingLabelClass}>
+            Item name
+          </label>
           <input
-            type="number"
-            name="qty"
-            placeholder="Qty"
-            min="1"
-            value={value.qty}
+            id="item-name"
+            type="text"
+            name="name"
+            placeholder="Description"
+            value={value.name}
             onChange={handleTextChange}
-            className="w-1/3 rounded border p-2"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price (Rs)"
-            min="0"
-            value={value.price}
-            onChange={handleTextChange}
-            className="w-2/3 rounded border p-2"
+            className={billingInputClass}
             required
           />
         </div>
-        <button
-          type="submit"
-          className="flex justify-center rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700"
-        >
-          <Plus size={18} className="mr-1" /> Add Item
-        </button>
+        <div className="w-[4.75rem] shrink-0">
+          <label htmlFor="item-qty" className={billingLabelClass}>
+            Qty
+          </label>
+          <input
+            id="item-qty"
+            type="number"
+            name="qty"
+            placeholder="1"
+            min="1"
+            value={value.qty}
+            onChange={handleTextChange}
+            className={billingInputClass}
+            required
+          />
+        </div>
+        <div className="min-w-0 w-32 shrink-0 sm:w-[7.75rem] sm:grow-[2]">
+          <label htmlFor="item-price" className={billingLabelClass}>
+            Price (Rs)
+          </label>
+          <input
+            id="item-price"
+            type="number"
+            name="price"
+            placeholder="0.00"
+            min="0"
+            step="0.01"
+            value={value.price}
+            onChange={handleTextChange}
+            className={billingInputClass}
+            required
+          />
+        </div>
+        <div className="min-w-[6.75rem] grow basis-[6.75rem] sm:max-w-[7rem] sm:grow-0">
+          <span className={billingLabelClass + " invisible select-none"} aria-hidden>
+            Add
+          </span>
+          <button
+            type="submit"
+            className="flex h-9 w-full items-center justify-center gap-1.5 rounded-[5px] bg-zinc-900 text-xs font-medium text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-1"
+          >
+            <Plus size={16} strokeWidth={2} aria-hidden />
+            Add
+          </button>
+        </div>
       </form>
-    </div>
+    </SettingsSection>
   );
 };

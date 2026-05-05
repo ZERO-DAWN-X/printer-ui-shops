@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 
+import { SettingsSection, billingInputClass, billingLabelClass } from "@/components/billing/settings-section";
 import type { ShopDetails } from "@/types/billing";
 
 type ShopDetailsFormProps = {
@@ -9,42 +10,67 @@ type ShopDetailsFormProps = {
 
 export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
   return (
-    <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
-      <h2 className="mb-3 text-lg font-semibold">Shop Details</h2>
-      <div className="grid grid-cols-1 gap-3">
-        <input
-          type="text"
-          name="name"
-          value={values.name}
-          onChange={onChange}
-          placeholder="Shop Name"
-          className="w-full rounded border p-2"
-        />
-        <input
-          type="text"
-          name="address"
-          value={values.address}
-          onChange={onChange}
-          placeholder="Address"
-          className="w-full rounded border p-2"
-        />
-        <input
-          type="text"
-          name="phone"
-          value={values.phone}
-          onChange={onChange}
-          placeholder="Phone Number"
-          className="w-full rounded border p-2"
-        />
-        <input
-          type="text"
-          name="thankYouMessage"
-          value={values.thankYouMessage}
-          onChange={onChange}
-          placeholder="Thank You Message"
-          className="w-full rounded border p-2"
-        />
+    <SettingsSection title="Store profile" description="Header + footer on the receipt.">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-name" className={billingLabelClass}>
+            Shop name
+          </label>
+          <input
+            id="shop-name"
+            type="text"
+            name="name"
+            value={values.name}
+            onChange={onChange}
+            placeholder="Shop name"
+            className={billingInputClass}
+            autoComplete="organization"
+          />
+        </div>
+        <div className="min-w-0">
+          <label htmlFor="shop-address" className={billingLabelClass}>
+            Address
+          </label>
+          <input
+            id="shop-address"
+            type="text"
+            name="address"
+            value={values.address}
+            onChange={onChange}
+            placeholder="Street, city"
+            className={billingInputClass}
+          />
+        </div>
+        <div className="min-w-0">
+          <label htmlFor="shop-phone" className={billingLabelClass}>
+            Phone
+          </label>
+          <input
+            id="shop-phone"
+            type="tel"
+            name="phone"
+            value={values.phone}
+            onChange={onChange}
+            placeholder="+94 …"
+            className={billingInputClass}
+            autoComplete="tel"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-thanks" className={billingLabelClass}>
+            Footer message
+          </label>
+          <input
+            id="shop-thanks"
+            type="text"
+            name="thankYouMessage"
+            value={values.thankYouMessage}
+            onChange={onChange}
+            placeholder="Thank you line"
+            className={billingInputClass}
+          />
+        </div>
       </div>
-    </div>
+    </SettingsSection>
   );
 };
