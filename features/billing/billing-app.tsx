@@ -10,6 +10,7 @@ import { BillContent } from "@/components/billing/bill-content";
 import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
+import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { PrintHint } from "@/components/billing/print-hint";
 import { PrintLayoutSelect, type PrintLayoutValue } from "@/components/billing/print-layout-select";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
@@ -320,6 +321,23 @@ export const BillingApp = ({
     if (printType === "type4") {
       return (
         <BillContentType4
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
+          currency={billingCurrency}
+        />
+      );
+    }
+
+    if (printType === "type5") {
+      return (
+        <BillContentBakery
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
