@@ -16,6 +16,7 @@ const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
 const THERMAL_MAX_PAGE_HEIGHT_MM = 3276;
+const TAX_RATE = 0.05;
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -36,7 +37,8 @@ export const BillingApp = ({
   const receiptNo = useMemo(() => generateReceiptFromSeed(receiptSeed), [receiptSeed]);
 
   const subTotal = useMemo(() => calculateSubtotal(items), [items]);
-  const total = subTotal;
+  const taxAmount = useMemo(() => subTotal * TAX_RATE, [subTotal]);
+  const total = subTotal + taxAmount;
   const cashReceivedValue = useMemo(() => {
     if (!cashReceived.trim()) {
       return total;
@@ -136,9 +138,10 @@ export const BillingApp = ({
               break-inside: auto;
               page-break-inside: auto;
             }
+            #print-root { display: none; }
             .receipt-content {
               width: 100%;
-              padding: 0 4mm 0;
+              padding: 3mm 3mm 8mm;
             }
             .thermal-dash {
               border-bottom: 1.5px dashed black !important;
@@ -151,6 +154,7 @@ export const BillingApp = ({
               margin-top: 4mm;
             }
             @media print {
+              .screen-only, .no-print { display: none !important; }
               html, body {
                 width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
                 max-width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
@@ -158,16 +162,34 @@ export const BillingApp = ({
                 min-height: auto !important;
                 overflow: visible !important;
               }
-              .thermal-print-root,
-              .thermal-print-root .receipt-shell {
-                break-inside: auto !important;
-                page-break-inside: auto !important;
+              #print-root {
+                display: block !important;
+                position: static !important;
+                width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
+                box-sizing: border-box !important;
+                padding: 3mm 3mm 8mm !important;
+                margin: 0 !important;
+                background: #fff !important;
+                color: #000 !important;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+                font-size: 12px !important;
+                line-height: 1.35 !important;
+              }
+              #print-root * {
+                color: #000 !important;
+                max-width: 100% !important;
+              }
+              #print-root .receipt-section,
+              #print-root .receipt-item,
+              #print-root .receipt-row {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
               }
             }
           </style>
         </head>
         <body>
-          <div id="thermal-print-root" class="thermal-print-root">${printMarkup}</div>
+          <div id="print-root" class="thermal-print-root">${printMarkup}</div>
         </body>
       </html>
     `);
@@ -199,6 +221,7 @@ export const BillingApp = ({
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700;900&display=swap');
 
+        #print-root { display: none; }
         .print-only { display: none; }
         .thermal-dash { border-bottom: 1.5px dashed black !important; }
         .receipt-shell {
@@ -211,11 +234,11 @@ export const BillingApp = ({
         .receipt-content {
           box-sizing: border-box;
           width: 100%;
-          padding: 0 4mm 0;
+          padding: 3mm 3mm 8mm;
         }
 
         @media print {
-          .no-print { display: none !important; }
+          .screen-only, .no-print { display: none !important; }
 
           .print-only {
             display: block !important;
@@ -225,6 +248,29 @@ export const BillingApp = ({
             margin: 0 auto;
             break-inside: auto;
             page-break-inside: auto;
+          }
+          #print-root {
+            display: block !important;
+            position: static !important;
+            width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
+            box-sizing: border-box !important;
+            padding: 3mm 3mm 8mm !important;
+            margin: 0 !important;
+            background: #fff !important;
+            color: #000 !important;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+            font-size: 12px !important;
+            line-height: 1.35 !important;
+          }
+          #print-root * {
+            color: #000 !important;
+            max-width: 100% !important;
+          }
+          #print-root .receipt-section,
+          #print-root .receipt-item,
+          #print-root .receipt-row {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
 
           @page {
@@ -327,12 +373,14 @@ export const BillingApp = ({
           items={items}
           shopDetails={shopDetails}
           subTotal={subTotal}
+          tax={taxAmount}
           total={total}
           cashReceived={cashReceivedValue}
         />
       </div>
 
       <div
+        id="print-root"
         ref={printTemplateRef}
         className="print-only"
         style={{ fontFamily: '"Noto Sans Sinhala", sans-serif' }}
@@ -345,6 +393,7 @@ export const BillingApp = ({
             items={items}
             shopDetails={shopDetails}
             subTotal={subTotal}
+            tax={taxAmount}
             total={total}
             cashReceived={cashReceivedValue}
           />

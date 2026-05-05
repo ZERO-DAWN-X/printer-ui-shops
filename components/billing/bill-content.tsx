@@ -12,6 +12,7 @@ type BillContentProps = {
   items: CartItem[];
   shopDetails: ShopDetails;
   subTotal: number;
+  tax: number;
   total: number;
   cashReceived: number;
 };
@@ -23,6 +24,7 @@ export const BillContent = ({
   items,
   shopDetails,
   subTotal,
+  tax,
   total,
   cashReceived,
 }: BillContentProps) => {
@@ -31,16 +33,19 @@ export const BillContent = ({
   const change = Math.max(0, cashReceived - total);
 
   return (
-    <div className="receipt-content">
-      <div className="mb-3 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">{shopDetails.name}</h1>
-        <p className="mt-1 text-[13px]">{shopDetails.address}</p>
-        <p className="text-[13px]">Tel: {shopDetails.phone}</p>
+    <div className="receipt-content font-mono text-[12px] leading-snug text-black">
+      <div className="receipt-section text-center">
+        <div className="mx-auto mb-1 inline-flex items-center rounded-full border border-black px-2 py-px text-[9px] font-semibold uppercase tracking-[0.14em]">
+          Cash Bill
+        </div>
+        <h1 className="font-sans text-[28px] font-extrabold leading-[1.15] tracking-tight">{shopDetails.name}</h1>
+        <p className="mt-0.5 font-sans text-[12px]">{shopDetails.address}</p>
+        <p className="text-[12px]">Tel: {shopDetails.phone}</p>
       </div>
 
       <Dashed />
 
-      <div className="mb-1 text-[13px]">
+      <div className="receipt-section text-[12px]">
         <div className="flex justify-between">
           <span>Receipt#</span>
           <span className="font-mono tabular-nums">{receiptNo}</span>
@@ -61,22 +66,28 @@ export const BillContent = ({
 
       <Dashed />
 
-      <div className="mb-1 flex text-[13px] font-semibold uppercase">
-        <span className="w-1/2">Item</span>
-        <span className="w-1/4 text-center">Qty</span>
-        <span className="w-1/4 text-right">Amount</span>
+      <div className="receipt-section mb-1 flex text-[12px] font-bold uppercase tracking-wide">
+        <span className="flex-1">Item</span>
+        <span className="w-8 text-right">Qty</span>
+        <span className="w-16 text-right">Amount</span>
       </div>
       <Dashed />
 
       <div className="min-h-[40px]">
         {items.length === 0 ? (
-          <div className="py-4 text-center text-sm text-gray-400">No items added</div>
+          <div className="py-2 text-center italic">No items</div>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="mb-1.5 flex text-[13px]">
-              <span className="w-1/2 pr-1">{item.name}</span>
-              <span className="w-1/4 text-center font-mono tabular-nums">{item.qty}</span>
-              <span className="w-1/4 text-right font-mono tabular-nums">{(item.qty * item.price).toFixed(2)}</span>
+            <div key={item.id} className="receipt-item mb-1">
+              <div className="font-sans text-[13px] wrap-break-word">{item.name}</div>
+              <div className="flex text-[12px]">
+                <span className="flex-1 pl-2 font-mono tabular-nums">
+                  {item.qty} x {item.price.toFixed(2)}
+                </span>
+                <span className="w-16 text-right font-mono tabular-nums">
+                  {(item.qty * item.price).toFixed(2)}
+                </span>
+              </div>
             </div>
           ))
         )}
@@ -84,24 +95,28 @@ export const BillContent = ({
 
       <Dashed />
 
-      <div>
-        <div className="flex justify-between text-[13px]">
+      <div className="text-[13px]">
+        <div className="receipt-row flex justify-between gap-2">
           <span>Sub Total</span>
-          <span className="font-mono tabular-nums">{subTotal.toFixed(2)}</span>
+          <span className="shrink-0 text-right font-mono tabular-nums">{subTotal.toFixed(2)}</span>
+        </div>
+        <div className="receipt-row flex justify-between gap-2">
+          <span>Tax</span>
+          <span className="shrink-0 text-right font-mono tabular-nums">{tax.toFixed(2)}</span>
         </div>
         <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
-        <div className="flex justify-between text-[18px] font-semibold">
-          <span>TOTAL:</span>
+        <div className="flex justify-between text-[16px] font-extrabold">
+          <span>TOTAL</span>
           <span className="font-mono tabular-nums">Rs {total.toFixed(2)}</span>
         </div>
         <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
-        <div className="mt-1 flex justify-between text-[13px]">
+        <div className="receipt-row flex justify-between gap-2">
           <span>CASH</span>
-          <span className="font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
+          <span className="shrink-0 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-[13px] font-medium">
+        <div className="receipt-row flex justify-between gap-2 font-bold">
           <span>Change</span>
-          <span className="font-mono tabular-nums">{change.toFixed(2)}</span>
+          <span className="shrink-0 text-right font-mono tabular-nums">{change.toFixed(2)}</span>
         </div>
       </div>
 
@@ -117,14 +132,16 @@ export const BillContent = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mb-2 mt-2 text-center text-[13px] font-medium">
+      <div className="mt-2 text-center font-sans text-[13px] font-bold">
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 
-      <div className="mt-3 text-center text-[10px]">
+      <div className="mt-2 text-center text-[11px]">
         <span>System by Zero Solution</span>
         <div>TEL: 070 133 7419</div>
       </div>
+
+      <div style={{ height: "10mm" }} />
 
     </div>
   );

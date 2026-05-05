@@ -8,6 +8,7 @@ type ReceiptPreviewProps = {
   items: CartItem[];
   shopDetails: ShopDetails;
   subTotal: number;
+  tax: number;
   total: number;
   cashReceived: number;
 };
@@ -19,6 +20,7 @@ export const ReceiptPreview = ({
   items,
   shopDetails,
   subTotal,
+  tax,
   total,
   cashReceived,
 }: ReceiptPreviewProps) => {
@@ -33,6 +35,7 @@ export const ReceiptPreview = ({
             items={items}
             shopDetails={shopDetails}
             subTotal={subTotal}
+            tax={tax}
             total={total}
             cashReceived={cashReceived}
           />
