@@ -1,18 +1,11 @@
 import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 import { Barcode } from "@/components/billing/barcode";
+import { ReceiptItemRow } from "@/components/billing/receipt-item-row";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
   <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
 );
-
-function splitItemPrimaryAndEnglish(fullName: string): { primary: string; englishParen?: string } {
-  const m = fullName.match(/^\s*(.+?)\s*(\([^)]+\))\s*$/);
-  if (!m?.[2]) {
-    return { primary: fullName.trim() };
-  }
-  return { primary: (m[1] ?? "").trim(), englishParen: (m[2] ?? "").trim() };
-}
 
 export type BillContentProps = {
   receiptNo: string;
@@ -90,26 +83,7 @@ export const BillContent = ({
         {items.length === 0 ? (
           <div className="py-2 text-center italic">No items</div>
         ) : (
-          items.map((item) => {
-            const { primary, englishParen } = splitItemPrimaryAndEnglish(item.name);
-            return (
-            <div key={item.id} className="receipt-item mb-1 flex items-end gap-1 text-[12px] leading-[1.35]">
-              <span className="flex-1 font-sans text-[13px] font-semibold wrap-break-word leading-snug">
-                {primary}{" "}
-                {englishParen ? (
-                  <span className="text-[11px] font-medium text-black/55">{englishParen}</span>
-                ) : null}
-                {englishParen ? " " : null}
-                <span className="text-[12px] font-medium text-black/65">
-                  ({item.price.toFixed(2)} x {item.qty})
-                </span>
-              </span>
-              <span className="w-16 shrink-0 text-right font-mono text-[12px] tabular-nums leading-none">
-                {(item.qty * item.price).toFixed(2)}
-              </span>
-            </div>
-            );
-          })
+          items.map((item) => <ReceiptItemRow key={item.id} item={item} />)
         )}
       </div>
 
