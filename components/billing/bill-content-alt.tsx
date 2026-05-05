@@ -122,23 +122,21 @@ export const BillContentAlt = ({
           <span className="w-24 text-right font-mono tabular-nums font-normal">{tax.toFixed(2)}</span>
         </div>
         {totalStyle === "ribbon" ? (
-          <div className="my-2.5 flex w-full justify-center px-0.5">
+          <div className="my-2.5 flex w-full items-center justify-between gap-3 px-1.5">
+            <span className="shrink-0 font-extrabold uppercase leading-none tracking-wide text-[17px] text-black">
+              TOTAL
+            </span>
             <div
-              className="total-highlight flex w-full max-w-full justify-between gap-2 font-extrabold leading-none text-[17px]"
+              className="total-highlight ml-auto shrink-0 font-mono font-extrabold leading-none text-[17px] text-white tabular-nums"
               style={{
                 backgroundColor: "#000",
-                color: "#fff",
-                padding: "6px 14px",
+                padding: "6px 18px 6px 12px",
                 WebkitPrintColorAdjust: "exact",
                 printColorAdjust: "exact",
-                clipPath:
-                  "polygon(11px 0%, calc(100% - 11px) 0%, 100% 50%, calc(100% - 11px) 100%, 11px 100%, 0 50%)",
+                clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)",
               }}
             >
-              <span className="min-w-0 flex-1 text-white tracking-wide">TOTAL</span>
-              <span className="w-27 shrink-0 text-right font-mono text-[17px] tabular-nums text-white">
-                Rs {total.toFixed(2)}
-              </span>
+              Rs {total.toFixed(2)}
             </div>
           </div>
         ) : (
