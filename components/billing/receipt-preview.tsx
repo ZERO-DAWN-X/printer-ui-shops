@@ -2,7 +2,7 @@ import { BillContent } from "@/components/billing/bill-content";
 import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
-import type { CartItem, ShopDetails } from "@/types/billing";
+import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 
 type ReceiptPreviewProps = {
   receiptNo: string;
@@ -14,6 +14,7 @@ type ReceiptPreviewProps = {
   tax: number;
   total: number;
   cashReceived: number;
+  currency: BillingCurrency;
 };
 
 export const ReceiptPreview = ({
@@ -26,6 +27,7 @@ export const ReceiptPreview = ({
   tax,
   total,
   cashReceived,
+  currency,
 }: ReceiptPreviewProps) => {
   return (
     <div className="flex min-w-0 flex-1 items-start justify-center overflow-x-auto bg-zinc-100/80 px-3 py-8 sm:py-10 lg:border-l lg:border-zinc-200/80 lg:py-10">
@@ -45,6 +47,7 @@ export const ReceiptPreview = ({
               tax={tax}
               total={total}
               cashReceived={cashReceived}
+              currency={currency}
             />
           </div>
         </div>
@@ -63,6 +66,7 @@ export const ReceiptPreview = ({
               tax={tax}
               total={total}
               cashReceived={cashReceived}
+              currency={currency}
             />
           </div>
         </div>
@@ -81,6 +85,7 @@ export const ReceiptPreview = ({
               tax={tax}
               total={total}
               cashReceived={cashReceived}
+              currency={currency}
             />
           </div>
         </div>
@@ -99,6 +104,7 @@ export const ReceiptPreview = ({
               tax={tax}
               total={total}
               cashReceived={cashReceived}
+              currency={currency}
             />
           </div>
         </div>

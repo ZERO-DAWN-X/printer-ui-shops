@@ -1,5 +1,6 @@
-import type { CartItem, ShopDetails } from "@/types/billing";
+import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 import { Barcode } from "@/components/billing/barcode";
+import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
   <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
@@ -23,6 +24,7 @@ export type BillContentAltProps = {
   tax: number;
   total: number;
   cashReceived: number;
+  currency?: BillingCurrency;
   /** Lined = Type 2 (rules + plain TOTAL). Ribbon = black banner TOTAL (Type 4). */
   totalStyle?: "lined" | "ribbon";
 };
@@ -37,6 +39,7 @@ export const BillContentAlt = ({
   tax,
   total,
   cashReceived,
+  currency = "lkr",
   totalStyle = "lined",
 }: BillContentAltProps) => {
   const barcodeValue = `${receiptNo}000${items.length}`;
@@ -138,7 +141,7 @@ export const BillContentAlt = ({
                   "polygon(0% 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 0% 100%, 11px 50%)",
               }}
             >
-              Rs {total.toFixed(2)}
+              {formatMoneyTotal(total, currency)}
             </div>
           </div>
         ) : (
@@ -146,7 +149,7 @@ export const BillContentAlt = ({
             <div style={{ borderTop: "1.5px solid #000", margin: "6px 0 4px" }} />
             <div className="my-2 flex justify-between font-extrabold leading-none text-[17px] tracking-wide text-black">
               <span className="flex-1">TOTAL</span>
-              <span className="w-27 text-right font-mono tabular-nums">Rs {total.toFixed(2)}</span>
+              <span className="w-27 text-right font-mono tabular-nums">{formatMoneyTotal(total, currency)}</span>
             </div>
             <div style={{ borderTop: "1.5px solid #000", margin: "4px 0 6px" }} />
           </>

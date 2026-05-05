@@ -1,3 +1,5 @@
+export type BillingCurrency = "lkr" | "usd";
+
 export type ShopDetails = {
   name: string;
   address: string;

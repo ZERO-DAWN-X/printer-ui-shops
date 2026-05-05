@@ -8,9 +8,11 @@ type AddItemFormProps = {
   value: NewItemForm;
   onChange: (next: NewItemForm) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  /** Label segment after "Price", e.g. "Rs" → "Price (Rs)" or "$" → "Price ($)" */
+  priceUnitShort?: string;
 };
 
-export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => {
+export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }: AddItemFormProps) => {
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value: nextValue } = event.target;
     if (name === "name") {
@@ -62,7 +64,7 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
         </div>
         <div className="min-w-0 w-32 shrink-0 sm:w-31 sm:grow-2">
           <label htmlFor="item-price" className={billingLabelClass}>
-            Price (Rs)
+            Price ({priceUnitShort})
           </label>
           <input
             id="item-price"

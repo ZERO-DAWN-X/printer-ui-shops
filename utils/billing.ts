@@ -1,7 +1,12 @@
-import type { CartItem } from "@/types/billing";
+import type { BillingCurrency, CartItem } from "@/types/billing";
 
 export const calculateSubtotal = (items: CartItem[]): number =>
   items.reduce((sum, item) => sum + item.qty * item.price, 0);
+
+export function formatMoneyTotal(amount: number, currency: BillingCurrency): string {
+  const fixed = amount.toFixed(2);
+  return currency === "usd" ? `$${fixed}` : `Rs ${fixed}`;
+}
 
 export const generateReceiptFromSeed = (seed: string): string => {
   let hash = 0;

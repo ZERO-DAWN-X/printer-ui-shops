@@ -1,5 +1,6 @@
-import type { CartItem, ShopDetails } from "@/types/billing";
+import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 import { Barcode } from "@/components/billing/barcode";
+import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
   <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
@@ -23,6 +24,7 @@ export type BillContentProps = {
   tax: number;
   total: number;
   cashReceived: number;
+  currency?: BillingCurrency;
   /** Classic = full-width bar. Ribbon = pointed banner (used by Type 3). */
   totalVariant?: "classic" | "ribbon";
 };
@@ -37,6 +39,7 @@ export const BillContent = ({
   tax,
   total,
   cashReceived,
+  currency = "lkr",
   totalVariant = "classic",
 }: BillContentProps) => {
   const barcodeValue = `${receiptNo}000${items.length}`;
@@ -147,7 +150,9 @@ export const BillContent = ({
             style={{ backgroundColor: "#000", color: "#fff", padding: "6px 8px" }}
           >
             <span className="flex-1">TOTAL</span>
-            <span className="w-27 text-right font-mono tabular-nums text-white">Rs {total.toFixed(2)}</span>
+            <span className="w-27 text-right font-mono tabular-nums text-white">
+              {formatMoneyTotal(total, currency)}
+            </span>
           </div>
         )}
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-normal">

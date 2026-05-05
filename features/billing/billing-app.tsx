@@ -14,9 +14,14 @@ import { PrintHint } from "@/components/billing/print-hint";
 import { PrintLayoutSelect, type PrintLayoutValue } from "@/components/billing/print-layout-select";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
-import { DEFAULT_ITEMS, DEFAULT_SHOP_DETAILS } from "@/data/mock-billing";
-import type { CartItem, NewItemForm, ShopDetails } from "@/types/billing";
-import { calculateSubtotal, generateReceiptFromSeed } from "@/utils/billing";
+import {
+  DEFAULT_ITEMS,
+  DEFAULT_SHOP_DETAILS,
+  FOREIGN_SHOP_DETAILS,
+  FOREIGN_SHOP_ITEMS,
+} from "@/data/mock-billing";
+import type { BillingCurrency, CartItem, NewItemForm, ShopDetails } from "@/types/billing";
+import { calculateSubtotal, formatMoneyTotal, generateReceiptFromSeed } from "@/utils/billing";
 
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
@@ -33,16 +38,41 @@ export const BillingApp = ({
   initialBillDate,
   initialBillTime,
 }: BillingAppProps) => {
-  const [shopDetails, setShopDetails] = useState<ShopDetails>(DEFAULT_SHOP_DETAILS);
-  const [items, setItems] = useState<CartItem[]>(DEFAULT_ITEMS);
+  const [shopDetails, setShopDetails] = useState<ShopDetails>(() => ({ ...FOREIGN_SHOP_DETAILS }));
+  const [items, setItems] = useState<CartItem[]>(() =>
+    FOREIGN_SHOP_ITEMS.map((row) => ({ ...row })),
+  );
   const [newItem, setNewItem] = useState<NewItemForm>(INITIAL_NEW_ITEM);
-  const [cashReceived, setCashReceived] = useState<string>("4000");
+  const [cashReceived, setCashReceived] = useState<string>("50");
   const [printType, setPrintType] = useState<PrintType>("type1");
+  const [language, setLanguage] = useState<"en" | "si">("en");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
   const layoutSelectLabelId = useId();
   const receiptSeed = useId();
   const receiptNo = useMemo(() => generateReceiptFromSeed(receiptSeed), [receiptSeed]);
+
+  const billingCurrency: BillingCurrency = language === "en" ? "usd" : "lkr";
+
+  const syncLocalePreset = (next: "en" | "si") => {
+    if (next === "en") {
+      setShopDetails({ ...FOREIGN_SHOP_DETAILS });
+      setItems(FOREIGN_SHOP_ITEMS.map((row) => ({ ...row })));
+      setCashReceived("50");
+    } else {
+      setShopDetails({ ...DEFAULT_SHOP_DETAILS });
+      setItems(DEFAULT_ITEMS.map((row) => ({ ...row })));
+      setCashReceived("4000");
+    }
+    setNewItem(INITIAL_NEW_ITEM);
+  };
+
+  const handleLanguageChange = (next: "en" | "si") => {
+    if (language !== next) {
+      syncLocalePreset(next);
+    }
+    setLanguage(next);
+  };
 
   const subTotal = useMemo(() => calculateSubtotal(items), [items]);
   const taxAmount = useMemo(() => subTotal * TAX_RATE, [subTotal]);
@@ -265,6 +295,7 @@ export const BillingApp = ({
           tax={taxAmount}
           total={total}
           cashReceived={cashReceivedValue}
+          currency={billingCurrency}
         />
       );
     }
@@ -281,6 +312,7 @@ export const BillingApp = ({
           tax={taxAmount}
           total={total}
           cashReceived={cashReceivedValue}
+          currency={billingCurrency}
         />
       );
     }
@@ -297,6 +329,7 @@ export const BillingApp = ({
           tax={taxAmount}
           total={total}
           cashReceived={cashReceivedValue}
+          currency={billingCurrency}
         />
       );
     }
@@ -312,6 +345,7 @@ export const BillingApp = ({
         tax={taxAmount}
         total={total}
         cashReceived={cashReceivedValue}
+        currency={billingCurrency}
       />
     );
   };
@@ -448,20 +482,52 @@ export const BillingApp = ({
       >
         <aside className="flex w-full shrink-0 flex-col border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden xl:w-[min(680px,52vw)] lg:border-r border-b lg:border-b-0">
           <header className="shrink-0 bg-white px-3 py-3 sm:px-4">
-            <div className="flex items-center gap-2.5">
-              <div
-                className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
-                aria-hidden
-              >
-                <Settings className="size-[15px] text-zinc-600" strokeWidth={1.75} />
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div
+                  className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
+                  aria-hidden
+                >
+                  <Settings className="size-[15px] text-zinc-600" strokeWidth={1.75} />
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-sm font-semibold tracking-tight text-zinc-900 sm:text-[15px]">
+                    ZERO ZEEKERS
+                  </h1>
+                  <p className="truncate text-[10px] leading-tight text-zinc-500 sm:text-[11px]">
+                    Bill · store · preview
+                  </p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <h1 className="text-sm font-semibold tracking-tight text-zinc-900 sm:text-[15px]">
-                  ZERO ZEEKERS
-                </h1>
-                <p className="truncate text-[10px] leading-tight text-zinc-500 sm:text-[11px]">
-                  Bill · store · preview
-                </p>
+              <div
+                className="flex shrink-0 rounded-[6px] border border-zinc-200 bg-zinc-50 p-0.5"
+                role="group"
+                aria-label="Language"
+              >
+                <button
+                  type="button"
+                  aria-pressed={language === "en"}
+                  onClick={() => handleLanguageChange("en")}
+                  className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition sm:px-3 sm:text-xs ${
+                    language === "en"
+                      ? "bg-black text-white"
+                      : "text-zinc-600 hover:text-zinc-900"
+                  }`}
+                >
+                  English
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={language === "si"}
+                  onClick={() => handleLanguageChange("si")}
+                  className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition sm:px-3 sm:text-xs ${
+                    language === "si"
+                      ? "bg-black text-white"
+                      : "text-zinc-600 hover:text-zinc-900"
+                  }`}
+                >
+                  Sinhala
+                </button>
               </div>
             </div>
           </header>
@@ -471,11 +537,19 @@ export const BillingApp = ({
               <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
                 <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
-                  <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
+                  <AddItemForm
+                    value={newItem}
+                    onChange={setNewItem}
+                    onSubmit={handleAddItem}
+                    priceUnitShort={billingCurrency === "usd" ? "$" : "Rs"}
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <SettingsSection title="Payment" description={`Due Rs ${total.toFixed(2)} (incl. tax)`}>
+                  <SettingsSection
+                    title="Payment"
+                    description={`Due ${formatMoneyTotal(total, billingCurrency)} (incl. tax)`}
+                  >
                     <div>
                       <label htmlFor="cash-received" className={billingLabelClass}>
                         Cash received
@@ -543,6 +617,7 @@ export const BillingApp = ({
             tax={taxAmount}
             total={total}
             cashReceived={cashReceivedValue}
+            currency={billingCurrency}
           />
         </div>
       </div>
