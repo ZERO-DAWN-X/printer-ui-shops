@@ -178,7 +178,7 @@ export const BillContent = ({
 
       <div className="mt-2 text-center text-[10px] leading-[1.35] text-black/65">
         <span>System by Zero Solution</span>
-        <div>TEL: 070 133 7419</div>
+        <div>TEL: 076 332 7419</div>
       </div>
 
     </div>
