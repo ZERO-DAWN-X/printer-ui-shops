@@ -130,10 +130,12 @@ export const BillContentAlt = ({
               className="total-highlight ml-auto shrink-0 font-mono font-extrabold leading-none text-[17px] text-white tabular-nums"
               style={{
                 backgroundColor: "#000",
-                padding: "6px 18px 6px 12px",
+                /* Room for left swallowtail + right arrow tip — text clears notches via padding */
+                padding: "6px 18px 6px 20px",
                 WebkitPrintColorAdjust: "exact",
                 printColorAdjust: "exact",
-                clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)",
+                clipPath:
+                  "polygon(0% 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 0% 100%, 11px 50%)",
               }}
             >
               Rs {total.toFixed(2)}
