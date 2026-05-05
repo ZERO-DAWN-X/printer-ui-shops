@@ -188,9 +188,18 @@ export const BillingApp = ({
                 font-size: 12px !important;
                 line-height: 1.35 !important;
               }
-              #print-root * {
+              #print-root {
                 color: #000 !important;
+              }
+              #print-root * {
                 max-width: 100% !important;
+              }
+              #print-root .total-highlight,
+              #print-root .total-highlight * {
+                background: #000 !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
               }
               #print-root .receipt-section,
               #print-root .receipt-row {
@@ -278,9 +287,18 @@ export const BillingApp = ({
             font-size: 12px !important;
             line-height: 1.35 !important;
           }
-          #print-root * {
+          #print-root {
             color: #000 !important;
+          }
+          #print-root * {
             max-width: 100% !important;
+          }
+          #print-root .total-highlight,
+          #print-root .total-highlight * {
+            background: #000 !important;
+            color: #fff !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
           }
           #print-root .receipt-section,
           #print-root .receipt-row {

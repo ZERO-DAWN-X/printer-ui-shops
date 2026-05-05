@@ -103,12 +103,13 @@ export const BillContent = ({
           <span>Tax</span>
           <span className="shrink-0 text-right font-mono tabular-nums">{tax.toFixed(2)}</span>
         </div>
-        <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
-        <div className="flex justify-between text-[16px] font-extrabold">
+        <div
+          className="total-highlight my-1 flex justify-between text-[16px] font-extrabold text-white"
+          style={{ backgroundColor: "#000", color: "#fff", padding: "2px 8px" }}
+        >
           <span>TOTAL</span>
-          <span className="font-mono tabular-nums">Rs {total.toFixed(2)}</span>
+          <span className="font-mono tabular-nums text-white">Rs {total.toFixed(2)}</span>
         </div>
-        <div style={{ borderTop: "1.5px solid #000", margin: "4px 0" }} />
         <div className="receipt-row flex justify-between gap-2">
           <span>CASH</span>
           <span className="shrink-0 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
