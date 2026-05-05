@@ -4,7 +4,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import { createPortal } from "react-dom";
 import { Check, ChevronDown } from "lucide-react";
 
-export const PRINT_LAYOUT_VALUES = ["type1", "type2", "type3", "type4"] as const;
+export const PRINT_LAYOUT_VALUES = ["type1", "type2", "type3", "type4", "type5"] as const;
 
 export type PrintLayoutValue = (typeof PRINT_LAYOUT_VALUES)[number];
 
@@ -13,6 +13,7 @@ const OPTIONS: readonly { value: PrintLayoutValue; label: string }[] = [
   { value: "type2", label: "T2 · Lined total" },
   { value: "type3", label: "T3 · Ribbon row" },
   { value: "type4", label: "T4 · Arrow value" },
+  { value: "type5", label: "T5 · Classic bar" },
 ] as const;
 
 function collectScrollAncestors(el: HTMLElement | null): HTMLElement[] {
