@@ -29,14 +29,21 @@ export const BillingApp = ({
   const [shopDetails, setShopDetails] = useState<ShopDetails>(DEFAULT_SHOP_DETAILS);
   const [items, setItems] = useState<CartItem[]>(DEFAULT_ITEMS);
   const [newItem, setNewItem] = useState<NewItemForm>(INITIAL_NEW_ITEM);
+  const [cashReceived, setCashReceived] = useState<string>("");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
   const receiptSeed = useId();
   const receiptNo = useMemo(() => generateReceiptFromSeed(receiptSeed), [receiptSeed]);
 
   const subTotal = useMemo(() => calculateSubtotal(items), [items]);
-  const tax = 0;
-  const total = subTotal + tax;
+  const total = subTotal;
+  const cashReceivedValue = useMemo(() => {
+    if (!cashReceived.trim()) {
+      return total;
+    }
+    const value = Number(cashReceived);
+    return Number.isFinite(value) && value >= 0 ? value : total;
+  }, [cashReceived, total]);
 
   const handleAddItem = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -131,7 +138,7 @@ export const BillingApp = ({
             }
             .receipt-content {
               width: 100%;
-              padding: 5mm 4mm 6mm;
+              padding: 4mm 4mm 0;
             }
             .thermal-dash {
               border-bottom: 1.5px dashed black !important;
@@ -201,7 +208,7 @@ export const BillingApp = ({
         .receipt-content {
           box-sizing: border-box;
           width: 100%;
-          padding: 5mm 4mm 6mm;
+          padding: 4mm 4mm 0;
         }
 
         @media print {
@@ -283,6 +290,18 @@ export const BillingApp = ({
 
           <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
           <AddItemForm value={newItem} onChange={setNewItem} onSubmit={handleAddItem} />
+          <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
+            <h2 className="mb-3 text-lg font-semibold">Payment</h2>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={cashReceived}
+              onChange={(event) => setCashReceived(event.target.value)}
+              placeholder={`Cash Received (default ${total.toFixed(2)})`}
+              className="w-full rounded border p-2"
+            />
+          </div>
 
           <button
             type="button"
@@ -302,8 +321,8 @@ export const BillingApp = ({
           items={items}
           shopDetails={shopDetails}
           subTotal={subTotal}
-          tax={tax}
           total={total}
+          cashReceived={cashReceivedValue}
         />
       </div>
 
@@ -314,15 +333,14 @@ export const BillingApp = ({
       >
         <div className="receipt-shell">
           <BillContent
-            isPreview={false}
             receiptNo={receiptNo}
             billDate={initialBillDate}
             billTime={initialBillTime}
             items={items}
             shopDetails={shopDetails}
             subTotal={subTotal}
-            tax={tax}
             total={total}
+            cashReceived={cashReceivedValue}
           />
         </div>
       </div>
