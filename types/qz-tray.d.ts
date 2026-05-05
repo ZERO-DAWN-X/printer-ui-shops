@@ -23,7 +23,7 @@ declare module "qz-tray" {
     configs: {
       create: (printerName: string, options?: ConfigOptions) => QzConfig;
     };
-    print: (config: QzConfig, data: string[]) => Promise<void>;
+    print: (config: QzConfig, data: unknown[]) => Promise<void>;
   };
 
   const qz: QzApi;

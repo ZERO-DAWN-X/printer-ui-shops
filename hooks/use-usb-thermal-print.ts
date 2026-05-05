@@ -14,6 +14,13 @@ type UsbPrintState = {
   message: string;
 };
 
+type QzRawData = {
+  type: "raw";
+  format: "command";
+  flavor: "plain";
+  data: string;
+};
+
 const initialState: UsbPrintState = {
   isConnecting: false,
   isPrinting: false,
@@ -141,9 +148,17 @@ export const useUsbThermalPrint = () => {
           await qz.websocket.connect({ retries: 2, delay: 1 });
         }
 
-        const config = qz.configs.create(targetPrinter, { encoding: "CP437" });
+        const config = qz.configs.create(targetPrinter, {
+          encoding: "CP437",
+        });
         const content = buildEscPosReceipt(payload);
-        await qz.print(config, [content]);
+        const rawPayload: QzRawData = {
+          type: "raw",
+          format: "command",
+          flavor: "plain",
+          data: content,
+        };
+        await withTimeout(qz.print(config, [rawPayload]), 10000, "USB print timed out before reaching printer.");
 
         setState((prev) => ({
           ...prev,
@@ -161,10 +176,49 @@ export const useUsbThermalPrint = () => {
     [state.selectedPrinter],
   );
 
+  const testPrint = useCallback(
+    async (printerName?: string) => {
+      const targetPrinter = printerName || state.selectedPrinter;
+      if (!targetPrinter) {
+        setState((prev) => ({ ...prev, message: "Select a USB printer first." }));
+        return false;
+      }
+
+      setState((prev) => ({ ...prev, isPrinting: true, message: "" }));
+      try {
+        const { default: qz } = await import("qz-tray");
+        if (!qz.websocket.isActive()) {
+          await qz.websocket.connect({ retries: 2, delay: 1 });
+        }
+        const config = qz.configs.create(targetPrinter, { encoding: "CP437" });
+        const testData: QzRawData = {
+          type: "raw",
+          format: "command",
+          flavor: "plain",
+          data: "\x1B@\x1Ba\x01TEST PRINT OK\n\x1Ba\x00\n\n\n\x1DV\x41\x03",
+        };
+        await withTimeout(qz.print(config, [testData]), 10000, "USB test print timed out.");
+        setState((prev) => ({
+          ...prev,
+          isPrinting: false,
+          isConnected: true,
+          message: "USB test print sent.",
+        }));
+        return true;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "USB test print failed.";
+        setState((prev) => ({ ...prev, isPrinting: false, message }));
+        return false;
+      }
+    },
+    [state.selectedPrinter],
+  );
+
   return {
     ...state,
     connect,
     setSelectedPrinter,
     print,
+    testPrint,
   };
 };

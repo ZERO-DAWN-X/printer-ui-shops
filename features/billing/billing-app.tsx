@@ -191,6 +191,14 @@ export const BillingApp = ({ initialBillDate, initialBillTime }: BillingAppProps
                       </option>
                     ))}
                   </select>
+                  <button
+                    type="button"
+                    onClick={() => void usbPrint.testPrint()}
+                    disabled={usbPrint.isPrinting}
+                    className="rounded border border-gray-300 bg-white p-2 text-sm font-medium hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Send USB Test Print
+                  </button>
                 </>
               ) : (
                 <>

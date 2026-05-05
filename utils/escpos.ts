@@ -4,7 +4,12 @@ const ESC = "\x1B";
 const GS = "\x1D";
 const MAX_CHARS_PER_LINE = 32;
 
-const cleanText = (value: string): string => value.replace(/[\r\n\t]+/g, " ").trim();
+const cleanText = (value: string): string =>
+  value
+    .replace(/[^\x20-\x7E]/g, " ")
+    .replace(/[\r\n\t]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 const padRight = (value: string, width: number): string => {
   const trimmed = cleanText(value);
