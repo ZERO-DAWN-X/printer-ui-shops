@@ -19,7 +19,7 @@ function BakeryMergedLogo() {
 
   return (
     <svg
-      className="mx-auto block h-[76px] w-full max-w-[12.5rem]"
+      className="mx-auto block h-[92px] w-full max-w-[14rem] sm:h-[96px] sm:max-w-[15rem]"
       viewBox="0 0 200 104"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
@@ -129,13 +129,11 @@ export const BillContentBakery = ({
   return (
     <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
       <div className="receipt-section text-center">
-        <div className="relative mx-auto mb-2 max-w-[17rem] px-1 py-1 text-black">
-          <div className="flex items-center justify-center gap-2">
-            <span className="inline-block h-px min-w-5 max-w-[3.25rem] flex-1 bg-black opacity-80" aria-hidden />
+        <div className="relative mx-auto mb-2 max-w-[19rem] px-1 pt-1 text-black">
+          <div className="flex justify-center">
             <div className="min-w-0 shrink">
               <BakeryMergedLogo />
             </div>
-            <span className="inline-block h-px min-w-5 max-w-[3.25rem] flex-1 bg-black opacity-80" aria-hidden />
           </div>
           <p className="mt-1.5 font-sans text-[6.5px] font-semibold uppercase tracking-[0.32em] text-black/45">
             Oven-fresh – Daily baked
