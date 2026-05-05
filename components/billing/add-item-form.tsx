@@ -29,7 +29,7 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
   return (
     <SettingsSection title="Line items" description="Add a row — preview updates live.">
       <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-x-2 gap-y-2">
-        <div className="min-w-0 basis-full sm:min-w-[11rem] sm:flex-1 sm:basis-[min(100%,16rem)]">
+        <div className="min-w-0 basis-full sm:min-w-44 sm:flex-1 sm:basis-[min(100%,16rem)]">
           <label htmlFor="item-name" className={billingLabelClass}>
             Item name
           </label>
@@ -44,7 +44,7 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
             required
           />
         </div>
-        <div className="w-[4.75rem] shrink-0">
+        <div className="w-19 shrink-0">
           <label htmlFor="item-qty" className={billingLabelClass}>
             Qty
           </label>
@@ -60,7 +60,7 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
             required
           />
         </div>
-        <div className="min-w-0 w-32 shrink-0 sm:w-[7.75rem] sm:grow-[2]">
+        <div className="min-w-0 w-32 shrink-0 sm:w-31 sm:grow-2">
           <label htmlFor="item-price" className={billingLabelClass}>
             Price (Rs)
           </label>
@@ -77,7 +77,7 @@ export const AddItemForm = ({ value, onChange, onSubmit }: AddItemFormProps) => 
             required
           />
         </div>
-        <div className="min-w-[6.75rem] grow basis-[6.75rem] sm:max-w-[7rem] sm:grow-0">
+        <div className="min-w-27 grow basis-27 sm:max-w-28 sm:grow-0">
           <span className={billingLabelClass + " invisible select-none"} aria-hidden>
             Add
           </span>

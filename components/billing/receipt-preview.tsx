@@ -62,7 +62,7 @@ export const ReceiptPreview = ({
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className="mb-2 text-xs font-semibold text-gray-700">Type 3 Preview</p>
+          <p className="mb-2 text-xs font-semibold text-gray-700">Type 3 (same as Type 1)</p>
           <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
             <BillContentType3
               receiptNo={receiptNo}

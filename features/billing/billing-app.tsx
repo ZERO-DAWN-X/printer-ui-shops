@@ -422,7 +422,7 @@ export const BillingApp = ({
         className="no-print flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-zinc-50 lg:flex-[0_0_min(560px,100%)] xl:flex-[0_0_min(600px,50%)] lg:border-r">
+        <aside className="flex w-full min-w-0 shrink-0 flex-col border-zinc-200 bg-zinc-50 lg:flex-[0_0_min(620px,100%)] xl:flex-[0_0_min(680px,52%)] lg:border-r">
           <header className="sticky top-0 z-20 border-b border-zinc-200/90 bg-zinc-50/95 px-3 py-3 backdrop-blur-md sm:px-4">
             <div className="flex items-center gap-2.5">
               <div
@@ -479,7 +479,7 @@ export const BillingApp = ({
                     >
                       <option value="type1">Type 1 — Classic Total bar</option>
                       <option value="type2">Type 2 — Lines, no fill</option>
-                      <option value="type3">Type 3 — Sales receipt compact</option>
+                      <option value="type3">Type 3 — Same as Type 1</option>
                     </select>
                   </div>
                 </SettingsSection>
