@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { ChevronDown, Printer, Settings } from "lucide-react";
+import { Printer, Settings } from "lucide-react";
 
 import { AddItemForm } from "@/components/billing/add-item-form";
 import { billingInputClass, billingLabelClass, SettingsSection } from "@/components/billing/settings-section";
@@ -10,6 +10,7 @@ import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { PrintHint } from "@/components/billing/print-hint";
+import { PrintLayoutSelect, type PrintLayoutValue } from "@/components/billing/print-layout-select";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
 import { DEFAULT_ITEMS, DEFAULT_SHOP_DETAILS } from "@/data/mock-billing";
@@ -20,7 +21,7 @@ const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
 const TAX_RATE = 0.05;
-type PrintType = "type1" | "type2" | "type3" | "type4";
+type PrintType = PrintLayoutValue;
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -38,6 +39,7 @@ export const BillingApp = ({
   const [printType, setPrintType] = useState<PrintType>("type1");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
+  const layoutSelectLabelId = useId();
   const receiptSeed = useId();
   const receiptNo = useMemo(() => generateReceiptFromSeed(receiptSeed), [receiptSeed]);
 
@@ -489,27 +491,10 @@ export const BillingApp = ({
 
                 <SettingsSection title="Print" description="Receipt layout for thermal print">
                   <div>
-                    <label htmlFor="print-template" className={billingLabelClass}>
+                    <p id={layoutSelectLabelId} className={billingLabelClass}>
                       Layout
-                    </label>
-                    <div className="relative">
-                      <select
-                        id="print-template"
-                        value={printType}
-                        onChange={(event) => setPrintType(event.target.value as PrintType)}
-                        className={`${billingInputClass} w-full cursor-pointer appearance-none pr-9 font-medium text-zinc-900 transition hover:border-zinc-400`}
-                      >
-                        <option value="type1">T1 · Classic bar</option>
-                        <option value="type2">T2 · Lined total</option>
-                        <option value="type3">T3 · Ribbon row</option>
-                        <option value="type4">T4 · Arrow value</option>
-                      </select>
-                      <ChevronDown
-                        className="pointer-events-none absolute right-2.5 top-1/2 size-[17px] -translate-y-1/2 text-zinc-500"
-                        aria-hidden
-                        strokeWidth={2}
-                      />
-                    </div>
+                    </p>
+                    <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
                   </div>
                 </SettingsSection>
               </div>
