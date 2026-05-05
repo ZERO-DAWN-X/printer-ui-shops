@@ -15,7 +15,6 @@ import { calculateSubtotal, generateReceiptFromSeed } from "@/utils/billing";
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
-const THERMAL_MAX_PAGE_HEIGHT_MM = 3276;
 const TAX_RATE = 0.05;
 
 type BillingAppProps = {
@@ -81,6 +80,23 @@ export const BillingApp = ({
       return;
     }
 
+    const measureRoot = document.createElement("div");
+    measureRoot.style.position = "fixed";
+    measureRoot.style.left = "-100000px";
+    measureRoot.style.top = "0";
+    measureRoot.style.width = `${THERMAL_PAPER_WIDTH_MM}mm`;
+    measureRoot.style.visibility = "hidden";
+    measureRoot.style.pointerEvents = "none";
+    measureRoot.innerHTML = printMarkup;
+    document.body.appendChild(measureRoot);
+
+    const measuredHeightPx = measureRoot.getBoundingClientRect().height;
+    document.body.removeChild(measureRoot);
+
+    const MM_PER_PX = 25.4 / 96;
+    const measuredHeightMm = measuredHeightPx * MM_PER_PX;
+    const dynamicPageHeightMm = Math.max(120, Math.ceil(measuredHeightMm + 3));
+
     const printWindow = window.open(
       "",
       "_blank",
@@ -141,17 +157,14 @@ export const BillingApp = ({
             #print-root { display: none; }
             .receipt-content {
               width: 100%;
-              padding: 3mm 3mm 8mm;
+              padding: 3mm 3mm 2mm;
             }
             .thermal-dash {
               border-bottom: 1.5px dashed black !important;
             }
             @page {
-              size: ${THERMAL_PAPER_WIDTH_MM}mm ${THERMAL_MAX_PAGE_HEIGHT_MM}mm;
+              size: ${THERMAL_PAPER_WIDTH_MM}mm ${dynamicPageHeightMm}mm;
               margin: 0;
-            }
-            @page :first {
-              margin-top: 4mm;
             }
             @media print {
               .screen-only, .no-print { display: none !important; }
@@ -167,7 +180,7 @@ export const BillingApp = ({
                 position: static !important;
                 width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
                 box-sizing: border-box !important;
-                padding: 3mm 3mm 8mm !important;
+                padding: 3mm 3mm 2mm !important;
                 margin: 0 !important;
                 background: #fff !important;
                 color: #000 !important;
@@ -180,8 +193,11 @@ export const BillingApp = ({
                 max-width: 100% !important;
               }
               #print-root .receipt-section,
-              #print-root .receipt-item,
               #print-root .receipt-row {
+                page-break-inside: auto !important;
+                break-inside: auto !important;
+              }
+              #print-root .receipt-item {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
               }
@@ -234,7 +250,7 @@ export const BillingApp = ({
         .receipt-content {
           box-sizing: border-box;
           width: 100%;
-          padding: 3mm 3mm 8mm;
+          padding: 3mm 3mm 2mm;
         }
 
         @media print {
@@ -254,7 +270,7 @@ export const BillingApp = ({
             position: static !important;
             width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
             box-sizing: border-box !important;
-            padding: 3mm 3mm 8mm !important;
+            padding: 3mm 3mm 2mm !important;
             margin: 0 !important;
             background: #fff !important;
             color: #000 !important;
@@ -267,8 +283,11 @@ export const BillingApp = ({
             max-width: 100% !important;
           }
           #print-root .receipt-section,
-          #print-root .receipt-item,
           #print-root .receipt-row {
+            page-break-inside: auto !important;
+            break-inside: auto !important;
+          }
+          #print-root .receipt-item {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
@@ -276,9 +295,6 @@ export const BillingApp = ({
           @page {
             size: ${THERMAL_PAPER_WIDTH_MM}mm auto;
             margin: 0;
-          }
-          @page :first {
-            margin-top: 4mm;
           }
 
           body, html {

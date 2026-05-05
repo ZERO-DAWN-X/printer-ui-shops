@@ -68,7 +68,6 @@ export const BillContent = ({
 
       <div className="receipt-section mb-1 flex text-[12px] font-bold uppercase tracking-wide">
         <span className="flex-1">Item</span>
-        <span className="w-8 text-right">Qty</span>
         <span className="w-16 text-right">Amount</span>
       </div>
       <Dashed />
@@ -78,16 +77,16 @@ export const BillContent = ({
           <div className="py-2 text-center italic">No items</div>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="receipt-item mb-1">
-              <div className="font-sans text-[13px] wrap-break-word">{item.name}</div>
-              <div className="flex text-[12px]">
-                <span className="flex-1 pl-2 font-mono tabular-nums">
-                  {item.qty} x {item.price.toFixed(2)}
+            <div key={item.id} className="receipt-item mb-1 flex items-start gap-1 text-[13px]">
+              <span className="flex-1 font-sans text-[14px] font-semibold wrap-break-word leading-tight">
+                {item.name}{" "}
+                <span className="font-mono tabular-nums text-[11px] text-black/70">
+                  ({item.price.toFixed(2)} x {item.qty})
                 </span>
-                <span className="w-16 text-right font-mono tabular-nums">
-                  {(item.qty * item.price).toFixed(2)}
-                </span>
-              </div>
+              </span>
+              <span className="w-16 text-right font-mono tabular-nums">
+                {(item.qty * item.price).toFixed(2)}
+              </span>
             </div>
           ))
         )}
@@ -140,8 +139,6 @@ export const BillContent = ({
         <span>System by Zero Solution</span>
         <div>TEL: 070 133 7419</div>
       </div>
-
-      <div style={{ height: "10mm" }} />
 
     </div>
   );
