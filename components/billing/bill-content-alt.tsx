@@ -19,6 +19,7 @@ import {
   receiptTotalEmphasisClass,
   receiptTotalsSectionClass,
 } from "@/components/billing/receipt-typography";
+import { resolveReceiptLabels } from "@/components/billing/receipt-labels";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
@@ -56,11 +57,12 @@ export const BillContentAlt = ({
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
+  const labels = resolveReceiptLabels(shopDetails, items);
 
   return (
     <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
-        <div className={receiptCashBillBadgeClass}>Cash Bill</div>
+        <div className={receiptCashBillBadgeClass}>{labels.cashBill}</div>
         <h1 className={receiptShopTitleClass} style={receiptHeadingFontStyle}>
           {shopDetails.name}
         </h1>
@@ -72,19 +74,19 @@ export const BillContentAlt = ({
 
       <div className={receiptLedgerSectionClass}>
         <div className="flex justify-between">
-          <span>Receipt#</span>
+          <span>{labels.receiptNo}</span>
           <span className="font-mono tabular-nums">{receiptNo}</span>
         </div>
         <div className="flex justify-between">
-          <span>Cashier</span>
+          <span>{labels.cashier}</span>
           <span>Admin</span>
         </div>
         <div className="flex justify-between">
-          <span>Date</span>
+          <span>{labels.date}</span>
           <span className="font-mono tabular-nums">{billDate}</span>
         </div>
         <div className="flex justify-between">
-          <span>Time</span>
+          <span>{labels.time}</span>
           <span className="font-mono tabular-nums">{billTime}</span>
         </div>
       </div>
@@ -92,8 +94,8 @@ export const BillContentAlt = ({
       <Dashed />
 
       <div className={receiptItemColumnHeaderClass}>
-        <span className="flex-1">Item</span>
-        <span className="w-16 text-right">Amount</span>
+        <span className="flex-1">{labels.item}</span>
+        <span className="w-16 text-right">{labels.amount}</span>
       </div>
       <Dashed />
 
@@ -108,20 +110,12 @@ export const BillContentAlt = ({
       <Dashed />
 
       <div className={receiptTotalsSectionClass}>
-        <div className="receipt-row flex justify-between gap-2 px-1.5 py-px">
-          <span className="flex-1 font-normal">Sub Total</span>
-          <span className="w-24 text-right font-mono tabular-nums font-normal">{subTotal.toFixed(2)}</span>
-        </div>
-        <div className="receipt-row flex justify-between gap-2 px-1.5 py-px">
-          <span className="flex-1 font-normal">Tax</span>
-          <span className="w-24 text-right font-mono tabular-nums font-normal">{tax.toFixed(2)}</span>
-        </div>
         {totalStyle === "ribbon" ? (
           <div className="my-2.5 flex w-full items-center justify-between gap-3 px-1.5">
             <span
               className={`shrink-0 font-extrabold uppercase leading-none tracking-wide text-black ${receiptTotalEmphasisClass}`}
             >
-              TOTAL
+              {labels.total}
             </span>
             <div
               className={`total-highlight ml-auto shrink-0 whitespace-nowrap py-1.5 font-mono font-extrabold leading-snug tabular-nums text-white ${receiptTotalEmphasisClass}`}
@@ -144,18 +138,18 @@ export const BillContentAlt = ({
             <div
               className={`my-2 flex items-center justify-between gap-2 py-px font-extrabold leading-snug tracking-wide text-black ${receiptTotalEmphasisClass}`}
             >
-              <span className="min-w-0 flex-1">TOTAL</span>
+              <span className="min-w-0 flex-1">{labels.total}</span>
               <span className="shrink-0 whitespace-nowrap text-right font-mono tabular-nums">{formatMoneyTotal(total, currency)}</span>
             </div>
             <div style={{ borderTop: "1.5px solid #000", margin: "4px 0 6px" }} />
           </>
         )}
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-normal">
-          <span className="flex-1">CASH</span>
+          <span className="flex-1">{labels.cash}</span>
           <span className="w-24 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
         </div>
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-bold">
-          <span className="flex-1">Change</span>
+          <span className="flex-1">{labels.change}</span>
           <span className="w-24 text-right font-mono tabular-nums">{change.toFixed(2)}</span>
         </div>
       </div>
@@ -163,11 +157,11 @@ export const BillContentAlt = ({
       <Dashed />
 
       <div className={receiptQtyMetaClass}>
-        <span>Items: {items.length}</span>
+        <span>{labels.items}: {items.length}</span>
         <span className="mx-2 text-black/70" aria-hidden>
           |
         </span>
-        <span>Qty: {totalQty}</span>
+        <span>{labels.qty}: {totalQty}</span>
       </div>
 
       <Dashed />

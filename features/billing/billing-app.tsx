@@ -10,6 +10,7 @@ import { BillContent } from "@/components/billing/bill-content";
 import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
+import { BillContentType8 } from "@/components/billing/bill-content-type8";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
 import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
@@ -400,6 +401,23 @@ export const BillingApp = ({
           tax={themedTotals.tax}
           total={themedTotals.total}
           cashReceived={themedCash}
+          currency={billingCurrency}
+        />
+      );
+    }
+
+    if (printType === "type8") {
+      return (
+        <BillContentType8
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
           currency={billingCurrency}
         />
       );
