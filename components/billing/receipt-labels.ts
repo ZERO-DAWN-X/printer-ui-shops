@@ -20,6 +20,7 @@ export type ReceiptLabels = {
   cash: string;
   change: string;
   items: string;
+  savings: string;
 };
 
 const EN_LABELS: ReceiptLabels = {
@@ -40,6 +41,7 @@ const EN_LABELS: ReceiptLabels = {
   cash: "CASH",
   change: "Change",
   items: "Items",
+  savings: "Your Savings",
 };
 
 const SI_LABELS: ReceiptLabels = {
@@ -60,6 +62,7 @@ const SI_LABELS: ReceiptLabels = {
   cash: "දුන් මුදල්",
   change: "ඉතිරි මුදල",
   items: "භාණ්ඩ",
+  savings: "ඔබ ලැබූ ලාබය",
 };
 
 export function resolveReceiptLabels(shopDetails: ShopDetails, items: CartItem[]): ReceiptLabels {

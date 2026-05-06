@@ -27,6 +27,8 @@ export type CartItem = {
   name: string;
   qty: number;
   price: number;
+  /** Original listed price; falls back to `price` when omitted. Used by T8 to show savings. */
+  listedPrice?: number;
 };
 
 export type NewItemForm = {

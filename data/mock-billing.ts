@@ -16,10 +16,10 @@ export const DEFAULT_SHOP_DETAILS: ShopDetails = {
 };
 
 export const DEFAULT_ITEMS: CartItem[] = [
-  { id: 1, name: "පාන්", qty: 3, price: 90 },
-  { id: 2, name: "ක්‍රීම් රෝල්", qty: 2, price: 160 },
-  { id: 3, name: "එලවලු රෝල්", qty: 4, price: 130 },
-  { id: 4, name: "බටර් කේක්", qty: 1, price: 450 },
+  { id: 1, name: "පාන්", qty: 3, price: 90, listedPrice: 100 },
+  { id: 2, name: "ක්‍රීම් රෝල්", qty: 2, price: 160, listedPrice: 175 },
+  { id: 3, name: "එලවලු රෝල්", qty: 4, price: 130, listedPrice: 145 },
+  { id: 4, name: "බටර් කේක්", qty: 1, price: 450, listedPrice: 500 },
 ];
 
 /** English / overseas-style grocer demo — used when English is selected */

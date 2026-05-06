@@ -64,6 +64,10 @@ export const BillContent = ({
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
+  const savings = items.reduce(
+    (sum, item) => sum + Math.max(0, (item.listedPrice ?? item.price) - item.price) * item.qty,
+    0,
+  );
   const labels = resolveReceiptLabels(shopDetails, items);
   const isStacked = itemVariant === "stacked";
   const stackedTitleSplitIdx = isStacked ? shopDetails.name.indexOf(" සහ ") : -1;
@@ -204,6 +208,16 @@ export const BillContent = ({
       <Dashed compact={isStacked} />
 
       <div className={receiptTotalsSectionClass}>
+        {isStacked && savings > 0 ? (
+          <div className="my-1.5 flex items-center justify-center gap-2 border-y-2 border-double border-black px-2 py-1 text-center text-[12.5px] font-bold leading-snug">
+            <span aria-hidden>★</span>
+            <span>{labels.savings}</span>
+            <span className="font-extrabold tabular-nums">
+              {formatMoneyTotal(savings, currency)}
+            </span>
+            <span aria-hidden>★</span>
+          </div>
+        ) : null}
         {totalVariant === "ribbon" ? (
           <div className="my-2.5 flex w-full justify-center px-0.5">
             <div

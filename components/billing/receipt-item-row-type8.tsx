@@ -19,6 +19,7 @@ function formatReceiptAmount(value: number): string {
  *   qty/list/our read as secondary detail.
  */
 export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
+  const listed = item.listedPrice ?? item.price;
   const lineTotal = item.qty * item.price;
 
   return (
@@ -28,7 +29,13 @@ export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
       </div>
       <div className="flex items-baseline justify-end gap-x-2 text-[12px] leading-snug tabular-nums">
         <span className="w-12 text-center text-black/70">{item.qty}</span>
-        <span className="w-17 text-center text-black/70">{formatReceiptAmount(item.price)}</span>
+        <span
+          className={`w-17 text-center ${
+            listed > item.price ? "text-black/55 line-through" : "text-black/70"
+          }`}
+        >
+          {formatReceiptAmount(listed)}
+        </span>
         <span className="w-17 text-center text-black/70">{formatReceiptAmount(item.price)}</span>
         <span className="w-17 text-center font-semibold text-black">
           {formatReceiptAmount(lineTotal)}
