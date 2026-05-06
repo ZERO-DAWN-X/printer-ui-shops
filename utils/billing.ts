@@ -1,5 +1,8 @@
 import type { BillingCurrency, CartItem } from "@/types/billing";
 
+/** VAT line on billing demo — keep in sync with `features/billing/billing-app` */
+export const BILLING_TAX_RATE = 0.05;
+
 export const calculateSubtotal = (items: CartItem[]): number =>
   items.reduce((sum, item) => sum + item.qty * item.price, 0);
 

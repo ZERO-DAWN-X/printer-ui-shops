@@ -43,3 +43,35 @@ export const FOREIGN_SHOP_ITEMS: CartItem[] = [
   { id: 103, name: "Blueberry muffin", qty: 2, price: 3.99 },
   { id: 104, name: "Cinnamon roll", qty: 4, price: 2.75 },
 ];
+
+/** Receipt grid T6 preview (English USD) — PC shop themed */
+export const FOREIGN_PC_PREVIEW_ITEMS: CartItem[] = [
+  { id: 201, name: "NVMe SSD 1TB upgrade", qty: 1, price: 89 },
+  { id: 202, name: "DDR5 RAM 16GB kit", qty: 2, price: 42 },
+  { id: 203, name: "PC cleaning / thermal repaste", qty: 1, price: 45 },
+  { id: 204, name: "USB-C docking hub", qty: 1, price: 65 },
+];
+
+/** Receipt grid T7 preview (English USD) — restaurant themed */
+export const FOREIGN_RESTAURANT_PREVIEW_ITEMS: CartItem[] = [
+  { id: 301, name: "Grilled tiger prawns", qty: 2, price: 16.95 },
+  { id: 302, name: "12-inch Margherita pizza", qty: 1, price: 14.5 },
+  { id: 303, name: "Caffè latte", qty: 3, price: 4.75 },
+  { id: 304, name: "Harbor lunch platter", qty: 2, price: 12.99 },
+];
+
+/** Receipt grid T6 when Sinhala is selected — English line text, LKR demo prices */
+export const DEFAULT_PC_PREVIEW_ITEMS: CartItem[] = [
+  { id: 901, name: "NVMe SSD 512GB upgrade", qty: 1, price: 12500 },
+  { id: 902, name: "DDR5 RAM 16GB kit", qty: 2, price: 7200 },
+  { id: 903, name: "PC cleaning / thermal repaste", qty: 1, price: 3500 },
+  { id: 904, name: "USB-C docking hub", qty: 1, price: 4500 },
+];
+
+/** Receipt grid T7 preview (Sinhala LKR) — ලංකා · පීසා · තේ දිස්තන්තය */
+export const DEFAULT_RESTAURANT_PREVIEW_ITEMS: CartItem[] = [
+  { id: 801, name: "එළ බත හා බැදුම් තැබිලිය", qty: 4, price: 220 },
+  { id: 802, name: "චිකන් පීසා (මැද)", qty: 1, price: 1950 },
+  { id: 803, name: "කෝපි කැපියුසිනෝ", qty: 3, price: 650 },
+  { id: 804, name: "විශේෂ මධ්‍යහන ආහාර පැකේජය", qty: 2, price: 890 },
+];

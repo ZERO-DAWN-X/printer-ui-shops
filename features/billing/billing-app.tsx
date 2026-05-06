@@ -25,12 +25,16 @@ import {
   FOREIGN_SHOP_ITEMS,
 } from "@/data/mock-billing";
 import type { BillingCurrency, CartItem, NewItemForm, ShopDetails } from "@/types/billing";
-import { calculateSubtotal, formatMoneyTotal, generateReceiptFromSeed } from "@/utils/billing";
+import {
+  BILLING_TAX_RATE,
+  calculateSubtotal,
+  formatMoneyTotal,
+  generateReceiptFromSeed,
+} from "@/utils/billing";
 
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
 const THERMAL_CONTENT_WIDTH_MM = 72;
-const TAX_RATE = 0.05;
 type PrintType = PrintLayoutValue;
 
 type BillingAppProps = {
@@ -79,7 +83,7 @@ export const BillingApp = ({
   };
 
   const subTotal = useMemo(() => calculateSubtotal(items), [items]);
-  const taxAmount = useMemo(() => subTotal * TAX_RATE, [subTotal]);
+  const taxAmount = useMemo(() => subTotal * BILLING_TAX_RATE, [subTotal]);
   const total = subTotal + taxAmount;
   const cashReceivedValue = useMemo(() => {
     if (!cashReceived.trim()) {
@@ -674,6 +678,7 @@ export const BillingApp = ({
             total={total}
             cashReceived={cashReceivedValue}
             currency={billingCurrency}
+            previewLocale={language}
           />
         </div>
       </div>

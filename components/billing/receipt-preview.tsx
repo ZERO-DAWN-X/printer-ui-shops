@@ -5,7 +5,14 @@ import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
 import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
+import {
+  DEFAULT_PC_PREVIEW_ITEMS,
+  DEFAULT_RESTAURANT_PREVIEW_ITEMS,
+  FOREIGN_PC_PREVIEW_ITEMS,
+  FOREIGN_RESTAURANT_PREVIEW_ITEMS,
+} from "@/data/mock-billing";
 import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
+import { BILLING_TAX_RATE, calculateSubtotal } from "@/utils/billing";
 
 type ReceiptPreviewProps = {
   receiptNo: string;
@@ -18,6 +25,7 @@ type ReceiptPreviewProps = {
   total: number;
   cashReceived: number;
   currency: BillingCurrency;
+  previewLocale: "en" | "si";
 };
 
 type PreviewVariant = "classic" | "lined" | "ribbon" | "arrow" | "bakery" | "pc" | "restaurant";
@@ -33,6 +41,39 @@ const PREVIEW_COLUMNS: readonly { id: string; label: string; variant: PreviewVar
   { id: "t8", label: "T8 · Classic bar", variant: "classic" },
 ];
 
+const cloneCart = (rows: CartItem[]): CartItem[] => rows.map((row) => ({ ...row }));
+
+function previewCartForVariant(
+  variant: PreviewVariant,
+  previewLocale: "en" | "si",
+  liveCart: CartItem[],
+): CartItem[] {
+  if (variant === "pc") {
+    return cloneCart(previewLocale === "en" ? FOREIGN_PC_PREVIEW_ITEMS : DEFAULT_PC_PREVIEW_ITEMS);
+  }
+  if (variant === "restaurant") {
+    return cloneCart(previewLocale === "en" ? FOREIGN_RESTAURANT_PREVIEW_ITEMS : DEFAULT_RESTAURANT_PREVIEW_ITEMS);
+  }
+  return liveCart;
+}
+
+function previewTotalsForCart(items: CartItem[]) {
+  const subTotal = calculateSubtotal(items);
+  const tax = subTotal * BILLING_TAX_RATE;
+  return { subTotal, tax, total: subTotal + tax };
+}
+
+function previewCashForThemedTotals(
+  currency: BillingCurrency,
+  total: number,
+  cashReceived: number,
+): number {
+  const buffer = currency === "usd" ? 15 : 2000;
+  return Math.max(cashReceived, total + buffer);
+}
+
+type ReceiptBillProps = Omit<ReceiptPreviewProps, "previewLocale">;
+
 export const ReceiptPreview = ({
   receiptNo,
   billDate,
@@ -44,36 +85,58 @@ export const ReceiptPreview = ({
   total,
   cashReceived,
   currency,
+  previewLocale,
 }: ReceiptPreviewProps) => {
-  const shared = {
-    receiptNo,
-    billDate,
-    billTime,
-    items,
-    shopDetails,
-    subTotal,
-    tax,
-    total,
-    cashReceived,
-    currency,
-  };
-
   const renderVariant = (variant: PreviewVariant) => {
+    const themed = variant === "pc" || variant === "restaurant";
+    const cart = themed ? previewCartForVariant(variant, previewLocale, items) : items;
+
+    let props: ReceiptBillProps;
+
+    if (themed) {
+      const totals = previewTotalsForCart(cart);
+      props = {
+        receiptNo,
+        billDate,
+        billTime,
+        shopDetails,
+        currency,
+        items: cart,
+        subTotal: totals.subTotal,
+        tax: totals.tax,
+        total: totals.total,
+        cashReceived: previewCashForThemedTotals(currency, totals.total, cashReceived),
+      };
+    } else {
+      props = {
+        receiptNo,
+        billDate,
+        billTime,
+        shopDetails,
+        currency,
+        items,
+        subTotal,
+        tax,
+        total,
+        cashReceived,
+      };
+    }
+
     switch (variant) {
       case "classic":
-        return <BillContent {...shared} />;
+        return <BillContent {...props} />;
       case "lined":
-        return <BillContentAlt {...shared} />;
+        return <BillContentAlt {...props} />;
       case "ribbon":
-        return <BillContentType3 {...shared} />;
+        return <BillContentType3 {...props} />;
       case "arrow":
-        return <BillContentType4 {...shared} />;
+        return <BillContentType4 {...props} />;
       case "bakery":
-        return <BillContentBakery {...shared} />;
+        return <BillContentBakery {...props} />;
       case "pc":
-        return <BillContentPc {...shared} />;
+        return <BillContentPc {...props} />;
       case "restaurant":
-        return <BillContentRestaurant {...shared} />;
+        return <BillContentRestaurant {...props} />;
       default: {
         const _exhaustive: never = variant;
         return _exhaustive;
