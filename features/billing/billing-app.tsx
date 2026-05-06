@@ -31,6 +31,7 @@ import {
   formatMoneyTotal,
   generateReceiptFromSeed,
 } from "@/utils/billing";
+import { receiptDocumentLang } from "@/utils/receipt-lang";
 import {
   cartForThemedReceipt,
   tenderForThemedTotal,
@@ -700,7 +701,7 @@ export const BillingApp = ({
         className="print-only"
         style={{ fontFamily: '"Noto Sans Sinhala", sans-serif' }}
       >
-        <div className="receipt-shell">
+        <div className="receipt-shell" lang={receiptDocumentLang(shopDetails, items, language)}>
           {renderReceiptByType()}
         </div>
       </div>

@@ -6,6 +6,7 @@ import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
 import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
 import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
+import { receiptDocumentLang } from "@/utils/receipt-lang";
 import {
   cartForThemedReceipt,
   tenderForThemedTotal,
@@ -74,6 +75,8 @@ export const ReceiptPreview = ({
   currency,
   previewLocale,
 }: ReceiptPreviewProps) => {
+  const receiptLang = receiptDocumentLang(shopDetails, items, previewLocale);
+
   const renderVariant = (variant: PreviewVariant) => {
     const themed = themedKind(variant) !== null;
     const cart = previewCartForVariant(variant, previewLocale, items);
@@ -139,7 +142,10 @@ export const ReceiptPreview = ({
             <p className="mb-2 max-w-[14rem] text-center text-[11px] font-semibold uppercase tracking-wide text-zinc-600">
               {col.label}
             </p>
-            <div className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white">
+            <div
+              className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white"
+              lang={receiptLang}
+            >
               {renderVariant(col.variant)}
             </div>
           </div>

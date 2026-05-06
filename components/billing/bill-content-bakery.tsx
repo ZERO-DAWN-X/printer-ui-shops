@@ -1,6 +1,11 @@
 import type { BillContentProps } from "@/components/billing/bill-content";
 import { Barcode } from "@/components/billing/barcode";
 import { ReceiptItemRow } from "@/components/billing/receipt-item-row";
+import {
+  receiptContentRootStyle,
+  receiptHeadingFontStyle,
+  receiptShopTitleClass,
+} from "@/components/billing/receipt-root-font";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
@@ -128,7 +133,7 @@ export const BillContentBakery = ({
   const bakeryTitle = shopDetails.bakeryShopName.trim() || shopDetails.name;
 
   return (
-    <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
+    <div className="receipt-content text-[12px] leading-[1.35] text-black" style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
         <div className="relative mx-auto mb-2 max-w-[19rem] px-1 pt-1 text-black">
           <div className="flex justify-center">
@@ -144,14 +149,16 @@ export const BillContentBakery = ({
           </p>
         </div>
 
-        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{bakeryTitle}</h1>
-        <p className="mt-0.5 font-sans text-[12px] leading-[1.35]">{shopDetails.address}</p>
+        <h1 className={`mt-1 ${receiptShopTitleClass}`} style={receiptHeadingFontStyle}>
+          {bakeryTitle}
+        </h1>
+        <p className="mt-0.5 text-[12px] leading-[1.35]">{shopDetails.address}</p>
         <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
         {shopDetails.openingHours.trim() ? (
-          <p className="mt-1 font-sans text-[11px] font-medium leading-snug text-black/85">{shopDetails.openingHours}</p>
+          <p className="mt-1 text-[11px] font-medium leading-snug text-black/85">{shopDetails.openingHours}</p>
         ) : null}
         {shopDetails.bakeryNote.trim() ? (
-          <p className="mt-1 font-sans text-[10px] font-semibold leading-snug text-black/85 sm:text-[11px]">
+          <p className="mt-1 text-[10px] font-semibold leading-snug text-black/85 sm:text-[11px]">
             {shopDetails.bakeryNote}
           </p>
         ) : null}
@@ -243,7 +250,7 @@ export const BillContentBakery = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mt-2 text-center font-sans text-[12px] font-bold leading-snug">
+      <div className="mt-2 text-center text-[12px] font-bold leading-snug">
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 

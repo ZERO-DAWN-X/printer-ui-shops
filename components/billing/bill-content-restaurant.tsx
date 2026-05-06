@@ -1,6 +1,11 @@
 import type { BillContentProps } from "@/components/billing/bill-content";
 import { Barcode } from "@/components/billing/barcode";
 import { ReceiptItemRow } from "@/components/billing/receipt-item-row";
+import {
+  receiptContentRootStyle,
+  receiptHeadingFontStyle,
+  receiptShopTitleClass,
+} from "@/components/billing/receipt-root-font";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
@@ -109,7 +114,7 @@ export const BillContentRestaurant = ({
   const restaurantTitle = shopDetails.restaurantShopName.trim() || shopDetails.name;
 
   return (
-    <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
+    <div className="receipt-content text-[12px] leading-[1.35] text-black" style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
         <div className="relative mx-auto mb-1.5 max-w-76 px-1 pt-1 text-black">
           <div className="flex justify-center">
@@ -129,12 +134,14 @@ export const BillContentRestaurant = ({
           </p>
         </div>
 
-        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{restaurantTitle}</h1>
-        <p className="mt-0.5 font-sans text-[12px] leading-[1.35]">{shopDetails.address}</p>
+        <h1 className={`mt-1 ${receiptShopTitleClass}`} style={receiptHeadingFontStyle}>
+          {restaurantTitle}
+        </h1>
+        <p className="mt-0.5 text-[12px] leading-[1.35]">{shopDetails.address}</p>
         <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
         {shopDetails.openingHours.trim() ? (
           <p
-            className="mt-1 font-sans text-[11px] font-semibold leading-snug text-zinc-950"
+            className="mt-1 text-[11px] font-semibold leading-snug text-zinc-950"
             style={{ ...receiptInkStyle, color: "#141414" }}
           >
             {shopDetails.openingHours}
@@ -142,7 +149,7 @@ export const BillContentRestaurant = ({
         ) : null}
         {shopDetails.restaurantNote.trim() ? (
           <p
-            className="mt-1 font-sans text-[10px] font-semibold leading-snug text-zinc-950 sm:text-[11px]"
+            className="mt-1 text-[10px] font-semibold leading-snug text-zinc-950 sm:text-[11px]"
             style={{ ...receiptInkStyle, color: "#141414" }}
           >
             {shopDetails.restaurantNote}
@@ -236,7 +243,7 @@ export const BillContentRestaurant = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mt-2 text-center font-sans text-[12px] font-bold leading-snug">
+      <div className="mt-2 text-center text-[12px] font-bold leading-snug">
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 
