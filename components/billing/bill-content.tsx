@@ -66,14 +66,26 @@ export const BillContent = ({
   const change = Math.max(0, cashReceived - total);
   const labels = resolveReceiptLabels(shopDetails, items);
   const isStacked = itemVariant === "stacked";
+  const stackedTitleSplitIdx = isStacked ? shopDetails.name.indexOf(" සහ ") : -1;
+  const stackedTitleLead =
+    stackedTitleSplitIdx > 0 ? shopDetails.name.substring(0, stackedTitleSplitIdx + 3) : null;
+  const stackedTitleTrail =
+    stackedTitleSplitIdx > 0 ? shopDetails.name.substring(stackedTitleSplitIdx + 4) : null;
 
   return (
     <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
         <div className={receiptCashBillBadgeClass}>{labels.cashBill}</div>
-        <h1 className={receiptShopTitleClass} style={receiptHeadingFontStyle}>
-          {shopDetails.name}
-        </h1>
+        {stackedTitleLead && stackedTitleTrail ? (
+          <h1 className="font-extrabold" style={receiptHeadingFontStyle}>
+            <span className="block text-[22px] leading-[1.3]">{stackedTitleLead}</span>
+            <span className="mt-1 block text-[17px] leading-[1.3]">{stackedTitleTrail}</span>
+          </h1>
+        ) : (
+          <h1 className={receiptShopTitleClass} style={receiptHeadingFontStyle}>
+            {shopDetails.name}
+          </h1>
+        )}
         <p className={receiptAddressLineClass}>{shopDetails.address}</p>
         <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>
       </div>
@@ -108,10 +120,10 @@ export const BillContent = ({
       <Dashed compact={isStacked} />
 
       {itemVariant === "stacked" ? (
-        <div className="receipt-section mb-0.5 flex items-end justify-end gap-x-2 text-[11px] font-semibold leading-tight tracking-tight">
+        <div className="receipt-section mb-0.5 flex items-end justify-end gap-x-2 text-[12px] font-semibold leading-tight tracking-tight">
           <span className="w-12 text-left whitespace-nowrap">{labels.qty}</span>
-          <span className="w-16 text-center whitespace-nowrap">{labels.listedPrice}</span>
-          <span className="w-16 text-center whitespace-nowrap">{labels.ourPrice}</span>
+          <span className="w-17 text-center whitespace-nowrap">{labels.listedPrice}</span>
+          <span className="w-17 text-center whitespace-nowrap">{labels.ourPrice}</span>
           <span className="w-17 text-center whitespace-nowrap">{labels.amount}</span>
         </div>
       ) : (
