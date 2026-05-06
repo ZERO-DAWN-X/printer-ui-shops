@@ -57,7 +57,7 @@ const SI_LABELS: ReceiptLabels = {
   subTotal: "උප එකතුව",
   tax: "බදු",
   total: "මුළු එකතුව",
-  cash: "මුදල්",
+  cash: "දුන් මුදල්",
   change: "ඉතිරි මුදල",
   items: "භාණ්ඩ",
 };

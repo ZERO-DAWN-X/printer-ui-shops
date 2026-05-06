@@ -652,7 +652,7 @@ export const BillingApp = ({
                       value={newItem}
                       onChange={setNewItem}
                       onSubmit={handleAddItem}
-                      priceUnitShort={billingCurrency === "usd" ? "$" : "Rs."}
+                      priceUnitShort={billingCurrency === "usd" ? "$" : "රු."}
                     />
                     <ShopLayoutNotesForm values={shopDetails} onChange={handleShopDetailsChange} />
                   </div>
