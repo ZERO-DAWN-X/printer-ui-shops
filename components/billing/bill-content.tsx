@@ -71,53 +71,106 @@ export const BillContent = ({
     stackedTitleSplitIdx > 0 ? shopDetails.name.substring(0, stackedTitleSplitIdx + 3) : null;
   const stackedTitleTrail =
     stackedTitleSplitIdx > 0 ? shopDetails.name.substring(stackedTitleSplitIdx + 4) : null;
+  const stackedPhoneList = isStacked
+    ? shopDetails.phone
+        .split(",")
+        .map((raw) => raw.trim())
+        .filter((raw) => raw.length > 0)
+        .map((raw) => {
+          const digits = raw.replace(/\D/g, "");
+          return digits.length === 10
+            ? `${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6)}`
+            : raw;
+        })
+    : null;
 
   return (
-    <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
+    <div
+      className={receiptContentWrapperClass}
+      style={isStacked ? { ...receiptContentRootStyle, paddingTop: "5mm" } : receiptContentRootStyle}
+    >
       <div className="receipt-section text-center">
-        <div className={receiptCashBillBadgeClass}>{labels.cashBill}</div>
+        <div
+          className={receiptCashBillBadgeClass}
+          style={
+            isStacked
+              ? { marginBottom: "8px", paddingTop: "3px", paddingBottom: "3px" }
+              : undefined
+          }
+        >
+          {labels.cashBill}
+        </div>
         {stackedTitleLead && stackedTitleTrail ? (
           <h1 className="font-extrabold" style={receiptHeadingFontStyle}>
-            <span className="block text-[22px] leading-[1.3]">{stackedTitleLead}</span>
-            <span className="mt-1 block text-[17px] leading-[1.3]">{stackedTitleTrail}</span>
+            <span className="block text-[24px] leading-[1.3]">{stackedTitleLead}</span>
+            <span className="mt-1.5 block text-[19px] leading-[1.3]">{stackedTitleTrail}</span>
           </h1>
         ) : (
           <h1 className={receiptShopTitleClass} style={receiptHeadingFontStyle}>
             {shopDetails.name}
           </h1>
         )}
-        <p className={receiptAddressLineClass}>{shopDetails.address}</p>
-        <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>
+        {isStacked && stackedPhoneList && stackedPhoneList.length > 0 ? (
+          <p className="mt-2 text-[13px] font-semibold leading-[1.38]">
+            <span aria-hidden className="mr-1 align-middle text-[14px]">
+              ☎
+            </span>
+            <span className="font-mono tabular-nums">{stackedPhoneList.join("  ·  ")}</span>
+          </p>
+        ) : null}
+        <p
+          className={
+            isStacked
+              ? "mt-1 text-[12px] font-medium leading-[1.4]"
+              : receiptAddressLineClass
+          }
+        >
+          {shopDetails.address}
+        </p>
+        {!isStacked && <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>}
       </div>
 
-      <Dashed compact={isStacked} />
+      {!isStacked && <Dashed />}
 
-      <div
-        className={
-          isStacked
-            ? "receipt-section text-[11px] font-medium leading-[1.3]"
-            : receiptLedgerSectionClass
-        }
-      >
-        <div className="flex justify-between">
-          <span>{labels.receiptNo}</span>
-          <span className="font-mono tabular-nums">{receiptNo}</span>
+      {isStacked ? (
+        <div className="receipt-section pb-1 text-[11px] font-medium leading-[1.4]">
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="font-mono tabular-nums">{billDate}</span>
+            <span className="font-mono tabular-nums">{billTime}</span>
+            <span>
+              No: <span className="font-mono tabular-nums">#{receiptNo}</span>
+            </span>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span>{labels.cashier}</span>
-          <span>Admin</span>
+      ) : (
+        <div className={receiptLedgerSectionClass}>
+          <div className="flex justify-between">
+            <span>{labels.receiptNo}</span>
+            <span className="font-mono tabular-nums">{receiptNo}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>{labels.cashier}</span>
+            <span>Admin</span>
+          </div>
+          <div className="flex justify-between">
+            <span>{labels.date}</span>
+            <span className="font-mono tabular-nums">{billDate}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>{labels.time}</span>
+            <span className="font-mono tabular-nums">{billTime}</span>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span>{labels.date}</span>
-          <span className="font-mono tabular-nums">{billDate}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>{labels.time}</span>
-          <span className="font-mono tabular-nums">{billTime}</span>
-        </div>
-      </div>
+      )}
 
-      <Dashed compact={isStacked} />
+      {isStacked ? (
+        <div
+          className="receipt-section"
+          style={{ borderTop: "1px solid #000", margin: "0 0 8px" }}
+        />
+      ) : (
+        <Dashed />
+      )}
 
       {itemVariant === "stacked" ? (
         <div className="receipt-section mb-0.5 flex items-end justify-end gap-x-2 text-[12px] font-semibold leading-tight tracking-tight">
