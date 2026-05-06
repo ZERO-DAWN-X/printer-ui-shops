@@ -31,6 +31,11 @@ import {
   formatMoneyTotal,
   generateReceiptFromSeed,
 } from "@/utils/billing";
+import {
+  cartForThemedReceipt,
+  tenderForThemedTotal,
+  totalsForReceiptCart,
+} from "@/utils/receipt-themed-snapshot";
 
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
@@ -360,34 +365,40 @@ export const BillingApp = ({
     }
 
     if (printType === "type6") {
+      const themedCart = cartForThemedReceipt("pc", language);
+      const themedTotals = totalsForReceiptCart(themedCart);
+      const themedCash = tenderForThemedTotal(billingCurrency, themedTotals.total, cashReceivedValue);
       return (
         <BillContentPc
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
-          items={items}
+          items={themedCart}
           shopDetails={shopDetails}
-          subTotal={subTotal}
-          tax={taxAmount}
-          total={total}
-          cashReceived={cashReceivedValue}
+          subTotal={themedTotals.subTotal}
+          tax={themedTotals.tax}
+          total={themedTotals.total}
+          cashReceived={themedCash}
           currency={billingCurrency}
         />
       );
     }
 
     if (printType === "type7") {
+      const themedCart = cartForThemedReceipt("restaurant", language);
+      const themedTotals = totalsForReceiptCart(themedCart);
+      const themedCash = tenderForThemedTotal(billingCurrency, themedTotals.total, cashReceivedValue);
       return (
         <BillContentRestaurant
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
-          items={items}
+          items={themedCart}
           shopDetails={shopDetails}
-          subTotal={subTotal}
-          tax={taxAmount}
-          total={total}
-          cashReceived={cashReceivedValue}
+          subTotal={themedTotals.subTotal}
+          tax={themedTotals.tax}
+          total={themedTotals.total}
+          cashReceived={themedCash}
           currency={billingCurrency}
         />
       );
