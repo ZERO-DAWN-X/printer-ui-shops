@@ -1,4 +1,10 @@
 import type { CartItem } from "@/types/billing";
+import {
+  receiptItemAmountClass,
+  receiptItemPrimaryClass,
+  receiptItemRowWrapperClass,
+  receiptItemSecondaryClass,
+} from "@/components/billing/receipt-typography";
 
 function splitItemPrimaryAndEnglish(fullName: string): { primary: string; englishParen?: string } {
   const m = fullName.match(/^\s*(.+?)\s*(\([^)]+\))\s*$/);
@@ -27,17 +33,17 @@ export function ReceiptItemRow({ item }: ReceiptItemRowProps) {
     : formulaPart;
 
   return (
-    <div className="receipt-item mb-1.5 flex items-end gap-2 text-[13px] leading-snug">
+    <div className={receiptItemRowWrapperClass}>
       <div className="min-w-0 flex-1">
-        <div className="break-words text-[14px] font-semibold leading-snug">
+        <div className={receiptItemPrimaryClass}>
           <span className="text-black">{primary}</span>
-          <span className="text-[12px] font-medium text-black/55">
+          <span className={receiptItemSecondaryClass}>
             {" "}
             ({insideParens})
           </span>
         </div>
       </div>
-      <span className="w-[4.25rem] shrink-0 self-end pb-px text-right font-mono text-[13px] tabular-nums leading-none text-black">
+      <span className={receiptItemAmountClass}>
         {lineTotal}
       </span>
     </div>

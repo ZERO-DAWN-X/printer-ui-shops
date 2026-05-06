@@ -6,6 +6,19 @@ import {
   receiptHeadingFontStyle,
   receiptShopTitleClass,
 } from "@/components/billing/receipt-root-font";
+import {
+  receiptAddressLineClass,
+  receiptCashBillBadgeClass,
+  receiptContentWrapperClass,
+  receiptItemColumnHeaderClass,
+  receiptLedgerSectionClass,
+  receiptQtyMetaClass,
+  receiptSystemCreditClass,
+  receiptTelLineClass,
+  receiptThankYouBlockClass,
+  receiptTotalEmphasisClass,
+  receiptTotalsSectionClass,
+} from "@/components/billing/receipt-typography";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
@@ -45,21 +58,19 @@ export const BillContent = ({
   const change = Math.max(0, cashReceived - total);
 
   return (
-    <div className="receipt-content text-[12px] leading-[1.35] text-black" style={receiptContentRootStyle}>
+    <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
-        <div className="mx-auto mb-1 inline-flex items-center rounded-full border border-black px-2 py-px text-[9px] font-semibold uppercase tracking-[0.14em] leading-none">
-          Cash Bill
-        </div>
+        <div className={receiptCashBillBadgeClass}>Cash Bill</div>
         <h1 className={receiptShopTitleClass} style={receiptHeadingFontStyle}>
           {shopDetails.name}
         </h1>
-        <p className="mt-0.5 text-[12px] leading-[1.35]">{shopDetails.address}</p>
-        <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
+        <p className={receiptAddressLineClass}>{shopDetails.address}</p>
+        <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>
       </div>
 
       <Dashed />
 
-      <div className="receipt-section text-[12px] leading-[1.35]">
+      <div className={receiptLedgerSectionClass}>
         <div className="flex justify-between">
           <span>Receipt#</span>
           <span className="font-mono tabular-nums">{receiptNo}</span>
@@ -80,7 +91,7 @@ export const BillContent = ({
 
       <Dashed />
 
-      <div className="receipt-section mb-1 flex text-[12px] font-bold uppercase tracking-wide leading-[1.3]">
+      <div className={receiptItemColumnHeaderClass}>
         <span className="flex-1">Item</span>
         <span className="w-16 text-right">Amount</span>
       </div>
@@ -96,7 +107,7 @@ export const BillContent = ({
 
       <Dashed />
 
-      <div className="text-[12px] leading-[1.35]">
+      <div className={receiptTotalsSectionClass}>
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px">
           <span className="flex-1 font-normal">Sub Total</span>
           <span className="w-24 text-right font-mono tabular-nums font-normal">{subTotal.toFixed(2)}</span>
@@ -108,7 +119,7 @@ export const BillContent = ({
         {totalVariant === "ribbon" ? (
           <div className="my-2.5 flex w-full justify-center px-0.5">
             <div
-              className="total-highlight flex w-full max-w-full items-center justify-between gap-2 py-1 font-extrabold leading-snug text-[17px]"
+              className={`total-highlight flex w-full max-w-full items-center justify-between gap-2 py-1 font-extrabold leading-snug ${receiptTotalEmphasisClass}`}
               style={{
                 backgroundColor: "#000",
                 color: "#fff",
@@ -121,14 +132,16 @@ export const BillContent = ({
               }}
             >
               <span className="min-w-0 flex-1 whitespace-normal text-white tracking-wide">TOTAL</span>
-              <span className="shrink-0 whitespace-nowrap text-right font-mono text-[17px] tabular-nums leading-snug text-white">
+              <span
+                className={`shrink-0 whitespace-nowrap text-right font-mono tabular-nums leading-snug text-white ${receiptTotalEmphasisClass}`}
+              >
                 {formatMoneyTotal(total, currency)}
               </span>
             </div>
           </div>
         ) : (
           <div
-            className="total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-[17px] text-white tracking-wide"
+            className={`total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-white tracking-wide ${receiptTotalEmphasisClass}`}
             style={{
               backgroundColor: "#000",
               color: "#fff",
@@ -156,9 +169,11 @@ export const BillContent = ({
 
       <Dashed />
 
-      <div className="text-center text-[11px] leading-[1.35] text-black/70">
+      <div className={receiptQtyMetaClass}>
         <span>Items: {items.length}</span>
-        <span className="mx-2 opacity-70">|</span>
+        <span className="mx-2 text-black/70" aria-hidden>
+          |
+        </span>
         <span>Qty: {totalQty}</span>
       </div>
 
@@ -166,11 +181,11 @@ export const BillContent = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mt-2 text-center text-[12px] font-bold leading-snug">
+      <div className={receiptThankYouBlockClass}>
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 
-      <div className="mt-2 text-center text-[10px] leading-[1.35] text-black/65">
+      <div className={receiptSystemCreditClass}>
         <span>System by Zero Solution</span>
         <div>TEL: 076 332 7419</div>
       </div>

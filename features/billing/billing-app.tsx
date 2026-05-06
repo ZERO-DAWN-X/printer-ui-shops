@@ -239,7 +239,7 @@ export const BillingApp = ({
                 color: #000 !important;
                 font-family: "Noto Sans Sinhala", sans-serif !important;
                 font-size: 12px !important;
-                line-height: 1.35 !important;
+                line-height: 1.38 !important;
               }
               #print-root {
                 color: #000 !important;
@@ -251,7 +251,7 @@ export const BillingApp = ({
               #print-root .total-highlight * {
                 background: #000 !important;
                 color: #fff !important;
-                font-size: 17px !important;
+                font-size: 16px !important;
                 line-height: 1.28 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -465,7 +465,7 @@ export const BillingApp = ({
             color: #000 !important;
             font-family: "Noto Sans Sinhala", sans-serif !important;
             font-size: 12px !important;
-            line-height: 1.35 !important;
+            line-height: 1.38 !important;
           }
           #print-root {
             color: #000 !important;
@@ -477,7 +477,7 @@ export const BillingApp = ({
           #print-root .total-highlight * {
             background: #000 !important;
             color: #fff !important;
-            font-size: 17px !important;
+            font-size: 16px !important;
             line-height: 1.28 !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;

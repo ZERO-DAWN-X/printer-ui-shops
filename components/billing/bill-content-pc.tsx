@@ -6,6 +6,18 @@ import {
   receiptHeadingFontStyle,
   receiptShopTitleClass,
 } from "@/components/billing/receipt-root-font";
+import {
+  receiptAddressLineClass,
+  receiptContentWrapperClass,
+  receiptItemColumnHeaderClass,
+  receiptLedgerSectionClass,
+  receiptQtyMetaClass,
+  receiptSystemCreditClass,
+  receiptTelLineClass,
+  receiptThankYouBlockClass,
+  receiptTotalEmphasisClass,
+  receiptTotalsSectionClass,
+} from "@/components/billing/receipt-typography";
 import { formatMoneyTotal } from "@/utils/billing";
 
 const Dashed = () => (
@@ -59,20 +71,20 @@ export const BillContentPc = ({
   const pcTitle = shopDetails.pcShopName.trim() || shopDetails.name;
 
   return (
-    <div className="receipt-content text-[12px] leading-[1.35] text-black" style={receiptContentRootStyle}>
+    <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
         <div className="relative mx-auto mb-1.5 max-w-76 px-1 pt-1 text-black">
           <div className="flex justify-center">
             <PcShopMark />
           </div>
           <p
-            className="mt-1 font-sans text-[8px] font-bold uppercase tracking-[0.42em] text-zinc-950"
+            className="mt-1 font-sans text-[9px] font-bold uppercase tracking-[0.42em] text-zinc-950"
             style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#0a0a0a" }}
           >
             PC shop
           </p>
           <p
-            className="mt-0.5 font-sans text-[7px] font-semibold uppercase tracking-[0.26em] text-zinc-950"
+            className="mt-0.5 font-sans text-[8px] font-semibold uppercase tracking-[0.26em] text-zinc-950"
             style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#0a0a0a" }}
           >
             Hardware · Repairs · Upgrades
@@ -82,8 +94,8 @@ export const BillContentPc = ({
         <h1 className={`mt-1 ${receiptShopTitleClass}`} style={receiptHeadingFontStyle}>
           {pcTitle}
         </h1>
-        <p className="mt-0.5 text-[12px] leading-[1.35]">{shopDetails.address}</p>
-        <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
+        <p className={receiptAddressLineClass}>{shopDetails.address}</p>
+        <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>
         {shopDetails.openingHours.trim() ? (
           <p
             className="mt-1 text-[11px] font-semibold leading-snug text-zinc-950"
@@ -104,7 +116,7 @@ export const BillContentPc = ({
 
       <Dashed />
 
-      <div className="receipt-section text-[12px] leading-[1.35]">
+      <div className={receiptLedgerSectionClass}>
         <div className="flex justify-between">
           <span>Receipt#</span>
           <span className="font-mono tabular-nums">{receiptNo}</span>
@@ -125,7 +137,7 @@ export const BillContentPc = ({
 
       <Dashed />
 
-      <div className="receipt-section mb-1 flex text-[12px] font-bold uppercase tracking-wide leading-[1.3]">
+      <div className={receiptItemColumnHeaderClass}>
         <span className="flex-1">Item</span>
         <span className="w-16 text-right">Amount</span>
       </div>
@@ -141,7 +153,7 @@ export const BillContentPc = ({
 
       <Dashed />
 
-      <div className="text-[12px] leading-[1.35]">
+      <div className={receiptTotalsSectionClass}>
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px">
           <span className="flex-1 font-normal">Sub Total</span>
           <span className="w-24 text-right font-mono tabular-nums font-normal">{subTotal.toFixed(2)}</span>
@@ -151,7 +163,7 @@ export const BillContentPc = ({
           <span className="w-24 text-right font-mono tabular-nums font-normal">{tax.toFixed(2)}</span>
         </div>
         <div
-          className="total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-[17px] text-white tracking-wide"
+          className={`total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-white tracking-wide ${receiptTotalEmphasisClass}`}
           style={{
             backgroundColor: "#000",
             color: "#fff",
@@ -178,9 +190,11 @@ export const BillContentPc = ({
 
       <Dashed />
 
-      <div className="text-center text-[11px] leading-[1.35] text-black/70">
+      <div className={receiptQtyMetaClass}>
         <span>Items: {items.length}</span>
-        <span className="mx-2 opacity-70">|</span>
+        <span className="mx-2 text-black/70" aria-hidden>
+          |
+        </span>
         <span>Qty: {totalQty}</span>
       </div>
 
@@ -188,11 +202,11 @@ export const BillContentPc = ({
 
       <Barcode code={barcodeValue} />
 
-      <div className="mt-2 text-center text-[12px] font-bold leading-snug">
+      <div className={receiptThankYouBlockClass}>
         <p>{shopDetails.thankYouMessage}</p>
       </div>
 
-      <div className="mt-2 text-center text-[10px] leading-[1.35] text-black/65">
+      <div className={receiptSystemCreditClass}>
         <span>System by Zero Solution</span>
         <div>TEL: 076 332 7419</div>
       </div>

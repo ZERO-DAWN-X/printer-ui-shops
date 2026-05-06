@@ -1,3 +1,5 @@
+import { receiptBarcodeCaptionClass } from "@/components/billing/receipt-typography";
+
 type BarcodeProps = {
   code: string;
 };
@@ -34,7 +36,7 @@ export const Barcode = ({ code }: BarcodeProps) => {
           ) : null;
         })}
       </svg>
-      <div className="mt-1 font-mono text-[10px] tracking-widest">{code}</div>
+      <div className={receiptBarcodeCaptionClass}>{code}</div>
     </div>
   );
 };
