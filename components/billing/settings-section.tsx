@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 export const billingInputClass =
   "h-9 w-full rounded-[5px] border border-zinc-300 bg-zinc-100 px-2.5 text-sm text-zinc-900 placeholder:text-zinc-500 outline-none transition focus:border-zinc-500 focus:bg-zinc-50";
 
+export const billingTextAreaClass =
+  "min-h-[2.75rem] w-full resize-y rounded-[5px] border border-zinc-300 bg-zinc-100 px-2.5 py-1.5 text-sm text-zinc-900 placeholder:text-zinc-500 outline-none transition focus:border-zinc-500 focus:bg-zinc-50";
+
 export const billingLabelClass = "mb-1 block text-[11px] font-medium text-zinc-600";
 
 type SettingsSectionProps = {

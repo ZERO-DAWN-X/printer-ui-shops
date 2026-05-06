@@ -104,7 +104,7 @@ export const BillingApp = ({
     setNewItem(INITIAL_NEW_ITEM);
   };
 
-  const handleShopDetailsChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleShopDetailsChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setShopDetails((prev) => ({ ...prev, [name]: value }));
   };

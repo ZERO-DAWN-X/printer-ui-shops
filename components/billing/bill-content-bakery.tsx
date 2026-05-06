@@ -125,6 +125,7 @@ export const BillContentBakery = ({
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
+  const bakeryTitle = shopDetails.bakeryShopName.trim() || shopDetails.name;
 
   return (
     <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
@@ -140,9 +141,15 @@ export const BillContentBakery = ({
           </p>
         </div>
 
-        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{shopDetails.name}</h1>
+        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{bakeryTitle}</h1>
         <p className="mt-0.5 font-sans text-[12px] leading-[1.35]">{shopDetails.address}</p>
         <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
+        {shopDetails.openingHours.trim() ? (
+          <p className="mt-1 font-sans text-[11px] font-medium leading-snug text-black/85">{shopDetails.openingHours}</p>
+        ) : null}
+        {shopDetails.bakeryNote.trim() ? (
+          <p className="mt-1 font-sans text-[10px] leading-[1.45] text-black/70">{shopDetails.bakeryNote}</p>
+        ) : null}
       </div>
 
       <Dashed />

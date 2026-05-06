@@ -1,11 +1,14 @@
 import type { CartItem, ShopDetails } from "@/types/billing";
 
-/** Sinhala / local bakery demo — used when Sinhala is selected */
+/** Sinhala / local demo — used when Sinhala is selected */
 export const DEFAULT_SHOP_DETAILS: ShopDetails = {
   name: "සඳලු ස්ටෝර්ස්",
+  bakeryShopName: "සාදගිරි බේකරිය",
   address: "123, Main Street, Colombo",
   phone: "071 234 5678",
   thankYouMessage: "ස්තූතියි, නැවත එන්න!",
+  openingHours: "Daily 6–9 PM · Sat 7–10 PM",
+  bakeryNote: "බේකරි හා කේක් · විශේෂ ඇණවුම් · ගෙදරටම බෙදා හැරීම",
 };
 
 export const DEFAULT_ITEMS: CartItem[] = [
@@ -18,9 +21,12 @@ export const DEFAULT_ITEMS: CartItem[] = [
 /** English / overseas-style grocer demo — used when English is selected */
 export const FOREIGN_SHOP_DETAILS: ShopDetails = {
   name: "Zero market",
+  bakeryShopName: "Zero market Bakery",
   address: "450 N Michigan Ave, Chicago, IL 60611",
   phone: "+1 (312) 555-0198",
   thankYouMessage: "Thanks for shopping — we appreciate your visit!",
+  openingHours: "Daily 7AM–9PM · Sat 8AM–10PM",
+  bakeryNote: "Artisan breads · Cakes · Custom orders · Catering",
 };
 
 export const FOREIGN_SHOP_ITEMS: CartItem[] = [
