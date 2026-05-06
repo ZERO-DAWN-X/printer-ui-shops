@@ -27,17 +27,52 @@ export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
       <div className="wrap-break-word text-[13px] font-semibold leading-snug text-black">
         {item.name}
       </div>
-      <div className="flex items-baseline justify-end gap-x-2 text-[12px] leading-snug tabular-nums">
-        <span className="w-12 text-center text-black/70">{item.qty}</span>
+      <div className="flex items-baseline justify-end gap-x-2 text-[13px] font-normal leading-snug tabular-nums">
         <span
-          className={`w-17 text-center ${
-            listed > item.price ? "text-black/55 line-through" : "text-black/70"
-          }`}
+          className="w-12 text-center"
+          style={{
+            color: "#737373",
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
         >
-          {formatReceiptAmount(listed)}
+          {item.qty}
         </span>
-        <span className="w-17 text-center text-black/70">{formatReceiptAmount(item.price)}</span>
-        <span className="w-17 text-center font-semibold text-black">
+        <span
+          className="w-17 text-center"
+          style={{
+            color: "#737373",
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
+        >
+          <span className="relative inline-block">
+            {formatReceiptAmount(listed)}
+            {listed > item.price ? (
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 top-1/2 h-px"
+                style={{
+                  backgroundColor: "#000",
+                  transform: "translateY(-50%) rotate(12deg)",
+                  WebkitPrintColorAdjust: "exact",
+                  printColorAdjust: "exact",
+                }}
+              />
+            ) : null}
+          </span>
+        </span>
+        <span
+          className="w-17 text-center"
+          style={{
+            color: "#737373",
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
+        >
+          {formatReceiptAmount(item.price)}
+        </span>
+        <span className="w-17 text-center font-extrabold text-black">
           {formatReceiptAmount(lineTotal)}
         </span>
       </div>

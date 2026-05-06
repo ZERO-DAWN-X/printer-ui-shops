@@ -125,7 +125,7 @@ export const BillContent = ({
         <p
           className={
             isStacked
-              ? "mt-1 text-[12px] font-medium leading-[1.4]"
+              ? "mt-1 pb-2 text-[12px] font-medium leading-[1.4]"
               : receiptAddressLineClass
           }
         >
@@ -209,13 +209,11 @@ export const BillContent = ({
 
       <div className={receiptTotalsSectionClass}>
         {isStacked && savings > 0 ? (
-          <div className="my-1.5 flex items-center justify-center gap-2 border-y-2 border-double border-black px-2 py-1 text-center text-[12.5px] font-bold leading-snug">
-            <span aria-hidden>★</span>
-            <span>{labels.savings}</span>
-            <span className="font-extrabold tabular-nums">
-              {formatMoneyTotal(savings, currency)}
+          <div className="receipt-row flex items-baseline justify-between gap-2 px-1.5 py-px text-[12px] font-medium">
+            <span className="flex-1">{labels.subTotal}</span>
+            <span className="w-24 text-right font-semibold tabular-nums">
+              {subTotal.toFixed(2)}
             </span>
-            <span aria-hidden>★</span>
           </div>
         ) : null}
         {totalVariant === "ribbon" ? (
@@ -253,30 +251,49 @@ export const BillContent = ({
               printColorAdjust: "exact",
             }}
           >
-            <span className="min-w-0 flex-1 whitespace-normal">{labels.total}</span>
+            <span className="min-w-0 flex-1 whitespace-normal text-[13px]">{labels.total}</span>
             <span className="shrink-0 whitespace-nowrap text-right tabular-nums leading-snug text-white">
               {formatMoneyTotal(total, currency)}
             </span>
           </div>
         )}
-        <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-normal">
+        <div className="receipt-row flex items-baseline justify-between gap-2 px-1.5 py-px font-normal">
           <span className="flex-1">{labels.cash}</span>
-          <span className="w-24 text-right tabular-nums">{cashReceived.toFixed(2)}</span>
+          <span className="w-24 text-right text-[14px] font-bold tabular-nums">
+            {cashReceived.toFixed(2)}
+          </span>
         </div>
-        <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-bold">
+        <div className="receipt-row flex items-baseline justify-between gap-2 px-1.5 py-px text-[13px] font-bold">
           <span className="flex-1">{labels.change}</span>
-          <span className="w-24 text-right font-extrabold tabular-nums">{change.toFixed(2)}</span>
+          <span className="w-24 text-right text-[16px] font-extrabold tabular-nums">
+            {change.toFixed(2)}
+          </span>
         </div>
       </div>
 
-      <Dashed compact={isStacked} />
+      {!isStacked && <Dashed />}
+
+      {isStacked && savings > 0 ? (
+        <div className="my-1.5 flex items-center justify-center gap-2 border-y-2 border-double border-black px-2 py-1 text-center text-[12.5px] font-bold leading-snug">
+          <span aria-hidden>★</span>
+          <span>{labels.savings}</span>
+          <span className="font-extrabold tabular-nums">
+            {formatMoneyTotal(savings, currency)}
+          </span>
+          <span aria-hidden>★</span>
+        </div>
+      ) : null}
 
       <div className={receiptQtyMetaClass}>
-        <span>{labels.items}: {items.length}</span>
+        <span>
+          {labels.items}: <span className="text-[13px] font-extrabold tabular-nums">{items.length}</span>
+        </span>
         <span className="mx-2 text-black/70" aria-hidden>
           |
         </span>
-        <span>{labels.qty}: {totalQty}</span>
+        <span>
+          {labels.qty}: <span className="text-[13px] font-extrabold tabular-nums">{totalQty}</span>
+        </span>
       </div>
 
       <Dashed compact={isStacked} />
