@@ -531,12 +531,12 @@ export const BillingApp = ({
       `}</style>
 
       <div
-        className="no-print relative flex min-h-screen flex-col bg-zinc-100 text-zinc-900 antialiased"
+        className="no-print relative flex min-h-dvh min-h-[100svh] w-full max-w-[100vw] flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <aside className="flex w-full shrink-0 flex-col border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden xl:w-[min(680px,52vw)] lg:border-r border-b lg:border-b-0">
-          <header className="shrink-0 bg-white px-2.5 py-2 sm:px-4 sm:py-2.5">
-            <div className="flex items-center justify-between gap-3">
+        <aside className="flex w-full min-w-0 shrink-0 flex-col border-b border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden lg:border-r lg:border-b-0 xl:w-[min(680px,52vw)]">
+          <header className="shrink-0 bg-white px-[max(0.625rem,env(safe-area-inset-left))] py-2 pr-[max(0.625rem,env(safe-area-inset-right))] pt-[max(0.5rem,env(safe-area-inset-top))] sm:px-4 sm:py-2.5 sm:pr-4 sm:pt-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
                 <div
                   className="flex size-8 shrink-0 items-center justify-center rounded-[5px] border border-zinc-300 bg-zinc-100"
@@ -562,7 +562,7 @@ export const BillingApp = ({
                   type="button"
                   aria-pressed={language === "en"}
                   onClick={() => handleLanguageChange("en")}
-                  className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition sm:px-3 sm:text-xs ${
+                  className={`min-h-10 touch-manipulation rounded-[5px] px-3 py-1.5 text-[11px] font-medium transition sm:min-h-0 sm:px-3 sm:py-1 sm:text-xs ${
                     language === "en"
                       ? "bg-black text-white"
                       : "text-zinc-600 hover:text-zinc-900"
@@ -574,7 +574,7 @@ export const BillingApp = ({
                   type="button"
                   aria-pressed={language === "si"}
                   onClick={() => handleLanguageChange("si")}
-                  className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition sm:px-3 sm:text-xs ${
+                  className={`min-h-10 touch-manipulation rounded-[5px] px-3 py-1.5 text-[11px] font-medium transition sm:min-h-0 sm:px-3 sm:py-1 sm:text-xs ${
                     language === "si"
                       ? "bg-black text-white"
                       : "text-zinc-600 hover:text-zinc-900"
@@ -586,10 +586,9 @@ export const BillingApp = ({
             </div>
           </header>
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-2.5 py-2 sm:px-4 sm:py-2.5">
-            <div className="flex min-h-0 flex-1 flex-col">
-              <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden sm:gap-2.5">
-                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:items-start lg:gap-x-3 lg:gap-y-2">
+          <div className="flex min-h-0 flex-1 flex-col lg:overflow-hidden">
+            <div className="flex flex-1 flex-col gap-2 overflow-x-hidden px-[max(0.625rem,env(safe-area-inset-left))] py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pr-[max(0.625rem,env(safe-area-inset-right))] sm:gap-2.5 sm:px-4 sm:py-2.5 sm:pr-4 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-y-contain [scrollbar-gutter:stable]">
+              <div className="grid min-w-0 grid-cols-1 gap-2 lg:grid-cols-2 lg:items-start lg:gap-x-3 lg:gap-y-2">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
                   <AddItemForm
                     value={newItem}
@@ -599,7 +598,7 @@ export const BillingApp = ({
                   />
                 </div>
 
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-2">
+                <div className="grid min-w-0 grid-cols-1 gap-2 min-[560px]:grid-cols-2 min-[560px]:gap-x-3 min-[560px]:gap-y-2">
                   <SettingsSection
                     title="Payment"
                     description={`Due ${formatMoneyTotal(total, billingCurrency)} (incl. tax)`}
@@ -631,27 +630,26 @@ export const BillingApp = ({
                   </SettingsSection>
                 </div>
 
-                <div>
+                <div className="sticky bottom-0 z-10 -mx-[max(0.625rem,env(safe-area-inset-left))] bg-white/95 px-[max(0.625rem,env(safe-area-inset-left))] pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1 backdrop-blur-sm sm:relative sm:z-0 sm:mx-0 sm:bg-transparent sm:px-0 sm:pb-0 sm:pt-0 sm:backdrop-blur-none lg:static lg:bg-transparent lg:backdrop-blur-none">
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="flex h-8 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-[11px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:h-9 sm:text-xs"
+                    className="flex min-h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-[5px] bg-zinc-900 px-3 text-[12px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 sm:min-h-9 sm:h-9 sm:text-xs lg:ring-offset-1"
                   >
-                    <Printer className="size-4" strokeWidth={2} aria-hidden />
+                    <Printer className="size-4 shrink-0 sm:size-4" strokeWidth={2} aria-hidden />
                     Print bill
                   </button>
                   {showPrintHint ? <PrintHint /> : null}
                 </div>
-              </div>
 
-              <div className="flex w-full shrink-0 flex-col items-center px-1 pb-2 pt-1.5 sm:px-2 sm:pb-3 sm:pt-2">
+              <div className="mt-auto flex w-full shrink-0 flex-col items-center border-t border-zinc-100 px-1 pb-3 pt-2 sm:mt-2 sm:border-0 sm:px-2 sm:pb-4 sm:pt-2 lg:border-t lg:border-transparent">
                 <Image
                   src="/logo.jpeg"
                   alt="ZERO ZEEKERS"
                   width={480}
                   height={240}
-                  sizes="(max-width: 1024px) 55vw, 240px"
-                  className="h-auto w-full max-w-[min(240px,calc(100%-0.25rem))] object-contain"
+                  sizes="(max-width: 580px) 90vw, (max-width: 1024px) 52vw, 240px"
+                  className="h-auto w-full max-w-[min(240px,calc(100vw-2rem))] object-contain"
                   draggable={false}
                   priority={false}
                 />
@@ -660,7 +658,7 @@ export const BillingApp = ({
           </div>
         </aside>
 
-        <div className="min-w-0 flex-1 lg:min-h-dvh lg:pl-[min(620px,100vw)] xl:pl-[min(680px,52vw)]">
+        <div className="min-w-0 w-full flex-1 lg:min-h-dvh lg:w-auto lg:flex-1 lg:pl-[min(620px,100vw)] xl:pl-[min(680px,52vw)]">
           <ReceiptPreview
             receiptNo={receiptNo}
             billDate={initialBillDate}

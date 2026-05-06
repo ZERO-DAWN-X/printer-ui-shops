@@ -7,7 +7,7 @@ export const DEFAULT_SHOP_DETAILS: ShopDetails = {
   pcShopName: "Smart Solution",
   pcShopNote: "ලැප්ටොප් · ගේමින් · ගොඩනැගීම් · අලුත්වැඩියා · දෝෂ හඳුනා ගැනීම · ගෙදරට බෙදා හැරීම",
   restaurantShopName: "ගම්මානය",
-  restaurantNote: "ලංකා කෑම · පීසා · කෝපි · විශේෂ මැද දිවා ආහාර",
+  restaurantNote: "සම්ප්‍රදායික ආහාර · පීසා · තේ සහ කෝපි",
   address: "123, Main Street, Colombo",
   phone: "071 234 5678",
   thankYouMessage: "ස්තූතියි, නැවත එන්න!",

@@ -30,8 +30,11 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
 
   return (
     <SettingsSection title="Line items" description="Add a row — preview updates live.">
-      <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-x-1.5 gap-y-1.5 sm:gap-x-2 sm:gap-y-2">
-        <div className="min-w-0 basis-full min-[480px]:min-w-[9rem] min-[480px]:flex-1 sm:min-w-44">
+      <form
+        onSubmit={onSubmit}
+        className="grid grid-cols-1 gap-x-2 gap-y-2 min-[560px]:grid-cols-[minmax(0,1fr)_4.75rem_minmax(5.75rem,1fr)_auto] min-[560px]:items-end"
+      >
+        <div className="min-w-0">
           <label htmlFor="item-name" className={billingLabelClass}>
             Item name
           </label>
@@ -44,9 +47,10 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
             onChange={handleTextChange}
             className={billingInputClass}
             required
+            autoComplete="off"
           />
         </div>
-        <div className="w-19 shrink-0">
+        <div className="min-w-0">
           <label htmlFor="item-qty" className={billingLabelClass}>
             Qty
           </label>
@@ -62,7 +66,7 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
             required
           />
         </div>
-        <div className="min-w-0 w-32 shrink-0 sm:w-31 sm:grow-2">
+        <div className="min-w-0">
           <label htmlFor="item-price" className={billingLabelClass}>
             Price ({priceUnitShort})
           </label>
@@ -79,15 +83,15 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
             required
           />
         </div>
-        <div className="min-w-27 grow basis-27 sm:max-w-28 sm:grow-0">
+        <div className="min-w-0 min-[560px]:w-[min(100%,8.75rem)] min-[560px]:shrink-0">
           <span className={billingLabelClass + " invisible select-none"} aria-hidden>
             Add
           </span>
           <button
             type="submit"
-            className="flex h-8 w-full items-center justify-center gap-1.5 rounded-[5px] bg-zinc-900 text-[11px] font-medium text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-1 sm:text-xs"
+            className="flex min-h-10 w-full touch-manipulation items-center justify-center gap-1.5 rounded-[5px] bg-zinc-900 text-[11px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:h-8 sm:min-h-8 sm:text-xs sm:font-medium lg:ring-offset-1"
           >
-            <Plus size={16} strokeWidth={2} aria-hidden />
+            <Plus size={16} strokeWidth={2} aria-hidden className="shrink-0" />
             Add
           </button>
         </div>

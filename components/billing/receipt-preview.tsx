@@ -82,8 +82,8 @@ export const ReceiptPreview = ({
   };
 
   return (
-    <div className="flex min-w-0 flex-1 items-start justify-center overflow-x-auto bg-zinc-100/80 px-3 py-8 sm:py-10 lg:border-l lg:border-zinc-200/80 lg:py-10">
-      <div className="grid w-full max-w-[120rem] grid-cols-2 justify-items-center gap-x-3 gap-y-8 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-10 md:gap-x-6">
+    <div className="flex min-h-0 min-w-0 w-full flex-1 items-start justify-center overflow-x-auto overflow-y-visible bg-zinc-100/80 px-[max(0.75rem,env(safe-area-inset-left))] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-6 sm:px-4 sm:py-10 lg:border-l lg:border-zinc-200/80 lg:pb-10 lg:pl-4 lg:pr-6 lg:pt-10">
+      <div className="mx-auto grid w-full max-w-[120rem] grid-cols-1 justify-items-center gap-x-3 gap-y-8 min-[460px]:grid-cols-2 sm:gap-x-4 sm:gap-y-10 md:grid-cols-4 md:gap-x-6">
         {PREVIEW_COLUMNS.map((col) => (
           <div key={col.id} className="flex w-full max-w-full flex-col items-center">
             <p className="mb-2 max-w-[14rem] text-center text-[11px] font-semibold uppercase tracking-wide text-zinc-600">

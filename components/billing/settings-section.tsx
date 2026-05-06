@@ -16,10 +16,12 @@ type SettingsSectionProps = {
 
 export const SettingsSection = ({ title, description, children }: SettingsSectionProps) => {
   return (
-    <section className="rounded-[5px] border border-zinc-200 bg-zinc-50 p-2 sm:p-2.5">
+    <section className="min-w-0 rounded-[5px] border border-zinc-200 bg-zinc-50 p-2 sm:p-2.5">
       <header className="mb-1.5 border-b border-zinc-200 pb-1.5 sm:pb-2">
         <h2 className="text-[11px] font-semibold tracking-tight text-zinc-900 sm:text-xs">{title}</h2>
-        {description ? <p className="mt-px text-[9px] leading-snug text-zinc-500 sm:text-[10px]">{description}</p> : null}
+        {description ? (
+          <p className="mt-px break-words text-[9px] leading-snug text-zinc-500 sm:text-[10px]">{description}</p>
+        ) : null}
       </header>
       <div className="space-y-2 sm:space-y-2.5">{children}</div>
     </section>

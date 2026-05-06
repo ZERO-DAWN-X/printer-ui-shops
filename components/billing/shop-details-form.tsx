@@ -16,7 +16,7 @@ type ShopDetailsFormProps = {
 export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
   return (
     <SettingsSection title="Store profile" description="Header + footer on the receipt.">
-      <div className="grid grid-cols-1 gap-x-2 gap-y-1.5 sm:grid-cols-2 sm:gap-x-2 sm:gap-y-2 md:gap-x-3">
+      <div className="grid min-w-0 grid-cols-1 gap-x-2 gap-y-1.5 sm:grid-cols-2 sm:gap-x-2 sm:gap-y-2 md:gap-x-3">
         <div className="sm:col-span-2">
           <label htmlFor="shop-name" className={billingLabelClass}>
             Shop name <span className="font-normal text-zinc-400">(T1–T4, T8)</span>
