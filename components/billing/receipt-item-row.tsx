@@ -27,17 +27,17 @@ export function ReceiptItemRow({ item }: ReceiptItemRowProps) {
     : formulaPart;
 
   return (
-    <div className="receipt-item mb-1.5 flex items-end gap-2 text-[12px] leading-snug">
+    <div className="receipt-item mb-1.5 flex items-end gap-2 text-[13px] leading-snug">
       <div className="min-w-0 flex-1">
-        <div className="break-words font-sans text-[13px] font-semibold leading-snug">
+        <div className="break-words font-sans text-[14px] font-semibold leading-snug">
           <span className="text-black">{primary}</span>
-          <span className="text-[11px] font-medium text-black/55">
+          <span className="text-[12px] font-medium text-black/55">
             {" "}
             ({insideParens})
           </span>
         </div>
       </div>
-      <span className="w-16 shrink-0 self-end pb-px text-right font-mono text-[12px] tabular-nums leading-none text-black">
+      <span className="w-[4.25rem] shrink-0 self-end pb-px text-right font-mono text-[13px] tabular-nums leading-none text-black">
         {lineTotal}
       </span>
     </div>
