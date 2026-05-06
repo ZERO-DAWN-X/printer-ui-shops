@@ -8,109 +8,35 @@ const Dashed = () => (
 );
 
 /**
- * Merged bakery mark: colored badge layout (THE BEST · loaf · wheat · stars)
- * plus receipt-style typography (screen + color-capable print).
+ * Minimal “modern workstation” mark — retained as Type 6 logo (cyan accent, thermal-friendly).
  */
-function BakeryMergedLogo() {
-  const maroon = "#5c2438";
-  const gold = "#e5bd78";
-  const wheat = "#d4a574";
-  const ink = "#3d1822";
-
+function PcShopMark() {
   return (
     <svg
-      className="mx-auto block h-[92px] w-full max-w-[14rem] sm:h-[96px] sm:max-w-[15rem]"
-      viewBox="0 0 200 104"
+      className="mx-auto block h-[72px] w-full max-w-52"
+      viewBox="0 0 128 84"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
       focusable="false"
       style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
     >
-      {/* THE BEST — centered (print-safe vs textPath) */}
-      <text
-        x="100"
-        y="24"
-        textAnchor="middle"
-        fill={maroon}
-        fontFamily="system-ui, Segoe UI, sans-serif"
-        fontSize="9"
-        fontWeight="700"
-        letterSpacing="0.28em"
-      >
-        THE BEST
-      </text>
-
-      {/* Stars */}
-      <polygon points="58,22 59.2,25 62.8,25 60,27 61,31 58,29 55,31 56,27 53.2,25 56.8,25" fill={maroon} />
-      <polygon points="142,22 143.2,25 146.8,25 144,27 145,31 142,29 139,31 140,27 137.2,25 140.8,25" fill={maroon} />
-
-      {/* Steam */}
-      <path
-        d="M88 34c2-3 5-3 7 0M96 31c2.5-3 6-3 8 0M104 34c2-3 5.5-3 7 0"
-        fill="none"
-        stroke={ink}
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.35"
-      />
-
-      {/* Wheat stalks */}
-      <g stroke={maroon} strokeWidth="1.15" fill="none" strokeLinecap="round">
-        <path d="M36 78 Q28 52 44 38" />
-        <path d="M42 52l-4 5M38 46l5 2M46 44l-6 4" opacity="0.9" />
-        <ellipse cx="36" cy="78" rx="3" ry="2" fill={wheat} stroke={maroon} strokeWidth="1" />
-      </g>
-      <g stroke={maroon} strokeWidth="1.15" fill="none" strokeLinecap="round">
-        <path d="M164 78 Q172 52 156 38" />
-        <path d="M158 52l4 5M162 46l-5 2M154 44l6 4" opacity="0.9" />
-        <ellipse cx="164" cy="78" rx="3" ry="2" fill={wheat} stroke={maroon} strokeWidth="1" />
-      </g>
-
-      {/* Bread loaf */}
-      <ellipse cx="100" cy="58" rx="34" ry="14" fill={gold} stroke={maroon} strokeWidth="1.6" />
-      <path
-        d="M76 54c8-10 40-10 48 0"
-        fill="none"
-        stroke={maroon}
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        opacity="0.85"
-      />
-      <path d="M84 56l6-5M94 54l6-4M104 54l6-4M114 56l6-5" stroke={maroon} strokeWidth="1.15" strokeLinecap="round" opacity="0.65" />
-
-      {/* BAKERY */}
-      <text
-        x="100"
-        y="92"
-        textAnchor="middle"
-        fill={maroon}
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontSize="17"
-        fontWeight="700"
-        letterSpacing="0.12em"
-      >
-        BAKERY
-      </text>
-
-      {/* HOUSE IN TOWN */}
-      <text
-        x="100"
-        y="102"
-        textAnchor="middle"
-        fill={maroon}
-        fontFamily="system-ui, Segoe UI, sans-serif"
-        fontSize="6.5"
-        fontWeight="600"
-        letterSpacing="0.42em"
-      >
-        HOUSE IN TOWN
-      </text>
+      <ellipse cx="64" cy="38" rx="46" ry="34" fill="#0891b2" fillOpacity="0.12" />
+      <rect x="24" y="14" width="80" height="48" rx="7" fill="none" stroke="#0f172a" strokeWidth="1.65" />
+      <rect x="30" y="20" width="68" height="36" rx="4" fill="#164e63" fillOpacity="0.28" stroke="#0e7490" strokeOpacity="0.85" strokeWidth="1" />
+      <rect x="36" y="26" width="22" height="4" rx="2" fill="#0f172a" fillOpacity="0.95" />
+      <rect x="62" y="26" width="30" height="3" rx="1.5" fill="#0f172a" fillOpacity="0.58" />
+      <rect x="36" y="34" width="56" height="2.5" rx="1.2" fill="#0f172a" fillOpacity="0.48" />
+      <rect x="58" y="14" width="12" height="5" rx="2" fill="#0f172a" />
+      <path d="M52 62h24l6 11H46z" fill="#0f172a" opacity="0.95" />
+      <rect x="18" y="72" width="92" height="9" rx="4.5" fill="#0f172a" opacity="0.92" />
+      <circle cx="40" cy="76.5" r="2" fill="#64748b" opacity="0.65" />
+      <circle cx="88" cy="76.5" r="2" fill="#64748b" opacity="0.65" />
     </svg>
   );
 }
 
-/** Type 5 — bakery-themed header with illustrated mark; body matches classic thermal layout */
-export const BillContentBakery = ({
+/** Type 6 — PC shop header (+ logo); body matches classic thermal layout */
+export const BillContentPc = ({
   receiptNo,
   billDate,
   billTime,
@@ -125,34 +51,46 @@ export const BillContentBakery = ({
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
-  const bakeryTitle = shopDetails.bakeryShopName.trim() || shopDetails.name;
+  const pcTitle = shopDetails.pcShopName.trim() || shopDetails.name;
 
   return (
     <div className="receipt-content font-mono text-[12px] leading-[1.35] text-black">
       <div className="receipt-section text-center">
-        <div className="relative mx-auto mb-2 max-w-[19rem] px-1 pt-1 text-black">
+        <div className="relative mx-auto mb-1.5 max-w-76 px-1 pt-1 text-black">
           <div className="flex justify-center">
-            <div className="min-w-0 shrink">
-              <BakeryMergedLogo />
-            </div>
+            <PcShopMark />
           </div>
           <p
-            className="mt-1.5 font-sans text-[7px] font-semibold uppercase tracking-[0.32em] text-zinc-950"
+            className="mt-1 font-sans text-[8px] font-bold uppercase tracking-[0.42em] text-zinc-950"
             style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#0a0a0a" }}
           >
-            Oven-fresh – Daily baked
+            PC shop
+          </p>
+          <p
+            className="mt-0.5 font-sans text-[7px] font-semibold uppercase tracking-[0.26em] text-zinc-950"
+            style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#0a0a0a" }}
+          >
+            Hardware · Repairs · Upgrades
           </p>
         </div>
 
-        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{bakeryTitle}</h1>
+        <h1 className="mt-1 font-sans text-[26px] font-extrabold leading-[1.12] tracking-tight">{pcTitle}</h1>
         <p className="mt-0.5 font-sans text-[12px] leading-[1.35]">{shopDetails.address}</p>
         <p className="text-[12px] leading-[1.35]">Tel: {shopDetails.phone}</p>
         {shopDetails.openingHours.trim() ? (
-          <p className="mt-1 font-sans text-[11px] font-medium leading-snug text-black/85">{shopDetails.openingHours}</p>
+          <p
+            className="mt-1 font-sans text-[11px] font-semibold leading-snug text-zinc-950"
+            style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#141414" }}
+          >
+            {shopDetails.openingHours}
+          </p>
         ) : null}
-        {shopDetails.bakeryNote.trim() ? (
-          <p className="mt-1 font-sans text-[10px] font-semibold leading-snug text-black/85 sm:text-[11px]">
-            {shopDetails.bakeryNote}
+        {shopDetails.pcShopNote.trim() ? (
+          <p
+            className="mt-1 font-sans text-[10px] font-semibold leading-snug text-zinc-950 sm:text-[11px]"
+            style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact", color: "#141414" }}
+          >
+            {shopDetails.pcShopNote}
           </p>
         ) : null}
       </div>
@@ -207,7 +145,13 @@ export const BillContentBakery = ({
         </div>
         <div
           className="total-highlight my-2 flex justify-between font-extrabold leading-none text-[17px] text-white tracking-wide"
-          style={{ backgroundColor: "#000", color: "#fff", padding: "6px 8px", WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
+          style={{
+            backgroundColor: "#000",
+            color: "#fff",
+            padding: "6px 8px",
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
         >
           <span className="flex-1">TOTAL</span>
           <span className="w-27 text-right font-mono tabular-nums text-white">

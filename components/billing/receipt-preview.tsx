@@ -3,6 +3,7 @@ import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
+import { BillContentPc } from "@/components/billing/bill-content-pc";
 import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 
 type ReceiptPreviewProps = {
@@ -18,7 +19,7 @@ type ReceiptPreviewProps = {
   currency: BillingCurrency;
 };
 
-type PreviewVariant = "classic" | "lined" | "ribbon" | "arrow" | "bakery";
+type PreviewVariant = "classic" | "lined" | "ribbon" | "arrow" | "bakery" | "pc";
 
 const PREVIEW_COLUMNS: readonly { id: string; label: string; variant: PreviewVariant }[] = [
   { id: "t1", label: "T1 · Classic bar", variant: "classic" },
@@ -26,7 +27,7 @@ const PREVIEW_COLUMNS: readonly { id: string; label: string; variant: PreviewVar
   { id: "t3", label: "T3 · Ribbon row", variant: "ribbon" },
   { id: "t4", label: "T4 · Arrow value", variant: "arrow" },
   { id: "t5", label: "T5 · Bakery shop", variant: "bakery" },
-  { id: "t6", label: "T6 · Classic bar", variant: "classic" },
+  { id: "t6", label: "T6 · PC shop", variant: "pc" },
   { id: "t7", label: "T7 · Classic bar", variant: "classic" },
   { id: "t8", label: "T8 · Classic bar", variant: "classic" },
 ];
@@ -68,6 +69,8 @@ export const ReceiptPreview = ({
         return <BillContentType4 {...shared} />;
       case "bakery":
         return <BillContentBakery {...shared} />;
+      case "pc":
+        return <BillContentPc {...shared} />;
       default: {
         const _exhaustive: never = variant;
         return _exhaustive;

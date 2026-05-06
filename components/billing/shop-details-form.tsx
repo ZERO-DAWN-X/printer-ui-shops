@@ -19,7 +19,7 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
       <div className="grid grid-cols-1 gap-x-2 gap-y-1.5 sm:grid-cols-2 sm:gap-x-2 sm:gap-y-2 md:gap-x-3">
         <div className="sm:col-span-2">
           <label htmlFor="shop-name" className={billingLabelClass}>
-            Shop name <span className="font-normal text-zinc-400">(T1–T4, T6–T8)</span>
+            Shop name <span className="font-normal text-zinc-400">(T1–T4, T7–T8)</span>
           </label>
           <input
             id="shop-name"
@@ -43,6 +43,21 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
             value={values.bakeryShopName}
             onChange={onChange}
             placeholder="Separate title for bakery layout"
+            className={billingInputClass}
+            autoComplete="off"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-pc-name" className={billingLabelClass}>
+            PC shop name <span className="font-normal text-zinc-400">(Type 6 only)</span>
+          </label>
+          <input
+            id="shop-pc-name"
+            type="text"
+            name="pcShopName"
+            value={values.pcShopName}
+            onChange={onChange}
+            placeholder="Title on PC-shop receipt header"
             className={billingInputClass}
             autoComplete="off"
           />
@@ -78,7 +93,7 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="shop-opening-hours" className={billingLabelClass}>
-            Opening hours <span className="font-normal text-zinc-400">(bakery receipt)</span>
+            Opening hours <span className="font-normal text-zinc-400">(Type 5 / 6)</span>
           </label>
           <input
             id="shop-opening-hours"
@@ -101,6 +116,20 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
             onChange={onChange}
             rows={2}
             placeholder="Specialties, registration, delivery…"
+            className={billingTextAreaClass}
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-pc-note" className={billingLabelClass}>
+            PC shop note <span className="font-normal text-zinc-400">(Type 6 header)</span>
+          </label>
+          <textarea
+            id="shop-pc-note"
+            name="pcShopNote"
+            value={values.pcShopNote}
+            onChange={onChange}
+            rows={2}
+            placeholder="Parts, builds, diagnostics…"
             className={billingTextAreaClass}
           />
         </div>
