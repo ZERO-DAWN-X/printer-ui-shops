@@ -9,7 +9,7 @@ export const receiptContentRootStyle: CSSProperties = {
 };
 
 /** Main shop / branch title — do not use Tailwind `font-sans`: it binds Geist and breaks Sinhala shaping. */
-export const receiptShopTitleClass = "text-[24px] font-extrabold leading-snug";
+export const receiptShopTitleClass = "text-[24px] font-extrabold leading-[1.4]";
 
 /** Same stack as receipt root; use on headings so Geist overrides cannot win via cascade. */
 export const receiptHeadingFontStyle: CSSProperties = {

@@ -23,8 +23,11 @@ import {
 import { resolveReceiptLabels } from "@/components/billing/receipt-labels";
 import { formatMoneyTotal } from "@/utils/billing";
 
-const Dashed = () => (
-  <div className="receipt-section" style={{ borderTop: "1.5px dashed #000", margin: "5px 0" }} />
+const Dashed = ({ compact = false }: { compact?: boolean }) => (
+  <div
+    className="receipt-section"
+    style={{ borderTop: "1.5px dashed #000", margin: compact ? "3px 0" : "5px 0" }}
+  />
 );
 
 export type BillContentProps = {
@@ -62,6 +65,7 @@ export const BillContent = ({
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
   const labels = resolveReceiptLabels(shopDetails, items);
+  const isStacked = itemVariant === "stacked";
 
   return (
     <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
@@ -74,9 +78,15 @@ export const BillContent = ({
         <p className={receiptTelLineClass}>Tel: {shopDetails.phone}</p>
       </div>
 
-      <Dashed />
+      <Dashed compact={isStacked} />
 
-      <div className={receiptLedgerSectionClass}>
+      <div
+        className={
+          isStacked
+            ? "receipt-section text-[11px] font-medium leading-[1.3]"
+            : receiptLedgerSectionClass
+        }
+      >
         <div className="flex justify-between">
           <span>{labels.receiptNo}</span>
           <span className="font-mono tabular-nums">{receiptNo}</span>
@@ -95,14 +105,14 @@ export const BillContent = ({
         </div>
       </div>
 
-      <Dashed />
+      <Dashed compact={isStacked} />
 
       {itemVariant === "stacked" ? (
-        <div className="receipt-section mb-1 flex items-end justify-end gap-x-2 text-[10.5px] font-semibold leading-tight tracking-tight">
-          <span className="w-12 text-right">{labels.qty}</span>
-          <span className="w-16 text-right">{labels.listedPrice}</span>
-          <span className="w-16 text-right">{labels.ourPrice}</span>
-          <span className="w-17 text-right">{labels.amount}</span>
+        <div className="receipt-section mb-0.5 flex items-end justify-end gap-x-2 text-[11px] font-semibold leading-tight tracking-tight">
+          <span className="w-12 text-left whitespace-nowrap">{labels.qty}</span>
+          <span className="w-16 text-center whitespace-nowrap">{labels.listedPrice}</span>
+          <span className="w-16 text-center whitespace-nowrap">{labels.ourPrice}</span>
+          <span className="w-17 text-center whitespace-nowrap">{labels.amount}</span>
         </div>
       ) : (
         <div className={receiptItemColumnHeaderClass}>
@@ -110,7 +120,7 @@ export const BillContent = ({
           <span className="w-16 text-right">{labels.amount}</span>
         </div>
       )}
-      <Dashed />
+      <Dashed compact={isStacked} />
 
       <div className="min-h-[40px]">
         {items.length === 0 ? (
@@ -126,7 +136,7 @@ export const BillContent = ({
         )}
       </div>
 
-      <Dashed />
+      <Dashed compact={isStacked} />
 
       <div className={receiptTotalsSectionClass}>
         {totalVariant === "ribbon" ? (
@@ -180,7 +190,7 @@ export const BillContent = ({
         </div>
       </div>
 
-      <Dashed />
+      <Dashed compact={isStacked} />
 
       <div className={receiptQtyMetaClass}>
         <span>{labels.items}: {items.length}</span>
@@ -190,7 +200,7 @@ export const BillContent = ({
         <span>{labels.qty}: {totalQty}</span>
       </div>
 
-      <Dashed />
+      <Dashed compact={isStacked} />
 
       <Barcode code={barcodeValue} />
 
