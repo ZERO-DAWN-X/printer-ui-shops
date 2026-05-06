@@ -98,14 +98,11 @@ export const BillContent = ({
       <Dashed />
 
       {itemVariant === "stacked" ? (
-        <div
-          className="receipt-section mb-1 grid grid-cols-[minmax(0,1fr)_3rem_4rem_4rem_4rem] items-end gap-x-2 text-[11px] font-semibold leading-tight"
-        >
-          <span className="col-start-1 text-left" aria-hidden />
-          <span className="col-start-2 text-left">{labels.qty}</span>
-          <span className="col-start-3 text-left">{labels.listedPrice}</span>
-          <span className="col-start-4 text-left">{labels.ourPrice}</span>
-          <span className="col-start-5 text-left">{labels.amount}</span>
+        <div className="receipt-section mb-1 flex items-end justify-end gap-x-2 text-[10.5px] font-semibold leading-tight tracking-tight">
+          <span className="w-12 text-right">{labels.qty}</span>
+          <span className="w-16 text-right">{labels.listedPrice}</span>
+          <span className="w-16 text-right">{labels.ourPrice}</span>
+          <span className="w-17 text-right">{labels.amount}</span>
         </div>
       ) : (
         <div className={receiptItemColumnHeaderClass}>
