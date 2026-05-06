@@ -148,7 +148,9 @@ export const BillContentBakery = ({
           <p className="mt-1 font-sans text-[11px] font-medium leading-snug text-black/85">{shopDetails.openingHours}</p>
         ) : null}
         {shopDetails.bakeryNote.trim() ? (
-          <p className="mt-1 font-sans text-[10px] leading-[1.45] text-black/70">{shopDetails.bakeryNote}</p>
+          <p className="mt-1 font-sans text-[10px] font-semibold leading-snug text-black/85 sm:text-[11px]">
+            {shopDetails.bakeryNote}
+          </p>
         ) : null}
       </div>
 

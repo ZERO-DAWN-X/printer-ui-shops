@@ -499,7 +499,7 @@ export const BillingApp = ({
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
         <aside className="flex w-full shrink-0 flex-col border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden xl:w-[min(680px,52vw)] lg:border-r border-b lg:border-b-0">
-          <header className="shrink-0 bg-white px-3 py-3 sm:px-4">
+          <header className="shrink-0 bg-white px-2.5 py-2 sm:px-4 sm:py-2.5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
                 <div
@@ -550,10 +550,10 @@ export const BillingApp = ({
             </div>
           </header>
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 py-3 sm:px-4">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-2.5 py-2 sm:px-4 sm:py-2.5">
             <div className="flex min-h-0 flex-1 flex-col">
-              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
-                <div className="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:items-start xl:gap-3">
+              <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden sm:gap-2.5">
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:items-start lg:gap-x-3 lg:gap-y-2">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
                   <AddItemForm
                     value={newItem}
@@ -563,7 +563,7 @@ export const BillingApp = ({
                   />
                 </div>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-2">
                   <SettingsSection
                     title="Payment"
                     description={`Due ${formatMoneyTotal(total, billingCurrency)} (incl. tax)`}
@@ -599,7 +599,7 @@ export const BillingApp = ({
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="flex h-9 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-xs font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:text-sm"
+                    className="flex h-8 w-full items-center justify-center gap-2 rounded-[5px] bg-zinc-900 text-[11px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-500 focus-visible:ring-offset-1 sm:h-9 sm:text-xs"
                   >
                     <Printer className="size-4" strokeWidth={2} aria-hidden />
                     Print bill
@@ -608,7 +608,7 @@ export const BillingApp = ({
                 </div>
               </div>
 
-              <div className="flex w-full shrink-0 flex-col items-center px-2 pb-4 pt-2">
+              <div className="flex w-full shrink-0 flex-col items-center px-1 pb-2 pt-1.5 sm:px-2 sm:pb-3 sm:pt-2">
                 <Image
                   src="/logo.jpeg"
                   alt="ZERO ZEEKERS"

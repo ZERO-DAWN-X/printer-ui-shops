@@ -149,7 +149,7 @@ export const PrintLayoutSelect = ({ labelId, value, onChange }: PrintLayoutSelec
                 onChange(opt.value);
                 close();
               }}
-              className={`flex w-full items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm font-medium transition outline-none focus-visible:bg-zinc-100 focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-inset ${
+              className={`flex w-full items-center gap-2 rounded-[5px] px-2 py-1.5 text-left text-xs font-medium transition outline-none focus-visible:bg-zinc-100 focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-inset sm:text-[13px] ${
                 selected ? "bg-zinc-900 text-white" : "text-zinc-800 hover:bg-zinc-50"
               }`}
             >
@@ -179,7 +179,7 @@ export const PrintLayoutSelect = ({ labelId, value, onChange }: PrintLayoutSelec
           aria-haspopup="listbox"
           aria-controls={open ? listId : undefined}
           onClick={handleToggle}
-          className="flex h-9 w-full items-center justify-between gap-2 rounded-[5px] border border-zinc-300 bg-zinc-100 px-2.5 text-left text-sm font-medium text-zinc-900 outline-none transition hover:border-zinc-400 hover:bg-zinc-50 focus-visible:border-zinc-500 focus-visible:bg-zinc-50 focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-2"
+          className="flex h-8 w-full items-center justify-between gap-2 rounded-[5px] border border-zinc-300 bg-zinc-100 px-2 text-left text-xs font-medium text-zinc-900 outline-none transition hover:border-zinc-400 hover:bg-zinc-50 focus-visible:border-zinc-500 focus-visible:bg-zinc-50 focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:text-[13px]"
         >
           <span className="min-w-0 truncate">{currentLabel}</span>
           <ChevronDown

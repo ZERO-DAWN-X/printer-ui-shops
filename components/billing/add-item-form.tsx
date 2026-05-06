@@ -30,8 +30,8 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
 
   return (
     <SettingsSection title="Line items" description="Add a row — preview updates live.">
-      <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-x-2 gap-y-2">
-        <div className="min-w-0 basis-full sm:min-w-44 sm:flex-1 sm:basis-[min(100%,16rem)]">
+      <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-x-1.5 gap-y-1.5 sm:gap-x-2 sm:gap-y-2">
+        <div className="min-w-0 basis-full min-[480px]:min-w-[9rem] min-[480px]:flex-1 sm:min-w-44">
           <label htmlFor="item-name" className={billingLabelClass}>
             Item name
           </label>
@@ -85,7 +85,7 @@ export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }
           </span>
           <button
             type="submit"
-            className="flex h-9 w-full items-center justify-center gap-1.5 rounded-[5px] bg-zinc-900 text-xs font-medium text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-1"
+            className="flex h-8 w-full items-center justify-center gap-1.5 rounded-[5px] bg-zinc-900 text-[11px] font-medium text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 focus-visible:ring-offset-1 sm:text-xs"
           >
             <Plus size={16} strokeWidth={2} aria-hidden />
             Add
