@@ -26,7 +26,7 @@ export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
       <div className="wrap-break-word text-[13px] font-semibold leading-snug text-black">
         {item.name}
       </div>
-      <div className="flex items-baseline justify-end gap-x-2 font-mono text-[12px] leading-snug tabular-nums">
+      <div className="flex items-baseline justify-end gap-x-2 text-[12px] leading-snug tabular-nums">
         <span className="w-12 text-center text-black/70">{item.qty}</span>
         <span className="w-17 text-center text-black/70">{formatReceiptAmount(item.price)}</span>
         <span className="w-17 text-center text-black/70">{formatReceiptAmount(item.price)}</span>

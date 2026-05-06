@@ -115,7 +115,7 @@ export const BillContent = ({
             <span aria-hidden className="mr-1 align-middle text-[14px]">
               ☎
             </span>
-            <span className="font-mono tabular-nums">{stackedPhoneList.join("  ·  ")}</span>
+            <span className="tabular-nums">{stackedPhoneList.join("  ·  ")}</span>
           </p>
         ) : null}
         <p
@@ -135,10 +135,10 @@ export const BillContent = ({
       {isStacked ? (
         <div className="receipt-section pb-1 text-[11px] font-medium leading-[1.4]">
           <div className="flex items-baseline justify-between gap-2">
-            <span className="font-mono tabular-nums">{billDate}</span>
-            <span className="font-mono tabular-nums">{billTime}</span>
+            <span className="tabular-nums">{billDate}</span>
+            <span className="tabular-nums">{billTime}</span>
             <span>
-              No: <span className="font-mono tabular-nums">#{receiptNo}</span>
+              No: <span className="tabular-nums">#{receiptNo}</span>
             </span>
           </div>
         </div>
@@ -146,7 +146,7 @@ export const BillContent = ({
         <div className={receiptLedgerSectionClass}>
           <div className="flex justify-between">
             <span>{labels.receiptNo}</span>
-            <span className="font-mono tabular-nums">{receiptNo}</span>
+            <span className="tabular-nums">{receiptNo}</span>
           </div>
           <div className="flex justify-between">
             <span>{labels.cashier}</span>
@@ -154,11 +154,11 @@ export const BillContent = ({
           </div>
           <div className="flex justify-between">
             <span>{labels.date}</span>
-            <span className="font-mono tabular-nums">{billDate}</span>
+            <span className="tabular-nums">{billDate}</span>
           </div>
           <div className="flex justify-between">
             <span>{labels.time}</span>
-            <span className="font-mono tabular-nums">{billTime}</span>
+            <span className="tabular-nums">{billTime}</span>
           </div>
         </div>
       )}
@@ -221,7 +221,7 @@ export const BillContent = ({
             >
               <span className="min-w-0 flex-1 whitespace-normal text-white tracking-wide">{labels.total}</span>
               <span
-                className={`shrink-0 whitespace-nowrap text-right font-mono tabular-nums leading-snug text-white ${receiptTotalEmphasisClass}`}
+                className={`shrink-0 whitespace-nowrap text-right tabular-nums leading-snug text-white ${receiptTotalEmphasisClass}`}
               >
                 {formatMoneyTotal(total, currency)}
               </span>
@@ -240,18 +240,18 @@ export const BillContent = ({
             }}
           >
             <span className="min-w-0 flex-1 whitespace-normal">{labels.total}</span>
-            <span className="shrink-0 whitespace-nowrap text-right font-mono tabular-nums leading-snug text-white">
+            <span className="shrink-0 whitespace-nowrap text-right tabular-nums leading-snug text-white">
               {formatMoneyTotal(total, currency)}
             </span>
           </div>
         )}
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-normal">
           <span className="flex-1">{labels.cash}</span>
-          <span className="w-24 text-right font-mono tabular-nums">{cashReceived.toFixed(2)}</span>
+          <span className="w-24 text-right tabular-nums">{cashReceived.toFixed(2)}</span>
         </div>
         <div className="receipt-row flex justify-between gap-2 px-1.5 py-px font-bold">
           <span className="flex-1">{labels.change}</span>
-          <span className="w-24 text-right font-mono tabular-nums">{change.toFixed(2)}</span>
+          <span className="w-24 text-right font-extrabold tabular-nums">{change.toFixed(2)}</span>
         </div>
       </div>
 
