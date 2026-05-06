@@ -17,6 +17,7 @@ import { PrintHint } from "@/components/billing/print-hint";
 import { PrintLayoutSelect, type PrintLayoutValue } from "@/components/billing/print-layout-select";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
 import { ShopDetailsForm } from "@/components/billing/shop-details-form";
+import { ShopLayoutNotesForm } from "@/components/billing/shop-layout-notes-form";
 import {
   DEFAULT_ITEMS,
   DEFAULT_SHOP_DETAILS,
@@ -590,12 +591,15 @@ export const BillingApp = ({
             <div className="flex flex-1 flex-col gap-2 overflow-x-hidden px-[max(0.625rem,env(safe-area-inset-left))] py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pr-[max(0.625rem,env(safe-area-inset-right))] sm:gap-2.5 sm:px-4 sm:py-2.5 sm:pr-4 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-y-contain [scrollbar-gutter:stable]">
               <div className="grid min-w-0 grid-cols-1 gap-2 lg:grid-cols-2 lg:items-start lg:gap-x-3 lg:gap-y-2">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
-                  <AddItemForm
-                    value={newItem}
-                    onChange={setNewItem}
-                    onSubmit={handleAddItem}
-                    priceUnitShort={billingCurrency === "usd" ? "$" : "Rs"}
-                  />
+                  <div className="flex min-w-0 flex-col gap-2 sm:gap-2.5">
+                    <AddItemForm
+                      value={newItem}
+                      onChange={setNewItem}
+                      onSubmit={handleAddItem}
+                      priceUnitShort={billingCurrency === "usd" ? "$" : "Rs"}
+                    />
+                    <ShopLayoutNotesForm values={shopDetails} onChange={handleShopDetailsChange} />
+                  </div>
                 </div>
 
                 <div className="grid min-w-0 grid-cols-1 gap-2 min-[560px]:grid-cols-2 min-[560px]:gap-x-3 min-[560px]:gap-y-2">

@@ -1,11 +1,6 @@
 import type { ChangeEvent } from "react";
 
-import {
-  SettingsSection,
-  billingInputClass,
-  billingLabelClass,
-  billingTextAreaClass,
-} from "@/components/billing/settings-section";
+import { SettingsSection, billingInputClass, billingLabelClass } from "@/components/billing/settings-section";
 import type { ShopDetails } from "@/types/billing";
 
 type ShopDetailsFormProps = {
@@ -103,63 +98,6 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
             onChange={onChange}
             placeholder="e.g. Mon–Sun 7–9"
             className={billingInputClass}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="shop-bakery-note" className={billingLabelClass}>
-            Bakery note <span className="font-normal text-zinc-400">(Type 5 header)</span>
-          </label>
-          <textarea
-            id="shop-bakery-note"
-            name="bakeryNote"
-            value={values.bakeryNote}
-            onChange={onChange}
-            rows={2}
-            placeholder="Specialties, registration, delivery…"
-            className={billingTextAreaClass}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="shop-pc-note" className={billingLabelClass}>
-            PC shop note <span className="font-normal text-zinc-400">(Type 6 header)</span>
-          </label>
-          <textarea
-            id="shop-pc-note"
-            name="pcShopNote"
-            value={values.pcShopNote}
-            onChange={onChange}
-            rows={2}
-            placeholder="Parts, builds, diagnostics…"
-            className={billingTextAreaClass}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="shop-restaurant-name" className={billingLabelClass}>
-            Restaurant name <span className="font-normal text-zinc-400">(Type 7 only)</span>
-          </label>
-          <input
-            id="shop-restaurant-name"
-            type="text"
-            name="restaurantShopName"
-            value={values.restaurantShopName}
-            onChange={onChange}
-            placeholder="Title on restaurant receipt"
-            className={billingInputClass}
-            autoComplete="off"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="shop-restaurant-note" className={billingLabelClass}>
-            Restaurant note <span className="font-normal text-zinc-400">(Type 7 header)</span>
-          </label>
-          <textarea
-            id="shop-restaurant-note"
-            name="restaurantNote"
-            value={values.restaurantNote}
-            onChange={onChange}
-            rows={2}
-            placeholder="Cuisines, lunch specials, reservations…"
-            className={billingTextAreaClass}
           />
         </div>
         <div className="sm:col-span-2">

@@ -9,40 +9,82 @@ const Dashed = () => (
 
 const receiptInkStyle = { WebkitPrintColorAdjust: "exact" as const, printColorAdjust: "exact" as const };
 
-/** Plate + fork & knife — warm burgundy, thermal / grayscale friendly */
+/**
+ * Harbor-inspired dining mark — waves, charger + cloche, gold rim.
+ * Thermal / B&W printers: contrast via stroke weights + fill-opacity.
+ */
 function RestaurantMark() {
-  const burgundy = "#7f1d1d";
-  const dark = "#292524";
+  const harbor = "#1e3a5f";
+  const ink = "#1c1917";
+  const gold = "#b45309";
+  const cream = "#faf8f5";
   return (
     <svg
-      className="mx-auto block h-[72px] w-full max-w-52"
-      viewBox="0 0 128 84"
+      className="mx-auto block h-[80px] w-full max-w-56 sm:h-[84px]"
+      viewBox="0 0 140 94"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
       focusable="false"
       style={{ ...receiptInkStyle }}
     >
-      <ellipse cx="64" cy="44" rx="44" ry="26" fill="#fafaf9" stroke={burgundy} strokeWidth="2" />
-      <ellipse cx="64" cy="44" rx="36" ry="19" fill="none" stroke={dark} strokeWidth="1.2" strokeOpacity="0.55" />
-      {/* Fork */}
+      {/* Water line — harbor cue */}
       <path
-        d="M28 18v46M26 18h4M26 26h4M26 34h4M26 42h4"
-        stroke={dark}
-        strokeWidth="2.2"
+        d="M6 76c14-6 26-6 38 2s26 10 42 4 28-10 42-6"
+        fill="none"
+        stroke={harbor}
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+      <ellipse cx="70" cy="81" rx="62" ry="8" fill={harbor} fillOpacity="0.07" />
+
+      {/* Charger + inner plate */}
+      <ellipse cx="70" cy="52" rx="48" ry="28" fill={cream} stroke={harbor} strokeWidth="2" />
+      <ellipse cx="70" cy="52" rx="41" ry="22" fill="#fffefb" stroke={gold} strokeWidth="1" strokeOpacity="0.92" />
+
+      {/* Cloche — sits on plate shoulder */}
+      <path
+        d="M41 37 Q70 10 99 37"
+        fill="none"
+        stroke={ink}
+        strokeWidth="2.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <line x1="70" y1="10" x2="70" y2="5" stroke={ink} strokeWidth="1.85" strokeLinecap="round" />
+      <circle cx="70" cy="4" r="3.35" fill={gold} fillOpacity="0.95" stroke={ink} strokeWidth="0.9" />
+
+      {/* Steam */}
+      <path
+        d="M53 21c3-6 11-8 14-2M62 17c5-9 14-10 18-3M71 21c5-7 13-8 15-3"
+        fill="none"
+        stroke={harbor}
+        strokeWidth="1.15"
+        strokeLinecap="round"
+        strokeOpacity="0.65"
+      />
+
+      {/* Serving reflection */}
+      <ellipse cx="70" cy="56" rx="22" ry="9" fill={harbor} fillOpacity="0.06" />
+
+      {/* Fork — slim */}
+      <path
+        d="M21 34v52M18.75 34h4.5M18.75 42h4.5M18.75 50h4.5M18.75 58h4.5"
+        stroke={ink}
+        strokeWidth="1.9"
         strokeLinecap="round"
         fill="none"
       />
+
       {/* Knife */}
-      <path d="M100 18v46" stroke={dark} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-      <path d="M100 18l8 6v12l-8 5" fill={dark} stroke={dark} strokeWidth="0.8" strokeLinejoin="round" />
-      {/* Steam */}
+      <path d="M119 34v52" stroke={ink} strokeWidth="2" strokeLinecap="round" fill="none" />
       <path
-        d="M54 28c2-4 6-4 8 0M64 26c2.5-4 7-4 9 0M74 28c2-4 6-4 8 0"
-        fill="none"
-        stroke={burgundy}
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeOpacity="0.75"
+        d="M119 34l11 9v13l-11 9"
+        fill={ink}
+        stroke={ink}
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+        opacity="0.96"
       />
     </svg>
   );
