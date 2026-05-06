@@ -24,7 +24,7 @@ const OPTIONS: readonly { value: PrintLayoutValue; label: string }[] = [
   { value: "type4", label: "T4 · Arrow value" },
   { value: "type5", label: "T5 · Bakery shop" },
   { value: "type6", label: "T6 · PC shop" },
-  { value: "type7", label: "T7 · Classic bar" },
+  { value: "type7", label: "T7 · Restaurant" },
   { value: "type8", label: "T8 · Classic bar" },
 ] as const;
 

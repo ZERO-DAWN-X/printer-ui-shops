@@ -1,7 +1,7 @@
 export type BillingCurrency = "lkr" | "usd";
 
 export type ShopDetails = {
-  /** Main shop name — T1–T4, T7–T8 receipts */
+  /** Main shop name — T1–T4, T8 receipts */
   name: string;
   /** Bakery title on Type 5 only; if empty, falls back to `name` */
   bakeryShopName: string;
@@ -9,10 +9,14 @@ export type ShopDetails = {
   pcShopName: string;
   /** Services / tagline — Type 6 header only */
   pcShopNote: string;
+  /** Restaurant title on Type 7 only; if empty, falls back to `name` */
+  restaurantShopName: string;
+  /** Cuisines / tagline — Type 7 header only */
+  restaurantNote: string;
   address: string;
   phone: string;
   thankYouMessage: string;
-  /** Opening hours — Type 5 & Type 6 headers when non-empty */
+  /** Opening hours — Type 5–7 headers when non-empty */
   openingHours: string;
   /** Extra line — Type 5 bakery layout only */
   bakeryNote: string;

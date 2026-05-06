@@ -4,8 +4,10 @@ import type { CartItem, ShopDetails } from "@/types/billing";
 export const DEFAULT_SHOP_DETAILS: ShopDetails = {
   name: "සඳලු ස්ටෝර්ස්",
   bakeryShopName: "සදගිරි බේකරිය",
-  pcShopName: "මෝඩන් බයිට්ස් පීසී",
+  pcShopName: "Smart Solution",
   pcShopNote: "ලැප්ටොප් · ගේමින් · ගොඩනැගීම් · අලුත්වැඩියා · දෝෂ හඳුනා ගැනීම · ගෙදරට බෙදා හැරීම",
+  restaurantShopName: "ගම්මානය",
+  restaurantNote: "ලංකා කෑම · පීසා · කෝපි · විශේෂ මැද දිවා ආහාර",
   address: "123, Main Street, Colombo",
   phone: "071 234 5678",
   thankYouMessage: "ස්තූතියි, නැවත එන්න!",
@@ -24,8 +26,10 @@ export const DEFAULT_ITEMS: CartItem[] = [
 export const FOREIGN_SHOP_DETAILS: ShopDetails = {
   name: "Zero market",
   bakeryShopName: "Zero Bakery",
-  pcShopName: "Modern Bytes PC",
+  pcShopName: "Smart Solution",
   pcShopNote: "Custom builds · Gaming rigs · Repairs · Diagnostics · Delivery",
+  restaurantShopName: "Harbor Kitchen",
+  restaurantNote: "Seafood · Grill · Coffee · Wine · Lunch specials",
   address: "450 N Michigan Ave, Chicago, IL 60611",
   phone: "+1 (312) 555-0198",
   thankYouMessage: "Thanks for shopping — we appreciate your visit!",

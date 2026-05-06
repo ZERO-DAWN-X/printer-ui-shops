@@ -19,7 +19,7 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
       <div className="grid grid-cols-1 gap-x-2 gap-y-1.5 sm:grid-cols-2 sm:gap-x-2 sm:gap-y-2 md:gap-x-3">
         <div className="sm:col-span-2">
           <label htmlFor="shop-name" className={billingLabelClass}>
-            Shop name <span className="font-normal text-zinc-400">(T1–T4, T7–T8)</span>
+            Shop name <span className="font-normal text-zinc-400">(T1–T4, T8)</span>
           </label>
           <input
             id="shop-name"
@@ -93,7 +93,7 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="shop-opening-hours" className={billingLabelClass}>
-            Opening hours <span className="font-normal text-zinc-400">(Type 5 / 6)</span>
+            Opening hours <span className="font-normal text-zinc-400">(Type 5–7)</span>
           </label>
           <input
             id="shop-opening-hours"
@@ -130,6 +130,35 @@ export const ShopDetailsForm = ({ values, onChange }: ShopDetailsFormProps) => {
             onChange={onChange}
             rows={2}
             placeholder="Parts, builds, diagnostics…"
+            className={billingTextAreaClass}
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-restaurant-name" className={billingLabelClass}>
+            Restaurant name <span className="font-normal text-zinc-400">(Type 7 only)</span>
+          </label>
+          <input
+            id="shop-restaurant-name"
+            type="text"
+            name="restaurantShopName"
+            value={values.restaurantShopName}
+            onChange={onChange}
+            placeholder="Title on restaurant receipt"
+            className={billingInputClass}
+            autoComplete="off"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="shop-restaurant-note" className={billingLabelClass}>
+            Restaurant note <span className="font-normal text-zinc-400">(Type 7 header)</span>
+          </label>
+          <textarea
+            id="shop-restaurant-note"
+            name="restaurantNote"
+            value={values.restaurantNote}
+            onChange={onChange}
+            rows={2}
+            placeholder="Cuisines, lunch specials, reservations…"
             className={billingTextAreaClass}
           />
         </div>

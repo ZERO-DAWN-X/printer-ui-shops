@@ -12,6 +12,7 @@ import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
+import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
 import { PrintHint } from "@/components/billing/print-hint";
 import { PrintLayoutSelect, type PrintLayoutValue } from "@/components/billing/print-layout-select";
 import { ReceiptPreview } from "@/components/billing/receipt-preview";
@@ -356,6 +357,23 @@ export const BillingApp = ({
     if (printType === "type6") {
       return (
         <BillContentPc
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={items}
+          shopDetails={shopDetails}
+          subTotal={subTotal}
+          tax={taxAmount}
+          total={total}
+          cashReceived={cashReceivedValue}
+          currency={billingCurrency}
+        />
+      );
+    }
+
+    if (printType === "type7") {
+      return (
+        <BillContentRestaurant
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
