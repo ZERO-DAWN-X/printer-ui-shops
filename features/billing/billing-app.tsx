@@ -246,7 +246,7 @@ export const BillingApp = ({
                 background: #000 !important;
                 color: #fff !important;
                 font-size: 17px !important;
-                line-height: 1.15 !important;
+                line-height: 1.28 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
               }
@@ -466,7 +466,7 @@ export const BillingApp = ({
             background: #000 !important;
             color: #fff !important;
             font-size: 17px !important;
-            line-height: 1.15 !important;
+            line-height: 1.28 !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
@@ -600,7 +600,7 @@ export const BillingApp = ({
                       value={newItem}
                       onChange={setNewItem}
                       onSubmit={handleAddItem}
-                      priceUnitShort={billingCurrency === "usd" ? "$" : "Rs"}
+                      priceUnitShort={billingCurrency === "usd" ? "$" : "Rs."}
                     />
                     <ShopLayoutNotesForm values={shopDetails} onChange={handleShopDetailsChange} />
                   </div>

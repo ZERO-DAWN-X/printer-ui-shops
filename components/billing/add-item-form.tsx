@@ -8,11 +8,11 @@ type AddItemFormProps = {
   value: NewItemForm;
   onChange: (next: NewItemForm) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  /** Label segment after "Price", e.g. "Rs" → "Price (Rs)" or "$" → "Price ($)" */
+  /** Label segment after "Price", e.g. "Rs." → "Price (Rs.)" or "$" → "Price ($)" */
   priceUnitShort?: string;
 };
 
-export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs" }: AddItemFormProps) => {
+export const AddItemForm = ({ value, onChange, onSubmit, priceUnitShort = "Rs." }: AddItemFormProps) => {
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value: nextValue } = event.target;
     if (name === "name") {

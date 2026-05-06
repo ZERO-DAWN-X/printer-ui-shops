@@ -101,30 +101,38 @@ export const BillContent = ({
         {totalVariant === "ribbon" ? (
           <div className="my-2.5 flex w-full justify-center px-0.5">
             <div
-              className="total-highlight flex w-full max-w-full justify-between gap-2 font-extrabold leading-none text-[17px]"
+              className="total-highlight flex w-full max-w-full items-center justify-between gap-2 py-1 font-extrabold leading-snug text-[17px]"
               style={{
                 backgroundColor: "#000",
                 color: "#fff",
-                padding: "6px 14px",
+                paddingLeft: "14px",
+                paddingRight: "14px",
                 WebkitPrintColorAdjust: "exact",
                 printColorAdjust: "exact",
                 clipPath:
                   "polygon(11px 0%, calc(100% - 11px) 0%, 100% 50%, calc(100% - 11px) 100%, 11px 100%, 0 50%)",
               }}
             >
-              <span className="min-w-0 flex-1 text-white tracking-wide">TOTAL</span>
-              <span className="w-27 shrink-0 text-right font-mono text-[17px] tabular-nums text-white">
-                Rs {total.toFixed(2)}
+              <span className="min-w-0 flex-1 whitespace-normal text-white tracking-wide">TOTAL</span>
+              <span className="shrink-0 whitespace-nowrap text-right font-mono text-[17px] tabular-nums leading-snug text-white">
+                {formatMoneyTotal(total, currency)}
               </span>
             </div>
           </div>
         ) : (
           <div
-            className="total-highlight my-2 flex justify-between font-extrabold leading-none text-[17px] text-white tracking-wide"
-            style={{ backgroundColor: "#000", color: "#fff", padding: "6px 8px" }}
+            className="total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-[17px] text-white tracking-wide"
+            style={{
+              backgroundColor: "#000",
+              color: "#fff",
+              paddingLeft: "8px",
+              paddingRight: "8px",
+              WebkitPrintColorAdjust: "exact",
+              printColorAdjust: "exact",
+            }}
           >
-            <span className="flex-1">TOTAL</span>
-            <span className="w-27 text-right font-mono tabular-nums text-white">
+            <span className="min-w-0 flex-1 whitespace-normal">TOTAL</span>
+            <span className="shrink-0 whitespace-nowrap text-right font-mono tabular-nums leading-snug text-white">
               {formatMoneyTotal(total, currency)}
             </span>
           </div>

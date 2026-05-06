@@ -8,7 +8,8 @@ export const calculateSubtotal = (items: CartItem[]): number =>
 
 export function formatMoneyTotal(amount: number, currency: BillingCurrency): string {
   const fixed = amount.toFixed(2);
-  return currency === "usd" ? `$${fixed}` : `Rs ${fixed}`;
+  // NBSP keeps "Rs." + amount on one line in narrow thermal widths (avoid clipped wrap)
+  return currency === "usd" ? `$${fixed}` : `Rs.${fixed}`;
 }
 
 export const generateReceiptFromSeed = (seed: string): string => {

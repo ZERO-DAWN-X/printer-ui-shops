@@ -104,11 +104,11 @@ export const BillContentAlt = ({
               TOTAL
             </span>
             <div
-              className="total-highlight ml-auto shrink-0 font-mono font-extrabold leading-none text-[17px] text-white tabular-nums"
+              className="total-highlight ml-auto shrink-0 whitespace-nowrap py-1.5 font-mono font-extrabold leading-snug text-[17px] tabular-nums text-white"
               style={{
                 backgroundColor: "#000",
-                /* Room for left swallowtail + right arrow tip — text clears notches via padding */
-                padding: "6px 18px 6px 20px",
+                paddingLeft: "20px",
+                paddingRight: "18px",
                 WebkitPrintColorAdjust: "exact",
                 printColorAdjust: "exact",
                 clipPath:
@@ -121,9 +121,9 @@ export const BillContentAlt = ({
         ) : (
           <>
             <div style={{ borderTop: "1.5px solid #000", margin: "6px 0 4px" }} />
-            <div className="my-2 flex justify-between font-extrabold leading-none text-[17px] tracking-wide text-black">
-              <span className="flex-1">TOTAL</span>
-              <span className="w-27 text-right font-mono tabular-nums">{formatMoneyTotal(total, currency)}</span>
+            <div className="my-2 flex items-center justify-between gap-2 py-px font-extrabold leading-snug text-[17px] tracking-wide text-black">
+              <span className="min-w-0 flex-1">TOTAL</span>
+              <span className="shrink-0 whitespace-nowrap text-right font-mono tabular-nums">{formatMoneyTotal(total, currency)}</span>
             </div>
             <div style={{ borderTop: "1.5px solid #000", margin: "4px 0 6px" }} />
           </>

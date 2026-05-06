@@ -206,11 +206,18 @@ export const BillContentBakery = ({
           <span className="w-24 text-right font-mono tabular-nums font-normal">{tax.toFixed(2)}</span>
         </div>
         <div
-          className="total-highlight my-2 flex justify-between font-extrabold leading-none text-[17px] text-white tracking-wide"
-          style={{ backgroundColor: "#000", color: "#fff", padding: "6px 8px", WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
+          className="total-highlight my-2 flex items-center justify-between gap-2 py-1.5 font-extrabold leading-snug text-[17px] text-white tracking-wide"
+          style={{
+            backgroundColor: "#000",
+            color: "#fff",
+            paddingLeft: "8px",
+            paddingRight: "8px",
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
         >
-          <span className="flex-1">TOTAL</span>
-          <span className="w-27 text-right font-mono tabular-nums text-white">
+          <span className="min-w-0 flex-1 whitespace-normal">TOTAL</span>
+          <span className="shrink-0 whitespace-nowrap text-right font-mono tabular-nums leading-snug text-white">
             {formatMoneyTotal(total, currency)}
           </span>
         </div>
