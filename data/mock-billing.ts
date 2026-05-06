@@ -2,16 +2,16 @@ import type { CartItem, ShopDetails } from "@/types/billing";
 
 /** Sinhala / local demo — used when Sinhala is selected */
 export const DEFAULT_SHOP_DETAILS: ShopDetails = {
-  name: "සඳලු ස්ටෝර්ස්",
+  name: "සඳලු ස්ටෝර්ස් සහ කුළුබඩු නිෂ්පාදකයෝ",
   bakeryShopName: "සදගිරි බේකරිය",
   pcShopName: "Smart Solution",
   pcShopNote: "ලැප්ටොප් · ගේමින් · ගොඩනැගීම් · අලුත්වැඩියා · දෝෂ හඳුනා ගැනීම · ගෙදරට බෙදා හැරීම",
   restaurantShopName: "ගම්මානය",
   restaurantNote: "සම්ප්‍රදායික ආහාර · පීසා · තේ සහ කෝපි",
-  address: "123, Main Street, Colombo",
-  phone: "071 234 5678",
+  address: "අංක 07, මාර්කට්, පරණ ඇල්ල පාර, වැල්ලවාය.",
+  phone: "0719351132,0703919932",
   thankYouMessage: "ස්තූතියි, නැවත එන්න!",
-  openingHours: "",
+  openingHours: "ලියාපදිංචි අංකය, mo/ වැ /1050",
   bakeryNote: "බේකරි හා කේක් · විශේෂ ඇණවුම් · ගෙදරටම බෙදා හැරීම",
 };
 

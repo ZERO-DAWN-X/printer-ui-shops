@@ -19,10 +19,6 @@ import {
   receiptThankYouBlockClass,
   receiptTotalEmphasisClass,
   receiptTotalsSectionClass,
-  receiptStackedGridGapClass,
-  receiptStackedGridTemplateClass,
-  receiptStackedHeaderCellClass,
-  receiptStackedHeaderClass,
 } from "@/components/billing/receipt-typography";
 import { resolveReceiptLabels } from "@/components/billing/receipt-labels";
 import { formatMoneyTotal } from "@/utils/billing";
@@ -103,13 +99,13 @@ export const BillContent = ({
 
       {itemVariant === "stacked" ? (
         <div
-          className={`${receiptStackedHeaderClass} ${receiptStackedGridTemplateClass} ${receiptStackedGridGapClass}`}
+          className="receipt-section mb-1 grid grid-cols-[minmax(0,1fr)_3rem_4rem_4rem_4rem] items-end gap-x-2 text-[11px] font-semibold leading-tight"
         >
           <span className="col-start-1 text-left" aria-hidden />
-          <span className={`col-start-2 ${receiptStackedHeaderCellClass}`}>{labels.qty}</span>
-          <span className={`col-start-3 ${receiptStackedHeaderCellClass}`}>{labels.listedPrice}</span>
-          <span className={`col-start-4 ${receiptStackedHeaderCellClass}`}>{labels.ourPrice}</span>
-          <span className={`col-start-5 ${receiptStackedHeaderCellClass}`}>{labels.amount}</span>
+          <span className="col-start-2 text-left">{labels.qty}</span>
+          <span className="col-start-3 text-left">{labels.listedPrice}</span>
+          <span className="col-start-4 text-left">{labels.ourPrice}</span>
+          <span className="col-start-5 text-left">{labels.amount}</span>
         </div>
       ) : (
         <div className={receiptItemColumnHeaderClass}>

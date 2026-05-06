@@ -1,12 +1,4 @@
 import type { CartItem } from "@/types/billing";
-import {
-  receiptStackedGridGapClass,
-  receiptStackedGridTemplateClass,
-  receiptStackedNameClass,
-  receiptStackedQtyClass,
-  receiptStackedRowClass,
-  receiptStackedValueClass,
-} from "@/components/billing/receipt-typography";
 
 type ReceiptItemRowType8Props = {
   item: CartItem;
@@ -28,16 +20,16 @@ export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
   const lineTotal = item.qty * item.price;
 
   return (
-    <div className={`${receiptStackedRowClass} ${receiptStackedGridTemplateClass} ${receiptStackedGridGapClass}`}>
-      <div className={receiptStackedNameClass}>{item.name}</div>
-      <span className={receiptStackedQtyClass}>{item.qty}</span>
-      <span className={`col-start-3 ${receiptStackedValueClass}`}>
+    <div className="receipt-item mb-1.5 grid grid-cols-[minmax(0,1fr)_3rem_4rem_4rem_4rem] items-center gap-x-2 text-[13px] leading-snug">
+      <div className="col-span-5 wrap-break-word text-black">{item.name}</div>
+      <span className="col-start-2 mt-0.5 text-left font-mono text-[12px] tabular-nums text-black/90">{item.qty}</span>
+      <span className="col-start-3 mt-0.5 text-left font-mono text-[12px] tabular-nums text-black/90">
         {formatReceiptAmount(item.price)}
       </span>
-      <span className={`col-start-4 ${receiptStackedValueClass}`}>
+      <span className="col-start-4 mt-0.5 text-left font-mono text-[12px] tabular-nums text-black/90">
         {formatReceiptAmount(item.price)}
       </span>
-      <span className={`col-start-5 ${receiptStackedValueClass}`}>
+      <span className="col-start-5 mt-0.5 text-left font-mono text-[12px] tabular-nums text-black/90">
         {formatReceiptAmount(lineTotal)}
       </span>
     </div>

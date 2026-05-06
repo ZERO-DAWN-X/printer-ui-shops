@@ -146,10 +146,12 @@ export const ReceiptPreview = ({
               {col.label}
             </p>
             <div
-              className="receipt-shell jagged-edge-top jagged-edge-bottom rounded-[5px] border border-zinc-200 bg-white"
-              lang={receiptLang}
+              className="bg-white"
+              style={{ width: "80mm", padding: "0.8mm 0.8mm 0.5mm", boxSizing: "border-box" }}
             >
-              {renderVariant(col.variant)}
+              <div className="receipt-shell" lang={receiptLang}>
+                {renderVariant(col.variant)}
+              </div>
             </div>
           </div>
         ))}

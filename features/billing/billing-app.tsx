@@ -41,7 +41,7 @@ import {
 
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
 const THERMAL_PAPER_WIDTH_MM = 80;
-const THERMAL_CONTENT_WIDTH_MM = 72;
+const THERMAL_CONTENT_WIDTH_MM = 75;
 type PrintType = PrintLayoutValue;
 
 type BillingAppProps = {
@@ -211,7 +211,7 @@ export const BillingApp = ({
             #print-root { display: none; }
             .receipt-content {
               width: 100%;
-              padding: 3mm 3mm 2mm;
+              padding: 0.8mm 0.8mm 0.5mm;
             }
             .thermal-dash {
               border-bottom: 1.5px dashed black !important;
@@ -234,7 +234,7 @@ export const BillingApp = ({
                 position: static !important;
                 width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
                 box-sizing: border-box !important;
-                padding: 3mm 3mm 2mm !important;
+                padding: 0.8mm 0.8mm 0.5mm !important;
                 margin: 0 !important;
                 background: #fff !important;
                 color: #000 !important;
@@ -457,7 +457,7 @@ export const BillingApp = ({
         .receipt-content {
           box-sizing: border-box;
           width: 100%;
-          padding: 3mm 3mm 2mm;
+          padding: 0.8mm 0.8mm 0.5mm;
         }
 
         @media print {
@@ -477,7 +477,7 @@ export const BillingApp = ({
             position: static !important;
             width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
             box-sizing: border-box !important;
-            padding: 3mm 3mm 2mm !important;
+            padding: 0.8mm 0.8mm 0.5mm !important;
             margin: 0 !important;
             background: #fff !important;
             color: #000 !important;
@@ -569,7 +569,7 @@ export const BillingApp = ({
         className="no-print relative flex min-h-dvh min-h-[100svh] w-full max-w-[100vw] flex-col bg-zinc-100 text-zinc-900 antialiased lg:flex-row"
         style={{ fontFamily: '"Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif' }}
       >
-        <aside className="flex w-full min-w-0 shrink-0 flex-col border-b border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(620px,100vw)] lg:overflow-hidden lg:border-r lg:border-b-0 xl:w-[min(680px,52vw)]">
+        <aside className="flex w-full min-w-0 shrink-0 flex-col border-b border-zinc-200 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:h-dvh lg:w-[min(520px,100vw)] lg:overflow-hidden lg:border-r lg:border-b-0 xl:w-[min(560px,46vw)]">
           <header className="shrink-0 bg-white px-[max(0.625rem,env(safe-area-inset-left))] py-2 pr-[max(0.625rem,env(safe-area-inset-right))] pt-[max(0.5rem,env(safe-area-inset-top))] sm:px-4 sm:py-2.5 sm:pr-4 sm:pt-2.5">
             <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
@@ -623,7 +623,29 @@ export const BillingApp = ({
 
           <div className="flex min-h-0 flex-1 flex-col lg:overflow-hidden">
             <div className="flex flex-1 flex-col gap-2 overflow-x-hidden px-[max(0.625rem,env(safe-area-inset-left))] py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pr-[max(0.625rem,env(safe-area-inset-right))] sm:gap-2.5 sm:px-4 sm:py-2.5 sm:pr-4 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-y-contain [scrollbar-gutter:stable]">
-              <div className="grid min-w-0 grid-cols-1 gap-2 lg:grid-cols-2 lg:items-start lg:gap-x-3 lg:gap-y-2">
+              <div className="grid min-w-0 grid-cols-1 gap-2">
+                <SettingsSection title="Print" description="Receipt layout for thermal print">
+                  <div>
+                    <p id={layoutSelectLabelId} className={billingLabelClass}>
+                      Layout
+                    </p>
+                    <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
+                  </div>
+                  <div className="mt-2">
+                    <button
+                      type="button"
+                      onClick={handlePrint}
+                      className="flex min-h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-[5px] bg-zinc-900 px-3 text-[12px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 sm:min-h-9 sm:h-9 sm:text-xs lg:ring-offset-1"
+                    >
+                      <Printer className="size-4 shrink-0 sm:size-4" strokeWidth={2} aria-hidden />
+                      Print bill
+                    </button>
+                    {showPrintHint ? <PrintHint /> : null}
+                  </div>
+                </SettingsSection>
+              </div>
+
+              <div className="grid min-w-0 grid-cols-1 gap-2">
                   <ShopDetailsForm values={shopDetails} onChange={handleShopDetailsChange} />
                   <div className="flex min-w-0 flex-col gap-2 sm:gap-2.5">
                     <AddItemForm
@@ -636,7 +658,7 @@ export const BillingApp = ({
                   </div>
                 </div>
 
-                <div className="grid min-w-0 grid-cols-1 gap-2 min-[560px]:grid-cols-2 min-[560px]:gap-x-3 min-[560px]:gap-y-2">
+                <div className="grid min-w-0 grid-cols-1 gap-2">
                   <SettingsSection
                     title="Payment"
                     description={`Due ${formatMoneyTotal(total, billingCurrency)} (incl. tax)`}
@@ -657,27 +679,6 @@ export const BillingApp = ({
                       />
                     </div>
                   </SettingsSection>
-
-                  <SettingsSection title="Print" description="Receipt layout for thermal print">
-                    <div>
-                      <p id={layoutSelectLabelId} className={billingLabelClass}>
-                        Layout
-                      </p>
-                      <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
-                    </div>
-                  </SettingsSection>
-                </div>
-
-                <div className="sticky bottom-0 z-10 -mx-[max(0.625rem,env(safe-area-inset-left))] bg-white/95 px-[max(0.625rem,env(safe-area-inset-left))] pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1 backdrop-blur-sm sm:relative sm:z-0 sm:mx-0 sm:bg-transparent sm:px-0 sm:pb-0 sm:pt-0 sm:backdrop-blur-none lg:static lg:bg-transparent lg:backdrop-blur-none">
-                  <button
-                    type="button"
-                    onClick={handlePrint}
-                    className="flex min-h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-[5px] bg-zinc-900 px-3 text-[12px] font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 sm:min-h-9 sm:h-9 sm:text-xs lg:ring-offset-1"
-                  >
-                    <Printer className="size-4 shrink-0 sm:size-4" strokeWidth={2} aria-hidden />
-                    Print bill
-                  </button>
-                  {showPrintHint ? <PrintHint /> : null}
                 </div>
 
               <div className="mt-auto flex w-full shrink-0 flex-col items-center border-t border-zinc-100 px-1 pb-3 pt-2 sm:mt-2 sm:border-0 sm:px-2 sm:pb-4 sm:pt-2 lg:border-t lg:border-transparent">
@@ -696,7 +697,7 @@ export const BillingApp = ({
           </div>
         </aside>
 
-        <div className="min-w-0 w-full flex-1 lg:min-h-dvh lg:w-auto lg:flex-1 lg:pl-[min(620px,100vw)] xl:pl-[min(680px,52vw)]">
+        <div className="min-w-0 w-full flex-1 lg:min-h-dvh lg:w-auto lg:flex-1 lg:pl-[min(520px,100vw)] xl:pl-[min(560px,46vw)]">
           <ReceiptPreview
             receiptNo={receiptNo}
             billDate={initialBillDate}
