@@ -111,8 +111,8 @@ export const BillContent = ({
           ? {
               ...receiptContentRootStyle,
               paddingTop: "5mm",
-              paddingLeft: "3mm",
-              paddingRight: "3mm",
+              paddingLeft: "1.5mm",
+              paddingRight: "1.5mm",
             }
           : receiptContentRootStyle
       }
@@ -207,7 +207,7 @@ export const BillContent = ({
           {isSimple ? null : (
             <span className="w-17 text-center whitespace-nowrap">{labels.listedPrice}</span>
           )}
-          <span className="w-17 text-center whitespace-nowrap">{labels.price}</span>
+          <span className="w-17 text-center whitespace-nowrap">{labels.ourPrice}</span>
           <span className="w-17 text-center whitespace-nowrap">{labels.amount}</span>
         </div>
       ) : (
