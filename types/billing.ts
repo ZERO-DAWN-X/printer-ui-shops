@@ -15,6 +15,10 @@ export type ShopDetails = {
   restaurantNote: string;
   address: string;
   phone: string;
+  /** Bakery-specific address (Type 5/9). Falls back to `address` when empty. */
+  bakeryAddress: string;
+  /** Bakery-specific phone (Type 5/9). Falls back to `phone` when empty. */
+  bakeryPhone: string;
   thankYouMessage: string;
   /** Opening hours — Type 5–7 headers when non-empty */
   openingHours: string;

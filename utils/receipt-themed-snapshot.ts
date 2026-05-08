@@ -1,18 +1,23 @@
 import {
+  DEFAULT_BAKERY_PREVIEW_ITEMS,
   DEFAULT_PC_PREVIEW_ITEMS,
   DEFAULT_RESTAURANT_PREVIEW_ITEMS,
+  FOREIGN_BAKERY_PREVIEW_ITEMS,
   FOREIGN_PC_PREVIEW_ITEMS,
   FOREIGN_RESTAURANT_PREVIEW_ITEMS,
 } from "@/data/mock-billing";
 import type { BillingCurrency, CartItem } from "@/types/billing";
 import { BILLING_TAX_RATE, calculateSubtotal } from "@/utils/billing";
 
-/** Type 6 (PC) / Type 7 (restaurant) — same cart source as the receipt grid previews */
-export type ThemedReceiptKind = "pc" | "restaurant";
+/** Type 5/9 (bakery) / Type 6 (PC) / Type 7 (restaurant) — same cart source as the receipt grid previews */
+export type ThemedReceiptKind = "bakery" | "pc" | "restaurant";
 
 const cloneCart = (rows: CartItem[]): CartItem[] => rows.map((row) => ({ ...row }));
 
 export function cartForThemedReceipt(kind: ThemedReceiptKind, locale: "en" | "si"): CartItem[] {
+  if (kind === "bakery") {
+    return cloneCart(locale === "en" ? FOREIGN_BAKERY_PREVIEW_ITEMS : DEFAULT_BAKERY_PREVIEW_ITEMS);
+  }
   if (kind === "pc") {
     return cloneCart(locale === "en" ? FOREIGN_PC_PREVIEW_ITEMS : DEFAULT_PC_PREVIEW_ITEMS);
   }

@@ -11,6 +11,7 @@ import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { BillContentType8 } from "@/components/billing/bill-content-type8";
+import { BillContentType9 } from "@/components/billing/bill-content-type9";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
 import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
@@ -349,17 +350,20 @@ export const BillingApp = ({
     }
 
     if (printType === "type5") {
+      const bakeryCart = cartForThemedReceipt("bakery", language);
+      const bakeryTotals = totalsForReceiptCart(bakeryCart);
+      const bakeryCash = tenderForThemedTotal(billingCurrency, bakeryTotals.total, cashReceivedValue);
       return (
         <BillContentBakery
           receiptNo={receiptNo}
           billDate={initialBillDate}
           billTime={initialBillTime}
-          items={items}
+          items={bakeryCart}
           shopDetails={shopDetails}
-          subTotal={subTotal}
-          tax={taxAmount}
-          total={total}
-          cashReceived={cashReceivedValue}
+          subTotal={bakeryTotals.subTotal}
+          tax={bakeryTotals.tax}
+          total={bakeryTotals.total}
+          cashReceived={bakeryCash}
           currency={billingCurrency}
         />
       );
@@ -417,6 +421,26 @@ export const BillingApp = ({
           tax={taxAmount}
           total={total}
           cashReceived={cashReceivedValue}
+          currency={billingCurrency}
+        />
+      );
+    }
+
+    if (printType === "type9") {
+      const bakery2Cart = cartForThemedReceipt("bakery", language);
+      const bakery2Totals = totalsForReceiptCart(bakery2Cart);
+      const bakery2Cash = tenderForThemedTotal(billingCurrency, bakery2Totals.total, cashReceivedValue);
+      return (
+        <BillContentType9
+          receiptNo={receiptNo}
+          billDate={initialBillDate}
+          billTime={initialBillTime}
+          items={bakery2Cart}
+          shopDetails={shopDetails}
+          subTotal={bakery2Totals.subTotal}
+          tax={bakery2Totals.tax}
+          total={bakery2Totals.total}
+          cashReceived={bakery2Cash}
           currency={billingCurrency}
         />
       );

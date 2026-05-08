@@ -26,10 +26,10 @@ const Dashed = () => (
 );
 
 /**
- * Merged bakery mark: colored badge layout (THE BEST · loaf · wheat · stars)
- * plus receipt-style typography (screen + color-capable print).
+ * Type 9 — bakery-style header with illustrated mark; body matches classic thermal layout.
+ * Copy of Type 5 to allow independent customization without affecting T5.
  */
-function BakeryMergedLogo() {
+function Type9MergedLogo() {
   const maroon = "#5c2438";
   const gold = "#e5bd78";
   const wheat = "#d4a574";
@@ -37,14 +37,13 @@ function BakeryMergedLogo() {
 
   return (
     <svg
-      className="mx-auto block h-[92px] w-full max-w-[14rem] sm:h-[96px] sm:max-w-[15rem]"
+      className="mx-auto block h-[92px] w-full max-w-56 sm:h-[96px] sm:max-w-60"
       viewBox="0 0 200 104"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
       focusable="false"
       style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
     >
-      {/* THE BEST — centered (print-safe vs textPath) */}
       <text
         x="100"
         y="24"
@@ -58,11 +57,9 @@ function BakeryMergedLogo() {
         THE BEST
       </text>
 
-      {/* Stars */}
       <polygon points="58,22 59.2,25 62.8,25 60,27 61,31 58,29 55,31 56,27 53.2,25 56.8,25" fill={maroon} />
       <polygon points="142,22 143.2,25 146.8,25 144,27 145,31 142,29 139,31 140,27 137.2,25 140.8,25" fill={maroon} />
 
-      {/* Steam */}
       <path
         d="M88 34c2-3 5-3 7 0M96 31c2.5-3 6-3 8 0M104 34c2-3 5.5-3 7 0"
         fill="none"
@@ -72,7 +69,6 @@ function BakeryMergedLogo() {
         opacity="0.35"
       />
 
-      {/* Wheat stalks */}
       <g stroke={maroon} strokeWidth="1.15" fill="none" strokeLinecap="round">
         <path d="M36 78 Q28 52 44 38" />
         <path d="M42 52l-4 5M38 46l5 2M46 44l-6 4" opacity="0.9" />
@@ -84,7 +80,6 @@ function BakeryMergedLogo() {
         <ellipse cx="164" cy="78" rx="3" ry="2" fill={wheat} stroke={maroon} strokeWidth="1" />
       </g>
 
-      {/* Bread loaf */}
       <ellipse cx="100" cy="58" rx="34" ry="14" fill={gold} stroke={maroon} strokeWidth="1.6" />
       <path
         d="M76 54c8-10 40-10 48 0"
@@ -96,7 +91,6 @@ function BakeryMergedLogo() {
       />
       <path d="M84 56l6-5M94 54l6-4M104 54l6-4M114 56l6-5" stroke={maroon} strokeWidth="1.15" strokeLinecap="round" opacity="0.65" />
 
-      {/* BAKERY */}
       <text
         x="100"
         y="92"
@@ -110,7 +104,6 @@ function BakeryMergedLogo() {
         BAKERY
       </text>
 
-      {/* HOUSE IN TOWN */}
       <text
         x="100"
         y="102"
@@ -127,8 +120,7 @@ function BakeryMergedLogo() {
   );
 }
 
-/** Type 5 — bakery-themed header with illustrated mark; body matches classic thermal layout */
-export const BillContentBakery = ({
+export const BillContentType9 = ({
   receiptNo,
   billDate,
   billTime,
@@ -143,16 +135,16 @@ export const BillContentBakery = ({
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
   const change = Math.max(0, cashReceived - total);
-  const bakeryTitle = shopDetails.bakeryShopName.trim() || shopDetails.name;
+  const headerTitle = shopDetails.bakeryShopName.trim() || shopDetails.name;
   const labels = resolveReceiptLabels(shopDetails, items);
 
   return (
     <div className={receiptContentWrapperClass} style={receiptContentRootStyle}>
       <div className="receipt-section text-center">
-        <div className="relative mx-auto mb-2 max-w-[19rem] px-1 pt-1 text-black">
+        <div className="relative mx-auto mb-2 max-w-76 px-1 pt-1 text-black">
           <div className="flex justify-center">
             <div className="min-w-0 shrink">
-              <BakeryMergedLogo />
+              <Type9MergedLogo />
             </div>
           </div>
           <p
@@ -164,7 +156,7 @@ export const BillContentBakery = ({
         </div>
 
         <h1 className={`mt-1 ${receiptShopTitleClass}`} style={receiptHeadingFontStyle}>
-          {bakeryTitle}
+          {headerTitle}
         </h1>
         <p className={receiptAddressLineClass}>
           {shopDetails.bakeryAddress.trim() || shopDetails.address}

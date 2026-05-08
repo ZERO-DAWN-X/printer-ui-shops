@@ -13,6 +13,7 @@ export const PRINT_LAYOUT_VALUES = [
   "type6",
   "type7",
   "type8",
+  "type9",
 ] as const;
 
 export type PrintLayoutValue = (typeof PRINT_LAYOUT_VALUES)[number];
@@ -26,6 +27,7 @@ const OPTIONS: readonly { value: PrintLayoutValue; label: string }[] = [
   { value: "type6", label: "T6 · PC shop" },
   { value: "type7", label: "T7 · Restaurant" },
   { value: "type8", label: "T8 · Stacked rows" },
+  { value: "type9", label: "T9 · Bakery copy" },
 ] as const;
 
 function collectScrollAncestors(el: HTMLElement | null): HTMLElement[] {

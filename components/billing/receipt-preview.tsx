@@ -3,6 +3,7 @@ import { BillContentAlt } from "@/components/billing/bill-content-alt";
 import { BillContentType3 } from "@/components/billing/bill-content-type3";
 import { BillContentType4 } from "@/components/billing/bill-content-type4";
 import { BillContentType8 } from "@/components/billing/bill-content-type8";
+import { BillContentType9 } from "@/components/billing/bill-content-type9";
 import { BillContentBakery } from "@/components/billing/bill-content-bakery";
 import { BillContentPc } from "@/components/billing/bill-content-pc";
 import { BillContentRestaurant } from "@/components/billing/bill-content-restaurant";
@@ -29,7 +30,16 @@ type ReceiptPreviewProps = {
   previewLocale: "en" | "si";
 };
 
-type PreviewVariant = "classic" | "lined" | "ribbon" | "arrow" | "bakery" | "pc" | "restaurant" | "stacked";
+type PreviewVariant =
+  | "classic"
+  | "lined"
+  | "ribbon"
+  | "arrow"
+  | "bakery"
+  | "pc"
+  | "restaurant"
+  | "stacked"
+  | "bakery2";
 
 const PREVIEW_COLUMNS: readonly { id: string; label: string; variant: PreviewVariant }[] = [
   { id: "t1", label: "T1 · Classic bar", variant: "classic" },
@@ -40,9 +50,13 @@ const PREVIEW_COLUMNS: readonly { id: string; label: string; variant: PreviewVar
   { id: "t6", label: "T6 · PC shop", variant: "pc" },
   { id: "t7", label: "T7 · Restaurant", variant: "restaurant" },
   { id: "t8", label: "T8 · Stacked rows", variant: "stacked" },
+  { id: "t9", label: "T9 · Bakery copy", variant: "bakery2" },
 ];
 
 function themedKind(variant: PreviewVariant): ThemedReceiptKind | null {
+  if (variant === "bakery" || variant === "bakery2") {
+    return "bakery";
+  }
   if (variant === "pc") {
     return "pc";
   }
@@ -130,6 +144,8 @@ export const ReceiptPreview = ({
         return <BillContentRestaurant {...props} />;
       case "stacked":
         return <BillContentType8 {...props} />;
+      case "bakery2":
+        return <BillContentType9 {...props} />;
       default: {
         const _exhaustive: never = variant;
         return _exhaustive;

@@ -3,13 +3,15 @@ import type { CartItem, ShopDetails } from "@/types/billing";
 /** Sinhala / local demo — used when Sinhala is selected */
 export const DEFAULT_SHOP_DETAILS: ShopDetails = {
   name: "සඳලු ස්ටෝර්ස් සහ කුළුබඩු නිෂ්පාදකයෝ",
-  bakeryShopName: "සදගිරි බේකරිය",
+  bakeryShopName: "සඳගිරි බේක් ඇන්ඩ් සේවර්",
   pcShopName: "Smart Solution",
   pcShopNote: "ලැප්ටොප් · ගේමින් · ගොඩනැගීම් · අලුත්වැඩියා · දෝෂ හඳුනා ගැනීම · ගෙදරට බෙදා හැරීම",
   restaurantShopName: "ගම්මානය",
   restaurantNote: "සම්ප්‍රදායික ආහාර · පීසා · තේ සහ කෝපි",
   address: "අංක 07, මාර්කට්, පරණ ඇල්ල පාර, වැල්ලවාය.",
   phone: "0719351132,0703919932",
+  bakeryAddress: "අංක 58, මොනරාගල පාර, වැල්ලවාය",
+  bakeryPhone: "0761150098",
   thankYouMessage: "ස්තූතියි, නැවත එන්න!",
   openingHours: "ලියාපදිංචි අංකය, mo/ වැ /1050",
   bakeryNote: "බේකරි හා කේක් · විශේෂ ඇණවුම් · ගෙදරටම බෙදා හැරීම",
@@ -25,13 +27,15 @@ export const DEFAULT_ITEMS: CartItem[] = [
 /** English / overseas-style grocer demo — used when English is selected */
 export const FOREIGN_SHOP_DETAILS: ShopDetails = {
   name: "Zero market",
-  bakeryShopName: "Zero Bakery",
+  bakeryShopName: "Sandagiri Bake and Savor",
   pcShopName: "Smart Solution",
   pcShopNote: "Custom builds · Gaming rigs · Repairs · Diagnostics · Delivery",
   restaurantShopName: "Harbor Kitchen",
   restaurantNote: "Seafood · Grill · Coffee · Wine · Lunch specials",
   address: "450 N Michigan Ave, Chicago, IL 60611",
   phone: "+1 (312) 555-0198",
+  bakeryAddress: "No. 58, Monaragala Road, Wellawaya",
+  bakeryPhone: "0761150098",
   thankYouMessage: "Thanks for shopping — we appreciate your visit!",
   openingHours: "",
   bakeryNote: "Artisan breads · Cakes · Custom orders · Catering",
@@ -66,6 +70,24 @@ export const DEFAULT_PC_PREVIEW_ITEMS: CartItem[] = [
   { id: 902, name: "DDR5 RAM 16GB kit", qty: 2, price: 7200 },
   { id: 903, name: "PC cleaning / thermal repaste", qty: 1, price: 3500 },
   { id: 904, name: "USB-C docking hub", qty: 1, price: 4500 },
+];
+
+/** Bakery preview cart (Sinhala LKR) — Sandagiri Bake & Savor sample order */
+export const DEFAULT_BAKERY_PREVIEW_ITEMS: CartItem[] = [
+  { id: 401, name: "පාන්", qty: 1, price: 140 },
+  { id: 402, name: "සීනි සම්බල් බනිස්", qty: 3, price: 60 },
+  { id: 403, name: "මාළු බනිස්", qty: 2, price: 70 },
+  { id: 404, name: "පේස්ට්‍රි", qty: 1, price: 100 },
+  { id: 405, name: "බටර් කේක් (1kg)", qty: 1, price: 1000 },
+];
+
+/** Bakery preview cart (English LKR) — Sandagiri Bake & Savor sample order */
+export const FOREIGN_BAKERY_PREVIEW_ITEMS: CartItem[] = [
+  { id: 501, name: "Bread", qty: 1, price: 140 },
+  { id: 502, name: "Seeni Sambal Bun", qty: 3, price: 60 },
+  { id: 503, name: "Fish Bun", qty: 2, price: 70 },
+  { id: 504, name: "Pastry", qty: 1, price: 100 },
+  { id: 505, name: "Butter Cake 1kg", qty: 1, price: 1000 },
 ];
 
 /** Receipt grid T7 preview (Sinhala LKR) — ලංකා · පීසා · තේ දිස්තන්තය */
