@@ -41,17 +41,9 @@ import {
 } from "@/utils/receipt-themed-snapshot";
 
 const INITIAL_NEW_ITEM: NewItemForm = { name: "", qty: 1, price: "" };
+const THERMAL_PAPER_WIDTH_MM = 80;
+const THERMAL_CONTENT_WIDTH_MM = 75;
 type PrintType = PrintLayoutValue;
-
-/** Thermal roll widths the receipt can render at. Content area = paper - 5mm (1mm side margin × 2 + ~3mm safety). */
-const PAPER_SIZES = [
-  { value: 50, label: '50mm (2")' },
-  { value: 58, label: '58mm (2¼")' },
-  { value: 80, label: '80mm (3⅛")' },
-] as const;
-type PaperSizeMm = (typeof PAPER_SIZES)[number]["value"];
-const DEFAULT_PAPER_WIDTH_MM: PaperSizeMm = 80;
-const paperContentWidthMm = (paper: number) => Math.max(40, paper - 5);
 
 type BillingAppProps = {
   initialBillDate: string;
@@ -69,9 +61,6 @@ export const BillingApp = ({
   const [newItem, setNewItem] = useState<NewItemForm>(INITIAL_NEW_ITEM);
   const [cashReceived, setCashReceived] = useState<string>("50");
   const [printType, setPrintType] = useState<PrintType>("type1");
-  const [paperWidthMm, setPaperWidthMm] = useState<PaperSizeMm>(DEFAULT_PAPER_WIDTH_MM);
-  const contentWidthMm = paperContentWidthMm(paperWidthMm);
-  const paperSizeLabelId = useId();
   const [language, setLanguage] = useState<"en" | "si">("en");
   const [showPrintHint, setShowPrintHint] = useState(false);
   const printTemplateRef = useRef<HTMLDivElement>(null);
@@ -150,7 +139,7 @@ export const BillingApp = ({
     measureRoot.style.position = "fixed";
     measureRoot.style.left = "-100000px";
     measureRoot.style.top = "0";
-    measureRoot.style.width = `${paperWidthMm}mm`;
+    measureRoot.style.width = `${THERMAL_PAPER_WIDTH_MM}mm`;
     measureRoot.style.visibility = "hidden";
     measureRoot.style.pointerEvents = "none";
     measureRoot.innerHTML = printMarkup;
@@ -191,8 +180,8 @@ export const BillingApp = ({
               padding: 0;
               background: #fff;
               color: #000;
-              width: ${paperWidthMm}mm;
-              max-width: ${paperWidthMm}mm;
+              width: ${THERMAL_PAPER_WIDTH_MM}mm;
+              max-width: ${THERMAL_PAPER_WIDTH_MM}mm;
               min-height: fit-content;
               height: auto;
               font-family: "Noto Sans Sinhala", sans-serif;
@@ -202,8 +191,8 @@ export const BillingApp = ({
             /* One continuous strip: no internal pagination for the receipt block */
             .thermal-print-root {
               display: block;
-              width: ${paperWidthMm}mm;
-              max-width: ${paperWidthMm}mm;
+              width: ${THERMAL_PAPER_WIDTH_MM}mm;
+              max-width: ${THERMAL_PAPER_WIDTH_MM}mm;
               margin: 0;
               padding: 0;
               break-inside: auto;
@@ -211,8 +200,8 @@ export const BillingApp = ({
               -webkit-region-break-inside: auto;
             }
             .receipt-shell {
-              width: ${contentWidthMm}mm;
-              max-width: ${contentWidthMm}mm;
+              width: ${THERMAL_CONTENT_WIDTH_MM}mm;
+              max-width: ${THERMAL_CONTENT_WIDTH_MM}mm;
               background: #fff;
               color: #000;
               line-height: 1.2;
@@ -229,14 +218,14 @@ export const BillingApp = ({
               border-bottom: 1.5px dashed black !important;
             }
             @page {
-              size: ${paperWidthMm}mm ${dynamicPageHeightMm}mm;
+              size: ${THERMAL_PAPER_WIDTH_MM}mm ${dynamicPageHeightMm}mm;
               margin: 0;
             }
             @media print {
               .screen-only, .no-print { display: none !important; }
               html, body {
-                width: ${paperWidthMm}mm !important;
-                max-width: ${paperWidthMm}mm !important;
+                width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
+                max-width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
                 height: auto !important;
                 min-height: auto !important;
                 overflow: visible !important;
@@ -244,7 +233,7 @@ export const BillingApp = ({
               #print-root {
                 display: block !important;
                 position: static !important;
-                width: ${paperWidthMm}mm !important;
+                width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
                 box-sizing: border-box !important;
                 padding: 0.8mm 0.8mm 0.5mm !important;
                 margin: 0 !important;
@@ -482,7 +471,7 @@ export const BillingApp = ({
         .print-only { display: none; }
         .thermal-dash { border-bottom: 1.5px dashed black !important; }
         .receipt-shell {
-          width: ${contentWidthMm}mm;
+          width: ${THERMAL_CONTENT_WIDTH_MM}mm;
           background-color: white;
           color: black;
           line-height: 1.2;
@@ -500,7 +489,7 @@ export const BillingApp = ({
           .print-only {
             display: block !important;
             position: static !important;
-            width: ${paperWidthMm}mm;
+            width: ${THERMAL_PAPER_WIDTH_MM}mm;
             box-sizing: border-box;
             margin: 0 auto;
             break-inside: auto;
@@ -509,7 +498,7 @@ export const BillingApp = ({
           #print-root {
             display: block !important;
             position: static !important;
-            width: ${paperWidthMm}mm !important;
+            width: ${THERMAL_PAPER_WIDTH_MM}mm !important;
             box-sizing: border-box !important;
             padding: 0.8mm 0.8mm 0.5mm !important;
             margin: 0 !important;
@@ -550,7 +539,7 @@ export const BillingApp = ({
           }
 
           @page {
-            size: ${paperWidthMm}mm auto;
+            size: ${THERMAL_PAPER_WIDTH_MM}mm auto;
             margin: 0;
           }
 
@@ -671,32 +660,6 @@ export const BillingApp = ({
                     <PrintLayoutSelect labelId={layoutSelectLabelId} value={printType} onChange={setPrintType} />
                   </div>
                   <div className="mt-2">
-                    <p id={paperSizeLabelId} className={billingLabelClass}>
-                      Paper roll
-                    </p>
-                    <div
-                      role="group"
-                      aria-labelledby={paperSizeLabelId}
-                      className="flex w-full rounded-[5px] border border-zinc-300 bg-zinc-100 p-0.5"
-                    >
-                      {PAPER_SIZES.map((size) => (
-                        <button
-                          key={size.value}
-                          type="button"
-                          aria-pressed={paperWidthMm === size.value}
-                          onClick={() => setPaperWidthMm(size.value)}
-                          className={`min-h-9 flex-1 touch-manipulation rounded-[4px] px-2 py-1 text-[11px] font-medium transition sm:min-h-8 sm:text-xs ${
-                            paperWidthMm === size.value
-                              ? "bg-zinc-900 text-white shadow-sm"
-                              : "text-zinc-700 hover:text-zinc-900"
-                          }`}
-                        >
-                          {size.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="mt-2">
                     <button
                       type="button"
                       onClick={handlePrint}
@@ -775,8 +738,6 @@ export const BillingApp = ({
             cashReceived={cashReceivedValue}
             currency={billingCurrency}
             previewLocale={language}
-            paperWidthMm={paperWidthMm}
-            contentWidthMm={contentWidthMm}
           />
         </div>
       </div>
