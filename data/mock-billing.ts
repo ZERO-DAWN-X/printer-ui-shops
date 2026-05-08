@@ -22,6 +22,8 @@ export const DEFAULT_ITEMS: CartItem[] = [
   { id: 2, name: "ක්‍රීම් රෝල්", qty: 2, price: 160, listedPrice: 175 },
   { id: 3, name: "එලවලු රෝල්", qty: 4, price: 130, listedPrice: 145 },
   { id: 4, name: "බටර් කේක්", qty: 1, price: 450, listedPrice: 500 },
+  { id: 5, name: "සොසේජස් බනිස්", qty: 2, price: 100, listedPrice: 110 },
+  { id: 6, name: "බිත්තර බනිස්", qty: 3, price: 100, listedPrice: 110 },
 ];
 
 /** English / overseas-style grocer demo — used when English is selected */
@@ -46,6 +48,8 @@ export const FOREIGN_SHOP_ITEMS: CartItem[] = [
   { id: 102, name: "Croissant", qty: 3, price: 3.25 },
   { id: 103, name: "Blueberry muffin", qty: 2, price: 3.99 },
   { id: 104, name: "Cinnamon roll", qty: 4, price: 2.75 },
+  { id: 105, name: "Sausage bun", qty: 2, price: 4.5 },
+  { id: 106, name: "Egg bun", qty: 3, price: 4.25 },
 ];
 
 /** Receipt grid T6 preview (English USD) — PC shop themed */

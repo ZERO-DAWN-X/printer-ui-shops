@@ -106,7 +106,16 @@ export const BillContent = ({
   return (
     <div
       className={receiptContentWrapperClass}
-      style={isStacked ? { ...receiptContentRootStyle, paddingTop: "5mm" } : receiptContentRootStyle}
+      style={
+        isStacked
+          ? {
+              ...receiptContentRootStyle,
+              paddingTop: "5mm",
+              paddingLeft: "3mm",
+              paddingRight: "3mm",
+            }
+          : receiptContentRootStyle
+      }
     >
       <div className="receipt-section text-center">
         <div
