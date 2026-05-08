@@ -2,6 +2,8 @@ import type { CartItem } from "@/types/billing";
 
 type ReceiptItemRowType8Props = {
   item: CartItem;
+  /** When true, hide the listed-price column (bakery / 3-column layout). */
+  hideListedPrice?: boolean;
 };
 
 function formatReceiptAmount(value: number): string {
@@ -18,7 +20,7 @@ function formatReceiptAmount(value: number): string {
  *   Amount is bolder/darker so the eye lands on the line total first;
  *   qty/list/our read as secondary detail.
  */
-export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
+export function ReceiptItemRowType8({ item, hideListedPrice = false }: ReceiptItemRowType8Props) {
   const listed = item.listedPrice ?? item.price;
   const lineTotal = item.qty * item.price;
 
@@ -38,30 +40,32 @@ export function ReceiptItemRowType8({ item }: ReceiptItemRowType8Props) {
         >
           {item.qty}
         </span>
-        <span
-          className="w-17 text-center"
-          style={{
-            color: "#737373",
-            WebkitPrintColorAdjust: "exact",
-            printColorAdjust: "exact",
-          }}
-        >
-          <span className="relative inline-block">
-            {formatReceiptAmount(listed)}
-            {listed > item.price ? (
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 top-1/2 h-px"
-                style={{
-                  backgroundColor: "#000",
-                  transform: "translateY(-50%) rotate(12deg)",
-                  WebkitPrintColorAdjust: "exact",
-                  printColorAdjust: "exact",
-                }}
-              />
-            ) : null}
+        {hideListedPrice ? null : (
+          <span
+            className="w-17 text-center"
+            style={{
+              color: "#737373",
+              WebkitPrintColorAdjust: "exact",
+              printColorAdjust: "exact",
+            }}
+          >
+            <span className="relative inline-block">
+              {formatReceiptAmount(listed)}
+              {listed > item.price ? (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 top-1/2 h-px"
+                  style={{
+                    backgroundColor: "#000",
+                    transform: "translateY(-50%) rotate(12deg)",
+                    WebkitPrintColorAdjust: "exact",
+                    printColorAdjust: "exact",
+                  }}
+                />
+              ) : null}
+            </span>
           </span>
-        </span>
+        )}
         <span
           className="w-17 text-center"
           style={{

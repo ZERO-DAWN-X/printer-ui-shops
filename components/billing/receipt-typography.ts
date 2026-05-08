@@ -27,6 +27,6 @@ export const receiptItemRowWrapperClass =
 export const receiptItemPrimaryClass = "break-words text-[13px] font-semibold leading-snug";
 export const receiptItemSecondaryClass = "text-[12px] font-semibold text-black/72";
 export const receiptItemAmountClass =
-  "w-[4.25rem] shrink-0 self-end pb-px text-right font-mono text-[13px] font-semibold tabular-nums leading-none text-black";
+  "w-[4.25rem] shrink-0 self-end pb-px text-right text-[13px] font-semibold tabular-nums leading-none text-black";
 
 export const receiptBarcodeCaptionClass = "mt-1 font-mono text-[10px] font-bold tracking-widest";

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { BillingCurrency, CartItem, ShopDetails } from "@/types/billing";
 import { Barcode } from "@/components/billing/barcode";
 import { ReceiptItemRow } from "@/components/billing/receipt-item-row";
@@ -43,8 +44,16 @@ export type BillContentProps = {
   currency?: BillingCurrency;
   /** Classic = full-width bar. Ribbon = pointed banner (used by Type 3). */
   totalVariant?: "classic" | "ribbon";
-  /** Type 8: item row is split into label line + values line. */
-  itemVariant?: "classic" | "stacked";
+  /**
+   * Type 8 family — controls items section only; header/totals stay stacked-style:
+   *   - `classic`: T1 single-row items (default for T1–T7)
+   *   - `stacked`: T8 four-column stacked items (qty / list / our / amount)
+   *   - `stacked-simple`: T8-style header but three-column items (qty / price / amount)
+   *   - `stacked-classic`: T9 single-row items (T1 style) with stacked header / savings / total bar
+   */
+  itemVariant?: "classic" | "stacked" | "stacked-simple" | "stacked-classic";
+  /** Optional logo rendered at the very top of the header section (above the badge). */
+  logo?: ReactNode;
 };
 
 export const BillContent = ({
@@ -60,6 +69,7 @@ export const BillContent = ({
   currency = "lkr",
   totalVariant = "classic",
   itemVariant = "classic",
+  logo,
 }: BillContentProps) => {
   const barcodeValue = `${receiptNo}000${items.length}`;
   const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
@@ -69,7 +79,12 @@ export const BillContent = ({
     0,
   );
   const labels = resolveReceiptLabels(shopDetails, items);
-  const isStacked = itemVariant === "stacked";
+  const isStacked =
+    itemVariant === "stacked" ||
+    itemVariant === "stacked-simple" ||
+    itemVariant === "stacked-classic";
+  const isSimple = itemVariant === "stacked-simple";
+  const isStackedClassic = itemVariant === "stacked-classic";
   const stackedTitleSplitIdx = isStacked ? shopDetails.name.indexOf(" සහ ") : -1;
   const stackedTitleLead =
     stackedTitleSplitIdx > 0 ? shopDetails.name.substring(0, stackedTitleSplitIdx + 3) : null;
@@ -104,6 +119,7 @@ export const BillContent = ({
         >
           {labels.cashBill}
         </div>
+        {logo ? <div className="mb-2 flex justify-center">{logo}</div> : null}
         {stackedTitleLead && stackedTitleTrail ? (
           <h1 className="font-extrabold" style={receiptHeadingFontStyle}>
             <span className="block text-[24px] leading-[1.3]">{stackedTitleLead}</span>
@@ -176,11 +192,13 @@ export const BillContent = ({
         <Dashed />
       )}
 
-      {itemVariant === "stacked" ? (
+      {isStacked && !isStackedClassic ? (
         <div className="receipt-section mb-0.5 flex items-end justify-end gap-x-2 text-[12px] font-semibold leading-tight tracking-tight">
           <span className="w-12 text-left whitespace-nowrap">{labels.qty}</span>
-          <span className="w-17 text-center whitespace-nowrap">{labels.listedPrice}</span>
-          <span className="w-17 text-center whitespace-nowrap">{labels.ourPrice}</span>
+          {isSimple ? null : (
+            <span className="w-17 text-center whitespace-nowrap">{labels.listedPrice}</span>
+          )}
+          <span className="w-17 text-center whitespace-nowrap">{labels.price}</span>
           <span className="w-17 text-center whitespace-nowrap">{labels.amount}</span>
         </div>
       ) : (
@@ -196,8 +214,8 @@ export const BillContent = ({
           <div className="py-2 text-center italic">No items</div>
         ) : (
           items.map((item) =>
-            itemVariant === "stacked" ? (
-              <ReceiptItemRowType8 key={item.id} item={item} />
+            isStacked && !isStackedClassic ? (
+              <ReceiptItemRowType8 key={item.id} item={item} hideListedPrice={isSimple} />
             ) : (
               <ReceiptItemRow key={item.id} item={item} />
             ),

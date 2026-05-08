@@ -74,20 +74,20 @@ export const DEFAULT_PC_PREVIEW_ITEMS: CartItem[] = [
 
 /** Bakery preview cart (Sinhala LKR) — Sandagiri Bake & Savor sample order */
 export const DEFAULT_BAKERY_PREVIEW_ITEMS: CartItem[] = [
-  { id: 401, name: "පාන්", qty: 1, price: 140 },
-  { id: 402, name: "සීනි සම්බල් බනිස්", qty: 3, price: 60 },
-  { id: 403, name: "මාළු බනිස්", qty: 2, price: 70 },
-  { id: 404, name: "පේස්ට්‍රි", qty: 1, price: 100 },
-  { id: 405, name: "බටර් කේක් (1kg)", qty: 1, price: 1000 },
+  { id: 401, name: "පාන්", qty: 1, price: 140, listedPrice: 150 },
+  { id: 402, name: "සීනි සම්බල් බනිස්", qty: 3, price: 60, listedPrice: 70 },
+  { id: 403, name: "මාළු බනිස්", qty: 2, price: 70, listedPrice: 80 },
+  { id: 404, name: "පේස්ට්‍රි", qty: 1, price: 100, listedPrice: 110 },
+  { id: 405, name: "බටර් කේක් (1kg)", qty: 1, price: 1000, listedPrice: 1100 },
 ];
 
 /** Bakery preview cart (English LKR) — Sandagiri Bake & Savor sample order */
 export const FOREIGN_BAKERY_PREVIEW_ITEMS: CartItem[] = [
-  { id: 501, name: "Bread", qty: 1, price: 140 },
-  { id: 502, name: "Seeni Sambal Bun", qty: 3, price: 60 },
-  { id: 503, name: "Fish Bun", qty: 2, price: 70 },
-  { id: 504, name: "Pastry", qty: 1, price: 100 },
-  { id: 505, name: "Butter Cake 1kg", qty: 1, price: 1000 },
+  { id: 501, name: "Bread", qty: 1, price: 140, listedPrice: 150 },
+  { id: 502, name: "Seeni Sambal Bun", qty: 3, price: 60, listedPrice: 70 },
+  { id: 503, name: "Fish Bun", qty: 2, price: 70, listedPrice: 80 },
+  { id: 504, name: "Pastry", qty: 1, price: 100, listedPrice: 110 },
+  { id: 505, name: "Butter Cake 1kg", qty: 1, price: 1000, listedPrice: 1100 },
 ];
 
 /** Receipt grid T7 preview (Sinhala LKR) — ලංකා · පීසා · තේ දිස්තන්තය */

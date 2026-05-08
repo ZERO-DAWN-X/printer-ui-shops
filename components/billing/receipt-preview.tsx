@@ -28,6 +28,8 @@ type ReceiptPreviewProps = {
   cashReceived: number;
   currency: BillingCurrency;
   previewLocale: "en" | "si";
+  paperWidthMm: number;
+  contentWidthMm: number;
 };
 
 type PreviewVariant =
@@ -89,6 +91,8 @@ export const ReceiptPreview = ({
   cashReceived,
   currency,
   previewLocale,
+  paperWidthMm,
+  contentWidthMm,
 }: ReceiptPreviewProps) => {
   const receiptLang = receiptDocumentLang(shopDetails, items, previewLocale);
 
@@ -163,9 +167,17 @@ export const ReceiptPreview = ({
             </p>
             <div
               className="bg-white"
-              style={{ width: "80mm", padding: "0.8mm 0.8mm 0.5mm", boxSizing: "border-box" }}
+              style={{
+                width: `${paperWidthMm}mm`,
+                padding: "0.8mm 0.8mm 0.5mm",
+                boxSizing: "border-box",
+              }}
             >
-              <div className="receipt-shell" lang={receiptLang}>
+              <div
+                className="receipt-shell"
+                lang={receiptLang}
+                style={{ width: `${contentWidthMm}mm`, maxWidth: `${contentWidthMm}mm` }}
+              >
                 {renderVariant(col.variant)}
               </div>
             </div>
